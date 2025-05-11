@@ -1,5 +1,5 @@
 
-import { ArrowRight, Linkedin } from "lucide-react";
+import { ArrowRight, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -34,7 +34,7 @@ const Footer = () => {
         from_name: "Website Subscriber",
         from_email: email,
         message: `New subscription request from the website footer.`,
-        to_name: 'WRLDS Team',
+        to_name: 'IT Carolina Team',
         reply_to: email
       };
       
@@ -66,51 +66,55 @@ const Footer = () => {
   };
 
   return (
-    <footer id="contact" className="bg-black text-white pt-16 pb-8 w-full">
+    <footer id="footer" className="bg-blue-900 text-white pt-16 pb-8 w-full">
       <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 pb-10 border-b border-gray-700">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 pb-10 border-b border-blue-800">
           <div className="lg:col-span-2">
-            <img 
-              src="/lovable-uploads/7d120ee6-3614-4b75-9c35-716d54490d67.png" 
-              alt="WRLDS Technologies Logo" 
-              className="h-10 w-auto mb-6 invert" // Added invert to make logo white
-            />
-            <p className="text-gray-300 mb-6">
-              WRLDS Technologies provides an end-to-end platform for the creation and deployment of AI-powered smart sensor devices, giving customers 100% ownership while handling the complete technological development.
+            <h2 className="text-2xl font-bold mb-6">IT Carolina</h2>
+            <p className="text-blue-200 mb-6">
+              IT Carolina provides comprehensive IT support and services for businesses across South Carolina. From network security to cloud solutions, we're your trusted technology partner.
             </p>
-            <p className="text-gray-300 mb-6">
-              Hornsgatan 110<br />
-              117 26, Stockholm Sweden
-            </p>
-            <div className="flex space-x-4">
-              <a 
-                href="https://www.linkedin.com/company/wrldstechnologies/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 transition-colors hover:bg-gray-700 hover:text-white"
-              >
-                <Linkedin size={20} />
-              </a>
+            <div className="flex flex-col space-y-4">
+              <div className="flex items-center">
+                <Phone className="w-5 h-5 mr-3 text-blue-300" />
+                <a href="tel:+18001234567" className="text-blue-200 hover:text-white transition-colors">
+                  (800) 123-4567
+                </a>
+              </div>
+              <div className="flex items-center">
+                <Mail className="w-5 h-5 mr-3 text-blue-300" />
+                <a href="mailto:support@itcarolina.us" className="text-blue-200 hover:text-white transition-colors">
+                  support@itcarolina.us
+                </a>
+              </div>
+              <div className="flex items-center">
+                <MapPin className="w-5 h-5 mr-3 text-blue-300" />
+                <span className="text-blue-200">
+                  123 Tech Lane, Charleston, SC 29401
+                </span>
+              </div>
             </div>
           </div>
           
           <div>
-            <h3 className="text-lg font-bold mb-4 text-white">Company</h3>
+            <h3 className="text-lg font-bold mb-4 text-white">Quick Links</h3>
             <ul className="space-y-3">
-              <li><Link to="/about" className="text-gray-300 hover:text-white transition-colors">About Us</Link></li>
-              <li><Link to="/careers" className="text-gray-300 hover:text-white transition-colors">Careers</Link></li>
-              <li><Link to="/privacy-policy" className="text-gray-300 hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/" className="text-blue-200 hover:text-white transition-colors">Home</Link></li>
+              <li><Link to="/about" className="text-blue-200 hover:text-white transition-colors">About Us</Link></li>
+              <li><Link to="/careers" className="text-blue-200 hover:text-white transition-colors">Careers</Link></li>
+              <li><Link to="/privacy-policy" className="text-blue-200 hover:text-white transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="text-lg font-bold mb-4 text-white">Get in Touch</h3>
+            <h3 className="text-lg font-bold mb-4 text-white">Stay Updated</h3>
+            <p className="text-blue-200 mb-4">Subscribe to our newsletter for IT tips and updates</p>
             <form className="space-y-4" onSubmit={handleSubscribe}>
               <div>
                 <input 
                   type="email" 
                   placeholder="Your email" 
-                  className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-600 text-white placeholder-gray-400"
+                  className="w-full px-4 py-2 bg-blue-800 border border-blue-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 text-white placeholder-blue-400"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isSubmitting}
@@ -118,7 +122,7 @@ const Footer = () => {
               </div>
               <button 
                 type="submit" 
-                className="w-full px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Subscribing..." : (
@@ -133,11 +137,12 @@ const Footer = () => {
         </div>
         
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} WRLDS Technologies. All rights reserved.
+          <p className="text-blue-300 text-sm mb-4 md:mb-0">
+            © {new Date().getFullYear()} IT Carolina. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <Link to="/privacy-policy" className="text-sm text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/privacy-policy" className="text-sm text-blue-300 hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="text-sm text-blue-300 hover:text-white transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

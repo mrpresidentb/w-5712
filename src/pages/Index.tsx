@@ -1,23 +1,23 @@
 
 import PageLayout from '@/components/PageLayout';
-import Hero from '@/components/Hero';
-import Features from '@/components/Features';
-import Projects from '@/components/Projects';
-import WhyWrlds from '@/components/WhyWrlds';
+import ITHero from '@/components/ITHero';
+import ITServices from '@/components/ITServices';
+import ITFeatures from '@/components/ITFeatures';
+import ITTestimonials from '@/components/ITTestimonials';
 import SEO from '@/components/SEO';
 
 const Index = () => {
   return (
     <PageLayout>
       <SEO 
-        title="WRLDS - Smart Textile Technology" 
-        description="WRLDS Technologies: Pioneering smart engineering solutions with textile sensors for sports, safety, and performance monitoring."
+        title="IT Carolina - Professional IT Support Services" 
+        description="IT Carolina provides professional IT support services, network security, cloud solutions, and managed IT services for businesses across South Carolina."
         imageUrl="/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png"
       />
-      <Hero />
-      <Features />
-      <WhyWrlds />
-      <Projects />
+      <ITHero />
+      <ITServices />
+      <ITFeatures />
+      <ITTestimonials />
     </PageLayout>
   );
 };

@@ -1,5 +1,5 @@
 
-import { Check, Shield, Clock, Tool } from "lucide-react";
+import { Check, Shield, Clock, Wrench } from "lucide-react";
 
 const ITFeatures = () => {
   return (
@@ -52,7 +52,7 @@ const ITFeatures = () => {
             <div className="bg-blue-800/50 rounded-lg p-6">
               <div className="flex items-start">
                 <div className="bg-blue-700 rounded-lg p-3 mr-4">
-                  <Tool className="h-6 w-6 text-blue-200" />
+                  <Wrench className="h-6 w-6 text-blue-200" />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2">Proactive Maintenance</h3>

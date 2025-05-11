@@ -61,10 +61,10 @@ const ITServices = () => {
           <div className="inline-block mb-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
             Our Services
           </div>
-          <h2 className="text-3xl font-bold mb-4">IT Solutions for Your Business</h2>
+          <h2 className="text-3xl font-bold mb-4">IT Solutions for Everyone</h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            We provide comprehensive IT support and services to help your business thrive in the digital world.
-            From hardware to software, security to cloud services, we've got you covered.
+            From "my computer's slow" to "I need a simple one-page website" — we've got you covered. 
+            We provide friendly, jargon-free IT support for both home users and small businesses in Charlotte, NC.
           </p>
         </div>
         
@@ -93,7 +93,7 @@ const ITServices = () => {
         
         <div className="mt-12 text-center">
           <p className="text-gray-700 font-medium mb-4">
-            Looking for a customized IT solution for your business?
+            Looking for a customized IT solution for your home or business?
           </p>
           <button 
             onClick={() => {

@@ -19,6 +19,11 @@ import Careers from "./pages/Careers";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Blog from "./pages/Blog";
 import BlogPostDetail from "./pages/BlogPostDetail";
+import HomeOfficeSupport from "./pages/HomeOfficeSupport";
+import BusinessSupport from "./pages/BusinessSupport";
+import PrinterSupport from "./pages/PrinterSupport";
+import WebHosting from "./pages/WebHosting";
+import Pricing from "./pages/Pricing";
 
 const App = () => {
   const [queryClient] = useState(() => new QueryClient());
@@ -43,6 +48,11 @@ const App = () => {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPostDetail />} />
+            <Route path="/services/home-office" element={<HomeOfficeSupport />} />
+            <Route path="/services/business" element={<BusinessSupport />} />
+            <Route path="/services/printer" element={<PrinterSupport />} />
+            <Route path="/services/web-hosting" element={<WebHosting />} />
+            <Route path="/pricing" element={<Pricing />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

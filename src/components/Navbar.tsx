@@ -79,33 +79,27 @@ const Navbar = () => {
                   <NavigationMenuContent>
                     <ul className="grid gap-3 p-4 w-[400px]">
                       <li>
-                        <button onClick={() => scrollToSection('services')} className="block p-3 space-y-1 rounded-md hover:bg-gray-100 w-full text-left">
-                          <div className="font-medium">Managed IT Services</div>
-                          <p className="text-sm text-gray-500">Comprehensive IT management and support</p>
-                        </button>
-                      </li>
-                      <li>
-                        <Link to="/services/network" className="block p-3 space-y-1 rounded-md hover:bg-gray-100">
-                          <div className="font-medium">Network Security</div>
-                          <p className="text-sm text-gray-500">Protecting your business from threats</p>
+                        <Link to="/services/home-office" className="block p-3 space-y-1 rounded-md hover:bg-gray-100">
+                          <div className="font-medium">Home & Home-Office Support</div>
+                          <p className="text-sm text-gray-500">PC tune-ups, Wi-Fi help, virus removal & more</p>
                         </Link>
                       </li>
                       <li>
-                        <Link to="/services/cloud" className="block p-3 space-y-1 rounded-md hover:bg-gray-100">
-                          <div className="font-medium">Cloud Solutions</div>
-                          <p className="text-sm text-gray-500">Scalable and secure cloud services</p>
+                        <Link to="/services/business" className="block p-3 space-y-1 rounded-md hover:bg-gray-100">
+                          <div className="font-medium">Small Business IT Support</div>
+                          <p className="text-sm text-gray-500">Networks, security & managed IT services</p>
                         </Link>
                       </li>
                       <li>
-                        <Link to="/services/hardware" className="block p-3 space-y-1 rounded-md hover:bg-gray-100">
-                          <div className="font-medium">Hardware Support</div>
-                          <p className="text-sm text-gray-500">Installation, maintenance and repair</p>
+                        <Link to="/services/printer" className="block p-3 space-y-1 rounded-md hover:bg-gray-100">
+                          <div className="font-medium">Printer & Peripherals</div>
+                          <p className="text-sm text-gray-500">Setup, troubleshooting & repair</p>
                         </Link>
                       </li>
                       <li>
-                        <Link to="/services/consulting" className="block p-3 space-y-1 rounded-md hover:bg-gray-100">
-                          <div className="font-medium">IT Consulting</div>
-                          <p className="text-sm text-gray-500">Strategic technology planning</p>
+                        <Link to="/services/web-hosting" className="block p-3 space-y-1 rounded-md hover:bg-gray-100">
+                          <div className="font-medium">Web & Hosting Solutions</div>
+                          <p className="text-sm text-gray-500">Website design, domain & email services</p>
                         </Link>
                       </li>
                     </ul>
@@ -113,17 +107,17 @@ const Navbar = () => {
                 </NavigationMenuItem>
                 
                 <NavigationMenuItem>
-                  <Link to="/blog">
+                  <Link to="/pricing">
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-blue-900" : "text-gray-100 hover:text-white bg-transparent hover:bg-blue-800")}>
-                      Blog
+                      Pricing
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 
                 <NavigationMenuItem>
-                  <Link to="/careers">
+                  <Link to="/blog">
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-blue-900" : "text-gray-100 hover:text-white bg-transparent hover:bg-blue-800")}>
-                      Careers
+                      Blog
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
@@ -177,47 +171,41 @@ const Navbar = () => {
             </button>
             
             <div className="hidden ml-4 mt-1 space-y-1">
-              <button onClick={() => {
-                scrollToSection('services');
-                setIsMenuOpen(false);
-              }} className={cn("block px-3 py-2 rounded-md w-full text-left", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")}>
-                Managed IT Services
-              </button>
-              <Link to="/services/network" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
+              <Link to="/services/home-office" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
                 setIsMenuOpen(false);
               }}>
-                Network Security
+                Home & Home-Office Support
               </Link>
-              <Link to="/services/cloud" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
+              <Link to="/services/business" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
                 setIsMenuOpen(false);
               }}>
-                Cloud Solutions
+                Small Business IT Support
               </Link>
-              <Link to="/services/hardware" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
+              <Link to="/services/printer" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
                 setIsMenuOpen(false);
               }}>
-                Hardware Support
+                Printer & Peripherals
               </Link>
-              <Link to="/services/consulting" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
+              <Link to="/services/web-hosting" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
                 setIsMenuOpen(false);
               }}>
-                IT Consulting
+                Web & Hosting Solutions
               </Link>
             </div>
           </div>
+          
+          <Link to="/pricing" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
+            setIsMenuOpen(false);
+            window.scrollTo(0, 0);
+          }}>
+            Pricing
+          </Link>
           
           <Link to="/blog" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
             setIsMenuOpen(false);
             window.scrollTo(0, 0);
           }}>
             Blog
-          </Link>
-          
-          <Link to="/careers" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-            setIsMenuOpen(false);
-            window.scrollTo(0, 0);
-          }}>
-            Careers
           </Link>
           
           <button onClick={() => scrollToSection('contact')} className={cn("flex items-center w-full text-left px-3 py-2 rounded-md", isScrolled ? "bg-blue-600 text-white" : "bg-blue-700 text-white")}>

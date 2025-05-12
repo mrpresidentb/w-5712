@@ -7,6 +7,7 @@ import ITTestimonials from '@/components/ITTestimonials';
 import WhoWeHelp from '@/components/WhoWeHelp';
 import PricingPreview from '@/components/PricingPreview';
 import SEO from '@/components/SEO';
+import SectionDivider from '@/components/SectionDivider';
 
 const Index = () => {
   return (
@@ -17,11 +18,37 @@ const Index = () => {
         imageUrl="/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png"
       />
       <div className="space-y-12 md:space-y-0">
+        {/* Hero Section */}
         <ITHero />
+        
+        {/* Divider */}
+        <SectionDivider color="text-slate-50" />
+        
+        {/* Who We Help Section */}
         <WhoWeHelp />
+        
+        {/* Divider */}
+        <SectionDivider color="text-white" />
+        
+        {/* IT Services Section */}
         <ITServices />
+        
+        {/* Divider */}
+        <SectionDivider color="text-blue-900" />
+        
+        {/* IT Features Section */}
         <ITFeatures />
+        
+        {/* Divider */}
+        <SectionDivider color="text-gray-50" />
+        
+        {/* Pricing Preview Section */}
         <PricingPreview />
+        
+        {/* Divider */}
+        <SectionDivider color="text-white" />
+        
+        {/* Testimonials Section */}
         <ITTestimonials />
       </div>
     </PageLayout>

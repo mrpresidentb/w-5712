@@ -13,35 +13,36 @@ interface ServiceCardProps {
   description: string;
   link: string;
   delay?: number;
+  bgColor?: string;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, link, delay = 0 }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, link, delay = 0, bgColor = "bg-white" }) => {
   const [isHovered, setIsHovered] = useState(false);
   
   return (
     <motion.div 
-      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100"
+      className={`${bgColor} rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 p-8 border border-gray-100`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
     >
-      <div className="mb-4">
-        <div className="inline-block p-3 bg-blue-50 rounded-lg">
+      <div className="mb-5">
+        <div className="inline-block p-4 bg-blue-50 rounded-lg">
           <div className={`transform transition-transform duration-300 ${isHovered ? 'scale-110' : ''}`}>
             {icon}
           </div>
         </div>
       </div>
-      <h3 className="text-xl font-semibold mb-2 text-blue-900">{title}</h3>
-      <p className="text-gray-600 mb-3">{description}</p>
+      <h3 className="text-xl font-semibold mb-3 text-blue-900">{title}</h3>
+      <p className="text-gray-600 mb-4 min-h-[80px]">{description}</p>
       <Link 
         to={link}
-        className="text-blue-600 font-medium flex items-center hover:text-blue-800 transition-colors text-sm"
+        className="text-blue-600 font-medium flex items-center hover:text-blue-800 transition-colors text-sm group"
       >
         Learn More
-        <ArrowRight className="ml-2 w-4 h-4" />
+        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
       </Link>
     </motion.div>
   );
@@ -127,11 +128,11 @@ const ITServices = () => {
   ];
 
   return (
-    <section id="services" className="py-16 bg-gray-50">
-      <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto">
-        <div className="text-center mb-10">
+    <section id="services" className="py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
           <motion.div 
-            className="inline-block mb-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
+            className="inline-block mb-3 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -139,7 +140,7 @@ const ITServices = () => {
             Our Services
           </motion.div>
           <motion.h2 
-            className="text-3xl font-bold mb-4 text-blue-900"
+            className="text-4xl font-bold mb-4 text-blue-900"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -147,7 +148,7 @@ const ITServices = () => {
             IT Solutions for Everyone
           </motion.h2>
           <motion.p 
-            className="text-gray-600 max-w-3xl mx-auto"
+            className="text-gray-600 max-w-3xl mx-auto text-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -157,17 +158,20 @@ const ITServices = () => {
         </div>
         
         {/* Services for Home & Home-Office Users */}
-        <div id="home-services" className="mb-16">
-          <motion.h3 
-            className="text-2xl font-bold mb-8 text-blue-800 border-b border-blue-100 pb-2"
+        <div id="home-services" className="mb-24 bg-gray-50 py-16 px-6 rounded-2xl">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
+            className="max-w-3xl mx-auto text-center mb-12"
           >
-            Services for Home & Home-Office Users
-          </motion.h3>
+            <h3 className="text-3xl font-bold mb-4 text-blue-800">Services for Home & Home-Office Users</h3>
+            <p className="text-lg text-gray-600">
+              Fast and reliable help for your tech at home or in your home office.
+            </p>
+          </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {homeServices.map((service, index) => (
               <ServiceCard
                 key={`home-${index}`}
@@ -176,23 +180,27 @@ const ITServices = () => {
                 description={service.description}
                 link={service.link}
                 delay={0.3 + (index * 0.1)}
+                bgColor="bg-white"
               />
             ))}
           </div>
         </div>
         
         {/* Services for Small Businesses & LLCs */}
-        <div id="business-services">
-          <motion.h3 
-            className="text-2xl font-bold mb-8 text-blue-800 border-b border-blue-100 pb-2"
+        <div id="business-services" className="bg-white py-16 px-6 rounded-2xl border border-gray-100 shadow-sm">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
+            className="max-w-3xl mx-auto text-center mb-12"
           >
-            Services for Small Businesses & LLCs
-          </motion.h3>
+            <h3 className="text-3xl font-bold mb-4 text-blue-800">Services for Small Businesses & LLCs</h3>
+            <p className="text-lg text-gray-600">
+              Scalable web and IT support tailored for small businesses and startups.
+            </p>
+          </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {businessServices.map((service, index) => (
               <ServiceCard
                 key={`business-${index}`}
@@ -201,14 +209,15 @@ const ITServices = () => {
                 description={service.description}
                 link={service.link}
                 delay={0.3 + (index * 0.1)}
+                bgColor="bg-gray-50"
               />
             ))}
           </div>
         </div>
         
-        <div className="mt-12 text-center">
+        <div className="mt-16 text-center">
           <motion.p 
-            className="text-gray-700 font-medium mb-4"
+            className="text-gray-700 font-medium mb-6 text-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -222,13 +231,13 @@ const ITServices = () => {
                 contactSection.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300"
+            className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 text-lg font-medium hover:scale-[1.02]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             Get a Free Consultation
-            <ArrowRight className="ml-2 w-4 h-4" />
+            <ArrowRight className="ml-2 w-5 h-5" />
           </motion.button>
         </div>
       </div>

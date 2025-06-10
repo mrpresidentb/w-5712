@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin } from "lucide-react";
 import emailjs from '@emailjs/browser';
 
+
 // Initialize EmailJS with the correct user ID
 emailjs.init('h9E6sJhuwXi9wo0ui');
 

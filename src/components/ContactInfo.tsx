@@ -4,8 +4,12 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import emailjs from '@emailjs/browser';
 
+
+
 // Initialize EmailJS with the correct user ID
 emailjs.init('h9E6sJhuwXi9wo0ui');
+
+
 
 const ContactInfo = () => {
   const [formData, setFormData] = useState({
@@ -53,6 +57,7 @@ const ContactInfo = () => {
       const result = await emailjs.send(
         'service_dz6gzno',
         'template_lykvrgc',
+
         templateParams
       );
       

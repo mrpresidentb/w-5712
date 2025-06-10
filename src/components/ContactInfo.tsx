@@ -20,7 +20,7 @@ const ContactInfo = () => {
           <div className="bg-white rounded-xl shadow-xl p-8 border border-gray-200">
             <h3 className="text-xl font-bold mb-6 text-blue-900">Contact Information</h3>
             
-            <div className="space-y-6 py-[87px]">
+            <div className="space-y-6 mx-0 rounded-none py-[69px]">
               <div className="flex items-center">
                 <div className="bg-blue-50 p-3 rounded-full mr-4">
                   <Phone className="h-6 w-6 text-blue-600" />
@@ -51,21 +51,15 @@ const ContactInfo = () => {
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Visit our office</p>
-                  <p className="font-medium text-blue-900">
-                    123 Tech Lane, Charleston, SC 29401
-                  </p>
+                  <p className="font-medium text-blue-900">3540 Toringdon Way, Charlotte, NC 28277</p>
                 </div>
               </div>
               
               <div className="flex items-center">
-                <div className="bg-blue-50 p-3 rounded-full mr-4">
-                  <Clock className="h-6 w-6 text-blue-600" />
-                </div>
+                
                 <div>
-                  <p className="text-sm text-gray-600">Support Hours</p>
-                  <p className="font-medium text-blue-900">
-                    24/7 Emergency Support Available
-                  </p>
+                  
+                  
                 </div>
               </div>
             </div>

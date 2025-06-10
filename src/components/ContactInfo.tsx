@@ -50,7 +50,7 @@ const ContactInfo = () => {
                   <MapPin className="h-6 w-6 text-blue-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Visit our office</p>
+                  <p className="text-sm text-gray-600">Address (appointment required)</p>
                   <p className="font-medium text-blue-900">3540 Toringdon Way, Charlotte, NC 28277</p>
                 </div>
               </div>

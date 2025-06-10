@@ -57,7 +57,7 @@ const ContactForm = () => {
       
       const result = await emailjs.send(
         'service_dz6gzno',
-        'template_fgq53nh',
+        'template_lykvrgc',
         templateParams
       );
       

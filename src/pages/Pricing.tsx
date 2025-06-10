@@ -1,6 +1,6 @@
 
 import PageLayout from '@/components/PageLayout';
-import { ArrowRight, Check, Computer, Building, Globe, Printer, Database, Shield } from "lucide-react";
+import { ArrowRight, Check, Computer, Globe } from "lucide-react";
 import SEO from '@/components/SEO';
 
 const Pricing = () => {
@@ -91,143 +91,6 @@ const Pricing = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section className="py-16 bg-gray-50">
-        <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Small Business Services</h2>
-            <p className="text-gray-600 max-w-3xl mx-auto">
-              Flexible plans designed for small businesses and startups.
-            </p>
-          </div>
-          
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
-                <div className="bg-blue-50 p-6 border-b border-gray-200">
-                  <div className="flex items-center">
-                    <Building className="h-8 w-8 text-blue-600 mr-3" />
-                    <h3 className="text-xl font-bold text-gray-800">Managed IT Plan</h3>
-                  </div>
-                </div>
-                
-                <div className="p-6">
-                  <div className="text-3xl font-bold text-blue-800 mb-2">$199/month</div>
-                  <p className="text-gray-600 mb-4">Starting price for small businesses (2-10 employees)</p>
-                  
-                  <div className="space-y-3 mb-6">
-                    <div className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
-                      <span className="text-gray-700">4 hours of support per month</span>
-                    </div>
-                    <div className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
-                      <span className="text-gray-700">Remote monitoring & maintenance</span>
-                    </div>
-                    <div className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
-                      <span className="text-gray-700">Security updates & patches</span>
-                    </div>
-                    <div className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
-                      <span className="text-gray-700">Help desk support during business hours</span>
-                    </div>
-                    <div className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
-                      <span className="text-gray-700">Discounted onsite service rates</span>
-                    </div>
-                  </div>
-                  
-                  <div className="text-center">
-                    <button 
-                      onClick={() => {
-                        const contactSection = document.getElementById('contact');
-                        if (contactSection) {
-                          contactSection.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      }}
-                      className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 inline-flex items-center"
-                    >
-                      Get a Quote
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
-                <div className="bg-blue-50 p-6 border-b border-gray-200">
-                  <div className="flex items-center">
-                    <Database className="h-8 w-8 text-blue-600 mr-3" />
-                    <h3 className="text-xl font-bold text-gray-800">Data Backup & Security</h3>
-                  </div>
-                </div>
-                
-                <div className="p-6">
-                  <div className="text-3xl font-bold text-blue-800 mb-2">$50/month</div>
-                  <p className="text-gray-600 mb-4">Per server or 5 workstations</p>
-                  
-                  <div className="space-y-3 mb-6">
-                    <div className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
-                      <span className="text-gray-700">Daily automated backups</span>
-                    </div>
-                    <div className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
-                      <span className="text-gray-700">Secure cloud storage (100GB included)</span>
-                    </div>
-                    <div className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
-                      <span className="text-gray-700">Monthly backup verification</span>
-                    </div>
-                    <div className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
-                      <span className="text-gray-700">Ransomware protection</span>
-                    </div>
-                    <div className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
-                      <span className="text-gray-700">Quick data recovery</span>
-                    </div>
-                  </div>
-                  
-                  <div className="text-center">
-                    <button 
-                      onClick={() => {
-                        const contactSection = document.getElementById('contact');
-                        if (contactSection) {
-                          contactSection.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      }}
-                      className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 inline-flex items-center"
-                    >
-                      Learn More
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="text-center">
-              <p className="text-gray-600 mb-4">
-                Need a custom plan? We create tailored IT solutions for businesses of all sizes.
-              </p>
-              <button 
-                onClick={() => {
-                  const contactSection = document.getElementById('contact');
-                  if (contactSection) {
-                    contactSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 inline-flex items-center"
-              >
-                Request a Custom Quote
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </button>
             </div>
           </div>
         </div>
@@ -363,21 +226,21 @@ const Pricing = () => {
                 <div className="flex items-start">
                   <div>
                     <p className="font-semibold text-gray-800">Domain Registration</p>
-                    <p className="text-blue-800 font-medium">$15/yr</p>
+                    <p className="text-blue-800 font-medium">$50/yr</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start">
                   <div>
                     <p className="font-semibold text-gray-800">Business Email Setup</p>
-                    <p className="text-blue-800 font-medium">$10/user/mo</p>
+                    <p className="text-blue-800 font-medium">$100/user/mo</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start">
                   <div>
                     <p className="font-semibold text-gray-800">Website Maintenance</p>
-                    <p className="text-blue-800 font-medium">$49/mo</p>
+                    <p className="text-blue-800 font-medium">$100/mo</p>
                   </div>
                 </div>
                 
@@ -398,7 +261,7 @@ const Pricing = () => {
                 <div className="flex items-start">
                   <div>
                     <p className="font-semibold text-gray-800">Custom Development</p>
-                    <p className="text-blue-800 font-medium">$95/hr</p>
+                    <p className="text-blue-800 font-medium">$199/hr</p>
                   </div>
                 </div>
               </div>

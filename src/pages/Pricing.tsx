@@ -1,15 +1,9 @@
-
 import PageLayout from '@/components/PageLayout';
 import { ArrowRight, Check, Computer, Globe } from "lucide-react";
 import SEO from '@/components/SEO';
-
 const Pricing = () => {
-  return (
-    <PageLayout>
-      <SEO 
-        title="IT Support Pricing - IT Carolina" 
-        description="Transparent pricing for IT services, web design, and tech support for home users and small businesses in Charlotte, NC."
-      />
+  return <PageLayout>
+      <SEO title="IT Support Pricing - IT Carolina" description="Transparent pricing for IT services, web design, and tech support for home users and small businesses in Charlotte, NC." />
       
       <section className="pt-28 pb-16 bg-gradient-to-b from-blue-900 to-blue-800 text-white">
         <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto">
@@ -78,15 +72,14 @@ const Pricing = () => {
               </div>
               
               <div className="mt-8 text-center">
-                <button 
-                  onClick={() => {
-                    const contactSection = document.getElementById('contact');
-                    if (contactSection) {
-                      contactSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 inline-flex items-center"
-                >
+                <button onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({
+                    behavior: 'smooth'
+                  });
+                }
+              }} className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 inline-flex items-center">
                   Book a Home Visit
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </button>
@@ -233,7 +226,7 @@ const Pricing = () => {
                 <div className="flex items-start">
                   <div>
                     <p className="font-semibold text-gray-800">Business Email Setup</p>
-                    <p className="text-blue-800 font-medium">$100/user/mo</p>
+                    <p className="text-blue-800 font-medium">Starting at $100</p>
                   </div>
                 </div>
                 
@@ -261,19 +254,16 @@ const Pricing = () => {
                 <div className="flex items-start">
                   <div>
                     <p className="font-semibold text-gray-800">Custom Development</p>
-                    <p className="text-blue-800 font-medium">$199/hr</p>
+                    <p className="text-blue-800 font-medium">Starting at $199</p>
                   </div>
                 </div>
               </div>
             </div>
             
             <div className="text-center mt-8">
-              <button 
-                onClick={() => {
-                  window.location.href = '/services/web-hosting';
-                }}
-                className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 inline-flex items-center"
-              >
+              <button onClick={() => {
+              window.location.href = '/services/web-hosting';
+            }} className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 inline-flex items-center">
                 View Web Services Details
                 <ArrowRight className="ml-2 h-5 w-5" />
               </button>
@@ -289,23 +279,20 @@ const Pricing = () => {
             <p className="text-gray-600 mb-8">
               Every business has unique IT needs. Contact us for a personalized IT solution tailored to your specific requirements and budget.
             </p>
-            <button 
-              onClick={() => {
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className="px-8 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 inline-flex items-center"
-            >
+            <button onClick={() => {
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+              contactSection.scrollIntoView({
+                behavior: 'smooth'
+              });
+            }
+          }} className="px-8 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 inline-flex items-center">
               Request a Custom Quote
               <ArrowRight className="ml-2 h-5 w-5" />
             </button>
           </div>
         </div>
       </section>
-    </PageLayout>
-  );
+    </PageLayout>;
 };
-
 export default Pricing;

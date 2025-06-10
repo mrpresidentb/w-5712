@@ -37,24 +37,26 @@ const ContactInfo = () => {
     setIsSubmitting(true);
     
     try {
-      const EMAILJS_SERVICE_ID = "service_i3h66xg";
-      const EMAILJS_TEMPLATE_ID = "template_fgq53nh";
-      const EMAILJS_PUBLIC_KEY = "wQmcZvoOqTAhGnRZ3";
-      
+      // Updated EmailJS configuration
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
-        message: `Phone: ${formData.phone}\n\nMessage: ${formData.message}`,
-        to_name: 'IT Carolina Team',
+        phone: formData.phone,
+        message: formData.message,
+        to_email: 'support@itcarolina.us',
         reply_to: formData.email
       };
       
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
+      console.log('Sending email with params:', templateParams);
+      
+      const result = await emailjs.send(
+        'service_i3h66xg',
+        'template_fgq53nh',
         templateParams,
-        EMAILJS_PUBLIC_KEY
+        'wQmcZvoOqTAhGnRZ3'
       );
+      
+      console.log('Email sent successfully:', result);
       
       toast({
         title: "Message sent!",
@@ -73,7 +75,7 @@ const ContactInfo = () => {
       
       toast({
         title: "Error",
-        description: "There was a problem sending your message. Please try again.",
+        description: "There was a problem sending your message. Please try calling us at (888) 661-0020 or email support@itcarolina.us directly.",
         variant: "destructive"
       });
     } finally {

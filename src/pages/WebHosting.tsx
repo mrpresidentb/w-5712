@@ -7,8 +7,8 @@ const WebHosting = () => {
   return (
     <PageLayout>
       <SEO 
-        title="Web & Hosting Solutions - IT Carolina" 
-        description="Professional website design, hosting, and domain services for small businesses in Charlotte, NC."
+        title="Web Design & Hosting | Website Development Charlotte NC | IT Carolina"
+        description="Professional website design, hosting, domain registration, and email setup for small businesses in Charlotte NC. Affordable web solutions with ongoing support."
       />
       
       <section className="pt-28 pb-16 bg-gradient-to-b from-blue-900 to-blue-800 text-white">

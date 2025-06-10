@@ -2,8 +2,12 @@ import PageLayout from '@/components/PageLayout';
 import { ArrowRight, Check, Computer, Globe } from "lucide-react";
 import SEO from '@/components/SEO';
 const Pricing = () => {
-  return <PageLayout>
-      <SEO title="IT Support Pricing - IT Carolina" description="Transparent pricing for IT services, web design, and tech support for home users and small businesses in Charlotte, NC." />
+  return (
+    <PageLayout>
+      <SEO 
+        title="IT Support Pricing | Transparent Computer Repair Rates Charlotte NC | IT Carolina"
+        description="Clear, upfront pricing for IT support services in Charlotte NC. No hidden fees. Fixed rates for computer repair, network setup, web design, and ongoing support."
+      />
       
       <section className="pt-28 pb-16 bg-gradient-to-b from-blue-900 to-blue-800 text-white">
         <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto">
@@ -293,6 +297,8 @@ const Pricing = () => {
           </div>
         </div>
       </section>
-    </PageLayout>;
+    </PageLayout>
+  );
 };
+
 export default Pricing;

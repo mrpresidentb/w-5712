@@ -7,8 +7,8 @@ const BusinessSupport = () => {
   return (
     <PageLayout>
       <SEO 
-        title="Small Business IT Support - IT Carolina" 
-        description="IT solutions for small businesses and LLC. Network setup, security, website hosting, and managed IT services in Charlotte, NC."
+        title="Small Business IT Support | Network Setup Charlotte NC | IT Carolina"
+        description="Professional IT support for small businesses in Charlotte NC. Network setup, security, cloud services, and managed IT solutions with transparent pricing."
       />
       
       <section className="pt-28 pb-16 bg-gradient-to-b from-blue-900 to-blue-800 text-white">

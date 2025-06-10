@@ -7,8 +7,8 @@ const PrinterSupport = () => {
   return (
     <PageLayout>
       <SEO 
-        title="Printer & Peripherals Support - IT Carolina" 
-        description="Professional printer setup, troubleshooting, and repair services for home users and small businesses in Charlotte, NC."
+        title="Printer Setup & Support | Printer Repair Charlotte NC | IT Carolina"
+        description="Professional printer setup, troubleshooting, and repair services in Charlotte NC. Expert support for all printer brands and models for home and business."
       />
       
       <section className="pt-28 pb-16 bg-gradient-to-b from-blue-900 to-blue-800 text-white">

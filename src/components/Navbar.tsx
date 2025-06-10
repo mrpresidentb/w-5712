@@ -1,15 +1,12 @@
-
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X, ChevronDown, Shield, Headphones } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
-
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -21,11 +18,9 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -35,15 +30,13 @@ const Navbar = () => {
     }
     setIsMenuOpen(false);
   };
-
-  return (
-    <motion.nav className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full", isScrolled ? "bg-white shadow-sm" : "bg-blue-900")} initial={{
-      opacity: 1,
-      y: 0
-    }} animate={{
-      opacity: 1,
-      y: 0
-    }}>
+  return <motion.nav className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full", isScrolled ? "bg-white shadow-sm" : "bg-blue-900")} initial={{
+    opacity: 1,
+    y: 0
+  }} animate={{
+    opacity: 1,
+    y: 0
+  }}>
       <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
@@ -116,9 +109,7 @@ const Navbar = () => {
                 
                 <NavigationMenuItem>
                   <Link to="/blog">
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-blue-900" : "text-gray-100 hover:text-white bg-transparent hover:bg-blue-800")}>
-                      Blog
-                    </NavigationMenuLink>
+                    
                   </Link>
                 </NavigationMenuItem>
                 
@@ -145,66 +136,66 @@ const Navbar = () => {
       <div className={cn("md:hidden transition-all duration-300 overflow-hidden w-full", isMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0")}>
         <div className={cn("px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-sm", isScrolled ? "bg-white" : "bg-blue-900")}>
           <Link to="/" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-            setIsMenuOpen(false);
-            window.scrollTo(0, 0);
-          }}>
+          setIsMenuOpen(false);
+          window.scrollTo(0, 0);
+        }}>
             Home
           </Link>
           
           <Link to="/about" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-            setIsMenuOpen(false);
-            window.scrollTo(0, 0);
-          }}>
+          setIsMenuOpen(false);
+          window.scrollTo(0, 0);
+        }}>
             About Us
           </Link>
           
           <div className="block">
             <button onClick={e => {
-              e.preventDefault();
-              const submenu = e.currentTarget.nextElementSibling;
-              if (submenu) {
-                submenu.classList.toggle('hidden');
-              }
-            }} className={cn("flex w-full justify-between items-center px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")}>
+            e.preventDefault();
+            const submenu = e.currentTarget.nextElementSibling;
+            if (submenu) {
+              submenu.classList.toggle('hidden');
+            }
+          }} className={cn("flex w-full justify-between items-center px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")}>
               <span>Services</span>
               <ChevronDown className="h-4 w-4" />
             </button>
             
             <div className="hidden ml-4 mt-1 space-y-1">
               <Link to="/services/home-office" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-                setIsMenuOpen(false);
-              }}>
+              setIsMenuOpen(false);
+            }}>
                 Home & Home-Office Support
               </Link>
               <Link to="/services/business" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-                setIsMenuOpen(false);
-              }}>
+              setIsMenuOpen(false);
+            }}>
                 Small Business IT Support
               </Link>
               <Link to="/services/printer" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-                setIsMenuOpen(false);
-              }}>
+              setIsMenuOpen(false);
+            }}>
                 Printer & Peripherals
               </Link>
               <Link to="/services/web-hosting" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-                setIsMenuOpen(false);
-              }}>
+              setIsMenuOpen(false);
+            }}>
                 Web & Hosting Solutions
               </Link>
             </div>
           </div>
           
           <Link to="/pricing" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-            setIsMenuOpen(false);
-            window.scrollTo(0, 0);
-          }}>
+          setIsMenuOpen(false);
+          window.scrollTo(0, 0);
+        }}>
             Pricing
           </Link>
           
           <Link to="/blog" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-            setIsMenuOpen(false);
-            window.scrollTo(0, 0);
-          }}>
+          setIsMenuOpen(false);
+          window.scrollTo(0, 0);
+        }}>
             Blog
           </Link>
           
@@ -214,8 +205,6 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-    </motion.nav>
-  );
+    </motion.nav>;
 };
-
 export default Navbar;

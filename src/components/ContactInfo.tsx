@@ -37,14 +37,12 @@ const ContactInfo = () => {
     setIsSubmitting(true);
     
     try {
-      // Updated EmailJS configuration
+      // Simplified EmailJS configuration
       const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone,
-        message: formData.message,
-        to_email: 'support@itcarolina.us',
-        reply_to: formData.email
+        user_name: formData.name,
+        user_email: formData.email,
+        user_phone: formData.phone || 'Not provided',
+        message: formData.message
       };
       
       console.log('Sending email with params:', templateParams);
@@ -61,7 +59,6 @@ const ContactInfo = () => {
       toast({
         title: "Message sent!",
         description: "Thank you for contacting us. We'll get back to you soon.",
-        variant: "default"
       });
       
       setFormData({

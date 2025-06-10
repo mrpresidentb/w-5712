@@ -1,7 +1,88 @@
-import React from 'react';
-import { Mail, Linkedin, Phone, MapPin, Clock } from 'lucide-react';
+
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast";
+import emailjs from 'emailjs-com';
+
 const ContactInfo = () => {
-  return <section id="contact" className="bg-gradient-to-b from-white to-gray-100 text-gray-800 relative py-16">
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    try {
+      const EMAILJS_SERVICE_ID = "service_i3h66xg";
+      const EMAILJS_TEMPLATE_ID = "template_fgq53nh";
+      const EMAILJS_PUBLIC_KEY = "wQmcZvoOqTAhGnRZ3";
+      
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: `Phone: ${formData.phone}\n\nMessage: ${formData.message}`,
+        to_name: 'IT Carolina Team',
+        reply_to: formData.email
+      };
+      
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
+      
+      toast({
+        title: "Message sent!",
+        description: "Thank you for contacting us. We'll get back to you soon.",
+        variant: "default"
+      });
+      
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: ""
+      });
+    } catch (error) {
+      console.error("Error sending email:", error);
+      
+      toast({
+        title: "Error",
+        description: "There was a problem sending your message. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <section id="contact" className="bg-gradient-to-b from-white to-gray-100 text-gray-800 relative py-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <div className="inline-block mb-3 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
@@ -20,15 +101,15 @@ const ContactInfo = () => {
           <div className="bg-white rounded-xl shadow-xl p-8 border border-gray-200">
             <h3 className="text-xl font-bold mb-6 text-blue-900">Contact Information</h3>
             
-            <div className="space-y-6 mx-0 rounded-none py-[69px]">
+            <div className="space-y-6">
               <div className="flex items-center">
                 <div className="bg-blue-50 p-3 rounded-full mr-4">
                   <Phone className="h-6 w-6 text-blue-600" />
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Call us at</p>
-                  <a href="tel:+18001234567" className="font-medium text-blue-900 hover:text-blue-700">
-                    (800) 123-4567
+                  <a href="tel:+18886610020" className="font-medium text-blue-900 hover:text-blue-700">
+                    (888) 661-0020
                   </a>
                 </div>
               </div>
@@ -51,54 +132,86 @@ const ContactInfo = () => {
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Address (appointment required)</p>
-                  <p className="font-medium text-blue-900">3540 Toringdon Way, Charlotte, NC 28277</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center">
-                
-                <div>
-                  
-                  
+                  <p className="font-medium text-blue-900">3540 Toringdon Way, Suite 200<br />Charlotte, NC 28277</p>
                 </div>
               </div>
             </div>
-            
-            
           </div>
 
           {/* Contact Form */}
           <div className="bg-white rounded-xl shadow-xl p-8 border border-gray-200">
             <h3 className="text-xl font-bold mb-6 text-blue-900">Send Us a Message</h3>
             
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                <input type="text" id="name" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Your name" />
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  placeholder="Your name"
+                  disabled={isSubmitting}
+                />
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input type="email" id="email" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="your.email@example.com" />
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  placeholder="your.email@example.com"
+                  disabled={isSubmitting}
+                />
               </div>
               
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                <input type="tel" id="phone" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="(123) 456-7890" />
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  placeholder="(123) 456-7890"
+                  disabled={isSubmitting}
+                />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                <textarea id="message" rows={4} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="How can we help you?"></textarea>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message *</label>
+                <textarea 
+                  id="message" 
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={4} 
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  placeholder="How can we help you?"
+                  disabled={isSubmitting}
+                ></textarea>
               </div>
               
-              <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
-                Submit Request
+              <button 
+                type="submit" 
+                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Sending..." : "Submit Request"}
               </button>
             </form>
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default ContactInfo;

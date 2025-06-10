@@ -55,7 +55,7 @@ const ContactForm = () => {
       console.log('Sending email with params:', templateParams);
       
       const result = await emailjs.send(
-        'service_i3h66xg',
+        'service_dz6gzno',
         'template_fgq53nh',
         templateParams
       );

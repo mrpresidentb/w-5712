@@ -2,7 +2,10 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
+
+// Initialize EmailJS with your public key
+emailjs.init('wQmcZvoOqTAhGnRZ3');
 
 const ContactInfo = () => {
   const [formData, setFormData] = useState({
@@ -50,8 +53,7 @@ const ContactInfo = () => {
       const result = await emailjs.send(
         'service_i3h66xg',
         'template_fgq53nh',
-        templateParams,
-        'wQmcZvoOqTAhGnRZ3'
+        templateParams
       );
       
       console.log('Email sent successfully:', result);

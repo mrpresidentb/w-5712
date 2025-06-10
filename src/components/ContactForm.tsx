@@ -4,7 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin } from "lucide-react";
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
+
+// Initialize EmailJS with your public key
+emailjs.init('wQmcZvoOqTAhGnRZ3');
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -54,8 +57,7 @@ const ContactForm = () => {
       const result = await emailjs.send(
         'service_i3h66xg',
         'template_fgq53nh',
-        templateParams,
-        'wQmcZvoOqTAhGnRZ3'
+        templateParams
       );
       
       console.log('Email sent successfully:', result);

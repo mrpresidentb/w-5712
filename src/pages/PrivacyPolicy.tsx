@@ -1,3 +1,4 @@
+
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -11,10 +12,10 @@ const PrivacyPolicy = () => {
 
   return (
     <PageLayout>
-      {/* Секция, содержащая весь контент страницы */}
+      {/* Main content section */}
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-        {/* Контейнер для центрирования и ограничения ширины, как на других страницах */}
-        <div className="w-full mx-auto max-w-4xl"> {/* Добавлены классы max-w-4xl и mx-auto */}
+        {/* Container for centering and width constraints */}
+        <div className="w-full mx-auto max-w-4xl">
           <Link
             to="/"
             className="inline-flex items-center text-gray-500 hover:text-gray-700 mb-6 transition-colors"
@@ -25,7 +26,7 @@ const PrivacyPolicy = () => {
 
           <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
 
-          {/* Prose div для автоматической стилизации текстового контента */}
+          {/* Prose div for automatic text content styling */}
           <div className="prose prose-lg max-w-none">
             <p className="text-gray-600 mb-6">Last updated: June 06, 2024</p>
 

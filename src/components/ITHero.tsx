@@ -74,7 +74,7 @@ const ITHero = () => {
 
         {/* Main Content Container */}
         <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-32">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[600px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[600px]">
             
             {/* Left Column - Text Content */}
             <motion.div className="text-left" variants={itemVariants}>
@@ -112,108 +112,116 @@ const ITHero = () => {
 
             {/* Right Column - Professional IT Illustration */}
             <motion.div 
-              className="flex justify-center lg:justify-end order-first lg:order-last"
+              className="flex justify-center lg:justify-end order-first lg:order-last pr-0 lg:pr-8"
               variants={itemVariants}
             >
-              <div className="relative max-w-lg w-full px-4">
+              <div className="relative max-w-md w-full px-4" style={{ height: '90%' }}>
                 <svg 
-                  viewBox="0 0 500 400" 
+                  viewBox="0 0 400 350" 
                   className="w-full h-auto"
                   fill="none" 
                   xmlns="http://www.w3.org/2000/svg"
                   role="img"
-                  aria-label="IT technician working on a laptop with server infrastructure"
+                  aria-label="IT support specialist working on a laptop next to a server"
                 >
-                  {/* Background Circle */}
-                  <circle cx="250" cy="200" r="180" fill="#ffffff" fillOpacity="0.1" stroke="#ffffff" strokeWidth="2" strokeOpacity="0.2"/>
+                  {/* Background Elements */}
+                  <circle cx="200" cy="175" r="160" fill="#ffffff" fillOpacity="0.08" stroke="#ffffff" strokeWidth="1" strokeOpacity="0.15"/>
                   
-                  {/* Server Rack */}
-                  <rect x="320" y="120" width="100" height="160" rx="8" fill="#1E40AF" stroke="#3B82F6" strokeWidth="2"/>
-                  <rect x="330" y="135" width="80" height="12" rx="2" fill="#60A5FA"/>
-                  <rect x="330" y="155" width="80" height="12" rx="2" fill="#60A5FA"/>
-                  <rect x="330" y="175" width="80" height="12" rx="2" fill="#60A5FA"/>
-                  <rect x="330" y="195" width="80" height="12" rx="2" fill="#93C5FD"/>
-                  <rect x="330" y="215" width="80" height="12" rx="2" fill="#93C5FD"/>
-                  <rect x="330" y="235" width="80" height="12" rx="2" fill="#93C5FD"/>
+                  {/* Desk/Table */}
+                  <rect x="50" y="220" width="300" height="20" rx="10" fill="#E5E7EB"/>
+                  <rect x="60" y="240" width="15" height="50" fill="#D1D5DB"/>
+                  <rect x="325" y="240" width="15" height="50" fill="#D1D5DB"/>
                   
-                  {/* Server Indicators */}
-                  <circle cx="340" cy="141" r="3" fill="#10B981"/>
-                  <circle cx="350" cy="141" r="3" fill="#10B981"/>
-                  <circle cx="360" cy="141" r="3" fill="#F59E0B"/>
-                  <circle cx="340" cy="161" r="3" fill="#10B981"/>
-                  <circle cx="350" cy="161" r="3" fill="#10B981"/>
-                  <circle cx="360" cy="161" r="3" fill="#10B981"/>
+                  {/* Server Rack - Right Side */}
+                  <rect x="280" y="120" width="80" height="100" rx="6" fill="#1E40AF" stroke="#3B82F6" strokeWidth="2"/>
                   
-                  {/* Desk */}
-                  <rect x="80" y="250" width="240" height="25" rx="4" fill="#6B7280"/>
-                  <rect x="85" y="275" width="15" height="60" fill="#6B7280"/>
-                  <rect x="300" y="275" width="15" height="60" fill="#6B7280"/>
+                  {/* Server Units */}
+                  <rect x="285" y="130" width="70" height="8" rx="2" fill="#60A5FA"/>
+                  <rect x="285" y="142" width="70" height="8" rx="2" fill="#60A5FA"/>
+                  <rect x="285" y="154" width="70" height="8" rx="2" fill="#93C5FD"/>
+                  <rect x="285" y="166" width="70" height="8" rx="2" fill="#93C5FD"/>
+                  <rect x="285" y="178" width="70" height="8" rx="2" fill="#DBEAFE"/>
+                  <rect x="285" y="190" width="70" height="8" rx="2" fill="#DBEAFE"/>
+                  <rect x="285" y="202" width="70" height="8" rx="2" fill="#DBEAFE"/>
                   
-                  {/* Laptop */}
-                  <rect x="140" y="220" width="120" height="80" rx="6" fill="#374151"/>
-                  <rect x="145" y="225" width="110" height="70" rx="4" fill="#1F2937"/>
-                  <rect x="150" y="230" width="100" height="60" rx="2" fill="#3B82F6"/>
+                  {/* Server Status Lights */}
+                  <circle cx="290" cy="134" r="2" fill="#10B981"/>
+                  <circle cx="296" cy="134" r="2" fill="#10B981"/>
+                  <circle cx="302" cy="134" r="2" fill="#F59E0B"/>
+                  <circle cx="290" cy="146" r="2" fill="#10B981"/>
+                  <circle cx="296" cy="146" r="2" fill="#10B981"/>
+                  <circle cx="302" cy="146" r="2" fill="#10B981"/>
                   
-                  {/* Laptop Screen Content */}
-                  <rect x="155" y="235" width="90" height="3" rx="1" fill="#60A5FA"/>
-                  <rect x="155" y="242" width="70" height="3" rx="1" fill="#93C5FD"/>
-                  <rect x="155" y="249" width="85" height="3" rx="1" fill="#60A5FA"/>
-                  <rect x="155" y="256" width="60" height="3" rx="1" fill="#93C5FD"/>
+                  {/* Laptop - Center */}
+                  <rect x="120" y="190" width="100" height="60" rx="4" fill="#374151"/>
+                  <rect x="125" y="195" width="90" height="50" rx="3" fill="#1F2937"/>
+                  <rect x="130" y="200" width="80" height="40" rx="2" fill="#3B82F6"/>
                   
-                  {/* IT Professional */}
-                  {/* Head */}
-                  <circle cx="200" cy="140" r="28" fill="#FBBF24"/>
+                  {/* Laptop Screen Content - Code/Dashboard */}
+                  <rect x="135" y="205" width="70" height="2" rx="1" fill="#60A5FA"/>
+                  <rect x="135" y="210" width="50" height="2" rx="1" fill="#93C5FD"/>
+                  <rect x="135" y="215" width="65" height="2" rx="1" fill="#60A5FA"/>
+                  <rect x="135" y="220" width="45" height="2" rx="1" fill="#93C5FD"/>
+                  <rect x="135" y="225" width="60" height="2" rx="1" fill="#DBEAFE"/>
+                  <rect x="135" y="230" width="40" height="2" rx="1" fill="#93C5FD"/>
                   
-                  {/* Hair */}
-                  <path d="M175 120 Q200 105 225 120 Q220 115 200 115 Q180 115 175 120" fill="#1F2937"/>
+                  {/* IT Professional - Simplified Flat Design */}
+                  <g transform="translate(160, 100)">
+                    {/* Head */}
+                    <circle cx="0" cy="0" r="18" fill="#F3E8FF" stroke="#8B5CF6" strokeWidth="1"/>
+                    
+                    {/* Hair */}
+                    <path d="M-15 -8 Q0 -20 15 -8 Q10 -15 0 -15 Q-10 -15 -15 -8" fill="#4B5563"/>
+                    
+                    {/* Eyes */}
+                    <circle cx="-6" cy="-2" r="1.5" fill="#1F2937"/>
+                    <circle cx="6" cy="-2" r="1.5" fill="#1F2937"/>
+                    
+                    {/* Glasses */}
+                    <circle cx="-6" cy="-2" r="5" fill="none" stroke="#6B7280" strokeWidth="1"/>
+                    <circle cx="6" cy="-2" r="5" fill="none" stroke="#6B7280" strokeWidth="1"/>
+                    <path d="M1 -2 L-1 -2" stroke="#6B7280" strokeWidth="1"/>
+                    
+                    {/* Body */}
+                    <rect x="-12" y="18" width="24" height="35" rx="12" fill="#3B82F6"/>
+                    
+                    {/* Arms */}
+                    <rect x="-25" y="25" width="13" height="8" rx="4" fill="#F3E8FF"/>
+                    <rect x="12" y="25" width="13" height="8" rx="4" fill="#F3E8FF"/>
+                    
+                    {/* Hands positioned over laptop */}
+                    <circle cx="-30" cy="90" r="4" fill="#F3E8FF"/>
+                    <circle cx="30" cy="90" r="4" fill="#F3E8FF"/>
+                  </g>
                   
-                  {/* Eyes */}
-                  <circle cx="190" cy="135" r="2" fill="#1F2937"/>
-                  <circle cx="210" cy="135" r="2" fill="#1F2937"/>
-                  
-                  {/* Glasses */}
-                  <circle cx="190" cy="135" r="8" fill="none" stroke="#374151" strokeWidth="2"/>
-                  <circle cx="210" cy="135" r="8" fill="none" stroke="#374151" strokeWidth="2"/>
-                  <path d="M198 135 L202 135" stroke="#374151" strokeWidth="2"/>
-                  
-                  {/* Mouth */}
-                  <path d="M192 145 Q200 150 208 145" stroke="#1F2937" strokeWidth="2" fill="none"/>
-                  
-                  {/* Body */}
-                  <rect x="175" y="168" width="50" height="70" rx="25" fill="#3B82F6"/>
-                  
-                  {/* Arms */}
-                  <rect x="145" y="185" width="30" height="18" rx="9" fill="#FBBF24"/>
-                  <rect x="225" y="185" width="30" height="18" rx="9" fill="#FBBF24"/>
-                  
-                  {/* Hands on keyboard */}
-                  <circle cx="150" cy="230" r="8" fill="#FBBF24"/>
-                  <circle cx="250" cy="230" r="8" fill="#FBBF24"/>
-                  
-                  {/* Legs */}
-                  <rect x="180" y="238" width="18" height="40" rx="9" fill="#1E40AF"/>
-                  <rect x="202" y="238" width="18" height="40" rx="9" fill="#1E40AF"/>
-                  
-                  {/* Connection Lines with Animation */}
-                  <path d="M260 250 Q290 240 320 220" stroke="#60A5FA" strokeWidth="3" strokeDasharray="8,4" fill="none">
-                    <animate attributeName="stroke-dashoffset" values="0;12" dur="2s" repeatCount="indefinite"/>
+                  {/* Network Cables/Connections */}
+                  <path d="M220 210 Q250 200 280 180" stroke="#60A5FA" strokeWidth="2" strokeDasharray="4,2" fill="none" opacity="0.7">
+                    <animate attributeName="stroke-dashoffset" values="0;6" dur="2s" repeatCount="indefinite"/>
                   </path>
-                  <path d="M260 235 Q290 225 320 200" stroke="#93C5FD" strokeWidth="2" strokeDasharray="6,3" fill="none">
-                    <animate attributeName="stroke-dashoffset" values="0;9" dur="2.5s" repeatCount="indefinite"/>
+                  <path d="M220 200 Q250 190 280 160" stroke="#93C5FD" strokeWidth="1.5" strokeDasharray="3,2" fill="none" opacity="0.6">
+                    <animate attributeName="stroke-dashoffset" values="0;5" dur="2.5s" repeatCount="indefinite"/>
                   </path>
                   
-                  {/* Floating Tech Elements */}
-                  <g opacity="0.6">
-                    <rect x="100" y="80" width="20" height="20" rx="3" fill="#60A5FA" transform="rotate(15 110 90)">
-                      <animateTransform attributeName="transform" type="rotate" values="15 110 90;25 110 90;15 110 90" dur="4s" repeatCount="indefinite"/>
+                  {/* Floating Tech Icons */}
+                  <g opacity="0.4">
+                    <rect x="80" y="70" width="12" height="12" rx="2" fill="#60A5FA" transform="rotate(15 86 76)">
+                      <animateTransform attributeName="transform" type="rotate" values="15 86 76;25 86 76;15 86 76" dur="4s" repeatCount="indefinite"/>
                     </rect>
-                    <circle cx="350" cy="90" r="8" fill="#93C5FD">
-                      <animate attributeName="cy" values="90;80;90" dur="3s" repeatCount="indefinite"/>
+                    <circle cx="320" cy="80" r="5" fill="#93C5FD">
+                      <animate attributeName="cy" values="80;70;80" dur="3s" repeatCount="indefinite"/>
                     </circle>
-                    <polygon points="120,320 135,310 135,330" fill="#60A5FA">
-                      <animateTransform attributeName="transform" type="rotate" values="0 127.5 320;10 127.5 320;0 127.5 320" dur="3.5s" repeatCount="indefinite"/>
+                    <polygon points="90,280 100,275 100,285" fill="#60A5FA" opacity="0.6">
+                      <animateTransform attributeName="transform" type="rotate" values="0 95 280;8 95 280;0 95 280" dur="3.5s" repeatCount="indefinite"/>
                     </polygon>
                   </g>
+                  
+                  {/* Subtle Grid Background */}
+                  <defs>
+                    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#ffffff" strokeWidth="0.5" opacity="0.1"/>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#grid)"/>
                 </svg>
               </div>
             </motion.div>

@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Shield, Server, Headphones, Settings, Database, Code, Cloud, Monitor, Cpu, ArrowRight } from "lucide-react";
+import { Monitor, Shield, Wifi, Printer, Globe, Users, Home, Building, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 const ITServices = () => {
@@ -9,48 +9,48 @@ const ITServices = () => {
   const services = [
     {
       icon: <Monitor className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
-      title: "IT Consulting",
-      description: "Strategic technology planning and advice to align IT with your business goals."
+      title: "Computer Repair & Tune-up",
+      description: "Fix slow computers, remove viruses, and optimize performance for home and office users."
+    },
+    {
+      icon: <Wifi className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
+      title: "Network & Wi-Fi Setup",
+      description: "Professional network installation, Wi-Fi troubleshooting, and small office network configuration."
+    },
+    {
+      icon: <Printer className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
+      title: "Printer Support",
+      description: "Printer installation, troubleshooting offline printers, and peripheral device support."
     },
     {
       icon: <Shield className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
-      title: "Network Security",
-      description: "Advanced protection systems to safeguard your sensitive data and infrastructure."
+      title: "Data Backup & Recovery",
+      description: "Protect your important files with reliable backup solutions and recover deleted data."
     },
     {
-      icon: <Server className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
-      title: "IT Infrastructure",
-      description: "Design and maintenance of robust, scalable network and server environments."
+      icon: <Globe className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
+      title: "Website Design & Hosting",
+      description: "One-page to small multi-page websites, domain setup, SSL certificates, and reliable hosting."
     },
     {
-      icon: <Headphones className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
-      title: "Helpdesk Support",
-      description: "Responsive technical assistance for day-to-day IT challenges and questions."
+      icon: <Users className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
+      title: "Business Email Setup",
+      description: "Microsoft 365 and Google Workspace setup for professional business communication."
     },
     {
-      icon: <Cloud className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
-      title: "Cloud Services",
-      description: "Secure, flexible cloud solutions for storage, backup, and application hosting."
+      icon: <Home className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
+      title: "Home Office Support",
+      description: "Complete home office IT setup including computers, printers, and network connectivity."
     },
     {
-      icon: <Database className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
-      title: "Data Backup",
-      description: "Reliable backup solutions ensuring your critical business data is never lost."
+      icon: <Building className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
+      title: "Small Business IT",
+      description: "Comprehensive IT support for small businesses and startups in the Charlotte area."
     },
     {
-      icon: <Code className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
-      title: "Software Development",
-      description: "Custom business applications and integrations tailored to your specific needs."
-    },
-    {
-      icon: <Cpu className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
-      title: "Hardware Support",
-      description: "Procurement, installation, and maintenance for all your hardware components."
-    },
-    {
-      icon: <Settings className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
-      title: "Managed IT Services",
-      description: "Comprehensive IT management allowing you to focus on your core business."
+      icon: <Monitor className="w-10 h-10 text-blue-500 transition-transform duration-300" />,
+      title: "Ongoing Support Plans",
+      description: "Flat-rate subscription tiers for continuous IT support and maintenance services."
     }
   ];
 

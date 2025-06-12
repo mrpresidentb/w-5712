@@ -10,8 +10,9 @@ const Index = () => {
   return (
     <PageLayout>
       <SEO 
-        title="IT Carolina | Expert IT Support, Home & Small Business, Web Design, Charlotte NC"
-        description="IT Carolina offers expert IT support, computer repair, home office tech help, small business networking, web design, and Microsoft 365/Google Workspace setup in Charlotte NC."
+        title="IT Carolina | Expert IT Support, Computer Repair, Web Design Charlotte NC"
+        description="Professional IT support for home and small business in Charlotte, NC. Computer repair, virus removal, network setup, web design, printer support, and data recovery services. Flat-rate pricing."
+        keywords="IT support Charlotte NC, computer repair Charlotte, virus removal, network setup, web design Charlotte, printer support, data recovery, home office IT, small business IT, Microsoft 365 setup, Google Workspace"
         imageUrl="/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png"
       />
       <ITHero />

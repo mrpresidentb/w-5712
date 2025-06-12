@@ -2,4 +2,12 @@
 User-agent: *
 Allow: /
 
+# Block access to admin areas (if any in future)
+Disallow: /admin/
+Disallow: /private/
+
+# Allow search engines to crawl all public pages
+Allow: /services/
+Allow: /blog/
+
 Sitemap: https://itcarolina.us/sitemap.xml

@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -24,6 +23,7 @@ import BusinessSupport from "./pages/BusinessSupport";
 import PrinterSupport from "./pages/PrinterSupport";
 import WebHosting from "./pages/WebHosting";
 import Pricing from "./pages/Pricing";
+import TermsOfService from "./pages/TermsOfService";
 
 const App = () => {
   const [queryClient] = useState(() => new QueryClient({
@@ -53,6 +53,7 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPostDetail />} />
             <Route path="/services/home-office" element={<HomeOfficeSupport />} />

@@ -9,6 +9,7 @@ const About = () => {
       <SEO 
         title="About IT Carolina | Expert IT Support Team in Charlotte NC"
         description="Learn about IT Carolina's expert IT support team serving Charlotte, NC. Local computer repair, network setup, and web design services with transparent pricing and personal service."
+        canonical="https://itcarolina.us/about"
       />
       
       <div className="pt-20 pb-16">

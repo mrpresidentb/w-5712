@@ -1,8 +1,8 @@
-
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import PageLayout from '@/components/PageLayout';
+import SEO from '@/components/SEO';
 
 const TermsOfService = () => {
   // Scroll to top on mount
@@ -12,6 +12,12 @@ const TermsOfService = () => {
 
   return (
     <PageLayout>
+      <SEO 
+        title="Terms of Service | IT Carolina"
+        description="IT Carolina's terms of service outlining the conditions for using our IT support services in Charlotte, NC."
+        canonical="https://itcarolina.us/terms"
+      />
+      
       {/* Main content section */}
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         {/* Container for centering and width constraints */}

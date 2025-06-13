@@ -1,3 +1,4 @@
+
 import PageLayout from '@/components/PageLayout';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -16,9 +17,10 @@ const Blog = () => {
   return (
     <PageLayout>
       <SEO 
-        title="WRLDS - News and insights about smart textile technology" 
-        description="Stay updated with the latest news and insights about sensor-integrated textiles and smart technology from WRLDS Technologies."
-        imageUrl="/lovable-uploads/6b0637e9-4a7b-40d0-b219-c8b7f879f93e.png"
+        title="IT Carolina Blog | IT Tips, Computer Help & Tech News Charlotte NC" 
+        description="Stay updated with the latest IT tips, computer help guides, and technology news from IT Carolina. Expert advice for home and business users in Charlotte, NC."
+        imageUrl="/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png"
+        canonical="https://itcarolina.us/blog"
       />
       
       <div className="w-full pt-24 pb-12 bg-gradient-to-b from-black to-gray-900 text-white">

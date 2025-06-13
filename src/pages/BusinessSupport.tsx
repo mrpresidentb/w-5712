@@ -9,6 +9,7 @@ const BusinessSupport = () => {
       <SEO 
         title="Small Business IT Support | Network Setup Charlotte NC | IT Carolina"
         description="Professional IT support for small businesses in Charlotte NC. Network setup, security, cloud services, and managed IT solutions with transparent pricing."
+        canonical="https://itcarolina.us/services/business"
       />
       
       <section className="pt-28 pb-16 bg-gradient-to-b from-blue-900 to-blue-800 text-white">

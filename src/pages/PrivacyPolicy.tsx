@@ -1,8 +1,8 @@
-
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import PageLayout from '@/components/PageLayout';
+import SEO from '@/components/SEO';
 
 const PrivacyPolicy = () => {
   // Scroll to top on mount
@@ -12,6 +12,12 @@ const PrivacyPolicy = () => {
 
   return (
     <PageLayout>
+      <SEO 
+        title="Privacy Policy | IT Carolina"
+        description="IT Carolina's privacy policy explaining how we collect, use, and protect your personal information when using our IT support services."
+        canonical="https://itcarolina.us/privacy-policy"
+      />
+      
       {/* Main content section */}
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         {/* Container for centering and width constraints */}

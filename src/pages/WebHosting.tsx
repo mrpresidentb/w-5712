@@ -9,6 +9,7 @@ const WebHosting = () => {
       <SEO 
         title="Web Design & Hosting | Website Development Charlotte NC | IT Carolina"
         description="Professional website design, hosting, domain registration, and email setup for small businesses in Charlotte NC. Affordable web solutions with ongoing support."
+        canonical="https://itcarolina.us/services/web-hosting"
       />
       
       <section className="pt-28 pb-16 bg-gradient-to-b from-blue-900 to-blue-800 text-white">

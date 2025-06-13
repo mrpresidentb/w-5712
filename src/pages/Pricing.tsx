@@ -1,12 +1,14 @@
 import PageLayout from '@/components/PageLayout';
-import { ArrowRight, Check, Computer, Globe } from "lucide-react";
+import { ArrowRight, Check, Star } from "lucide-react";
 import SEO from '@/components/SEO';
+
 const Pricing = () => {
   return (
     <PageLayout>
       <SEO 
-        title="IT Support Pricing | Transparent Computer Repair Rates Charlotte NC | IT Carolina"
-        description="Clear, upfront pricing for IT support services in Charlotte NC. No hidden fees. Fixed rates for computer repair, network setup, web design, and ongoing support."
+        title="IT Support Pricing | Transparent Rates Charlotte NC | IT Carolina"
+        description="Clear, upfront pricing for IT support services in Charlotte NC. Home visits, business support, web design, and managed IT plans with no hidden fees."
+        canonical="https://itcarolina.us/pricing"
       />
       
       <section className="pt-28 pb-16 bg-gradient-to-b from-blue-900 to-blue-800 text-white">

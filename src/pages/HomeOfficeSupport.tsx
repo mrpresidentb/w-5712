@@ -9,6 +9,7 @@ const HomeOfficeSupport = () => {
       <SEO 
         title="Home & Home Office IT Support | Computer Repair Charlotte NC | IT Carolina"
         description="Expert home computer repair, virus removal, Wi-Fi setup, and printer support in Charlotte NC. Fast, affordable IT solutions for home users and home offices."
+        canonical="https://itcarolina.us/services/home-office"
       />
       
       <section className="pt-28 pb-16 bg-gradient-to-b from-blue-900 to-blue-800 text-white">

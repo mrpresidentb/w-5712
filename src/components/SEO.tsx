@@ -9,6 +9,7 @@ interface SEOProps {
   type?: string;
   name?: string;
   imageUrl?: string;
+  canonical?: string;
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -16,10 +17,11 @@ const SEO: React.FC<SEOProps> = ({
   description = 'IT Carolina offers expert IT support, computer repair, home office tech help, small business networking, web design, and Microsoft 365/Google Workspace setup in Charlotte NC.',
   type = 'website',
   name = 'IT Carolina',
-  imageUrl = '/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png'
+  imageUrl = '/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png',
+  canonical
 }) => {
   const location = useLocation();
-  const currentUrl = `https://itcarolina.us${location.pathname}`;
+  const currentUrl = canonical || `https://itcarolina.us${location.pathname}`;
   const absoluteImageUrl = imageUrl.startsWith('http') ? imageUrl : `https://itcarolina.us${imageUrl}`;
 
   // Create JSON-LD structured data

@@ -107,11 +107,6 @@ const Navbar = () => {
                   </Link>
                 </NavigationMenuItem>
                 
-                <NavigationMenuItem>
-                  <Link to="/blog">
-                    
-                  </Link>
-                </NavigationMenuItem>
                 
                 <NavigationMenuItem>
                   <button onClick={() => scrollToSection('contact')} className={cn("flex items-center px-4 py-2 rounded-md transition-colors", isScrolled ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-blue-700 text-white hover:bg-blue-600")}>
@@ -192,14 +187,7 @@ const Navbar = () => {
             Pricing
           </Link>
           
-          <Link to="/blog" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-          setIsMenuOpen(false);
-          window.scrollTo(0, 0);
-        }}>
-            Blog
-          </Link>
-          
-          <button onClick={() => scrollToSection('contact')} className={cn("flex items-center w-full text-left px-3 py-2 rounded-md", isScrolled ? "bg-blue-600 text-white" : "bg-blue-700 text-white")}>
+          <button onClick={() => scrollToSection('contact')} className={cn("flex items-center w-full text-left px-3 py-2 rounded-md", isScrolled ? "bg-blue-600 text-white" : "bg-blue-700 text-white")}> 
             <Headphones className="mr-2 h-4 w-4" />
             Get Support
           </button>

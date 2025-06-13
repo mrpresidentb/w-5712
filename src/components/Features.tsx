@@ -361,12 +361,7 @@ const Features = () => {
           </div>
           
           <div className="text-center">
-            <Link to="/tech-details" onClick={() => window.scrollTo(0, 0)} className="inline-flex items-center px-6 bg-white text-gray-700 rounded-lg border border-gray-200 hover:bg-gray-50 hover:shadow-md transition-all group py-[12px] my-[15px]">
-              Learn More About Our Technology
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            
-            <Button onClick={scrollToContact} className="inline-flex items-center px-6 py-3 bg-gray-700 hover:bg-gray-800 text-white rounded-lg shadow-md hover:shadow-lg transition-all ml-4 group">
+            <Button onClick={scrollToContact} className="inline-flex items-center px-6 py-3 bg-gray-700 hover:bg-gray-800 text-white rounded-lg shadow-md hover:shadow-lg transition-all group">
               Contact Our Experts
               <MessageSquare className="ml-2 w-4 h-4 group-hover:scale-110 transition-transform" />
             </Button>

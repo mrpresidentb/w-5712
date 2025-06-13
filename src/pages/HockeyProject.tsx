@@ -1,5 +1,6 @@
 
 import ProjectPageLayout from '@/components/ProjectPageLayout';
+import SEO from '@/components/SEO';
 import { Activity, Gauge, Flag, Users, BarChart3 } from 'lucide-react';
 
 const HockeyProject = () => {
@@ -10,6 +11,12 @@ const HockeyProject = () => {
       imageUrl="/lovable-uploads/c30e0487-2fa0-41d1-9a0b-699cb2855388.png"
       brandName="Mars Blades"
     >
+      <SEO
+        title="Ice Hockey Elite Skill Tracker"
+        description="Case study on advanced motion analysis for elite hockey performance."
+        canonical="https://itcarolina.us/projects/hockey"
+        type="article"
+      />
       <h2 className="text-3xl font-bold mb-6">Case Study: Hockey Performance Analysis System</h2>
       
       <div className="bg-gray-50 p-6 rounded-lg mb-8">

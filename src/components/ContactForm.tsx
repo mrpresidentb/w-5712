@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -5,10 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin } from "lucide-react";
 import emailjs from '@emailjs/browser';
-
-
-// Initialize EmailJS with the correct user ID
-emailjs.init('h9E6sJhuwXi9wo0ui');
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -44,7 +41,6 @@ const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
-      // Simplified EmailJS configuration
       const templateParams = {
         user_name: formData.name,
         user_email: formData.email,
@@ -55,10 +51,12 @@ const ContactForm = () => {
       
       console.log('Sending email with params:', templateParams);
       
+      // Use the correct EmailJS send method with all required parameters
       const result = await emailjs.send(
-        'service_dz6gzno',
-        'template_lykvrgc',
-        templateParams
+        'service_dz6gzno',     // Service ID
+        'template_lykvrgc',    // Template ID
+        templateParams,        // Template parameters
+        'h9E6sJhuwXi9wo0ui'   // Public key (User ID)
       );
       
       console.log('Email sent successfully:', result);

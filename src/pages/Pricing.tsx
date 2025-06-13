@@ -1,5 +1,6 @@
+
 import PageLayout from '@/components/PageLayout';
-import { ArrowRight, Check, Star } from "lucide-react";
+import { ArrowRight, Check, Star, Computer } from "lucide-react";
 import SEO from '@/components/SEO';
 
 const Pricing = () => {

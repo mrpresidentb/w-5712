@@ -11,11 +11,10 @@ const SportRetailProject = () => {
       imageUrl="/lovable-uploads/b0622048-17b4-4c75-a3f0-6c9e17de1d09.png"
       brandName="Global Sports Retail Leader"
     >
-      <SEO
-        title="WRLDS - Performance Athletic Footwear Project"
+      <SEO 
+        title="WRLDS - Performance Athletic Footwear Project" 
         description="Revolutionary R&D for next-generation athletic footwear with embedded textile sensors for real-time performance analytics and personalized footwear."
         type="article"
-        canonical="https://itcarolina.us/projects/sport-retail"
       />
       
       <div className="bg-yellow-50 p-4 rounded-lg mb-6 flex items-center">

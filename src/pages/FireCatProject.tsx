@@ -1,6 +1,5 @@
 
 import ProjectPageLayout from '@/components/ProjectPageLayout';
-import SEO from '@/components/SEO';
 import { Shield, Radio, Activity, Box } from 'lucide-react';
 
 const FireCatProject = () => {
@@ -12,12 +11,6 @@ const FireCatProject = () => {
       brandName="FireCat Group"
       darkMode={true}
     >
-      <SEO
-        title="FireCat's 6th SENSE Project"
-        description="Case study showcasing an advanced safety system for high-risk environments."
-        canonical="https://itcarolina.us/projects/firecat"
-        type="article"
-      />
       <h2 className="text-3xl font-bold mb-6">Case Study: FireCat's 6th SENSE by WRLDS Technologies</h2>
       
       <div className="bg-gray-50 p-6 rounded-lg mb-8">

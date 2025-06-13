@@ -12,11 +12,10 @@ import { ArrowRight, CheckCircle, Users, Clock, Shield } from 'lucide-react';
 const Index = () => {
   return (
     <PageLayout>
-      <SEO
+      <SEO 
         title="IT Carolina | Expert IT Support, Computer Repair, Web Design Charlotte NC"
         description="Professional IT support for home and small business in Charlotte, NC. Computer repair, virus removal, network setup, web design, printer support, and data recovery services. Flat-rate pricing."
         imageUrl="/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png"
-        canonical="https://itcarolina.us/"
       />
       <ITHero />
       

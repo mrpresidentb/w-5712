@@ -1,4 +1,3 @@
-
 import PageLayout from '@/components/PageLayout';
 import SEO from '@/components/SEO';
 import { ChevronDown, ChevronUp } from 'lucide-react';
@@ -18,11 +17,6 @@ const FAQ = () => {
       question: "What computer repair services do you offer?",
       answer: "Our comprehensive computer repair services include virus and malware removal, performance optimization, hardware repairs, software installation, data recovery, operating system repairs, and hardware upgrades. We service both Windows PCs and Apple computers for home users throughout Charlotte.",
       relatedLinks: [{ text: "Home & Home-Office Support", url: "/services/home-office" }]
-    },
-    {
-      question: "Do you provide Apple computer support and Mac repairs?",
-      answer: "Yes! Our Apple computer support includes Mac hardware repairs, software troubleshooting, macOS installation and updates, data migration, and hardware upgrades. Our certified technicians are experienced with all Apple computer models and provide the same quality service for Mac users as we do for PC users.",
-      relatedLinks: [{ text: "Home Support Services", url: "/services/home-office" }]
     },
     {
       question: "How much does computer repair cost in Charlotte?",

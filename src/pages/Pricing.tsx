@@ -1,4 +1,3 @@
-
 import PageLayout from '@/components/PageLayout';
 import SEO from '@/components/SEO';
 import { Check, Clock, Shield, Users, Home } from 'lucide-react';
@@ -47,10 +46,6 @@ const Pricing = () => {
               <div className="mb-4">
                 <p className="text-4xl font-bold text-blue-900">$99</p>
                 <p className="text-lg text-gray-600">On-site call out fee (includes first hour)</p>
-              </div>
-              <div className="mb-4">
-                <p className="text-3xl font-bold text-blue-900">$75/hr</p>
-                <p className="text-lg text-gray-600">After first hour (billed in 15-minute increments)</p>
               </div>
               <p className="text-sm text-gray-500 italic">Most home computer issues are resolved within 1-2 hours</p>
             </div>

@@ -27,69 +27,69 @@ const Index = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-              Your Trusted IT Support Partner in Charlotte, NC
+              Expert IT Support Partner in Charlotte, NC
             </h2>
             <p className="text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
-              IT Carolina has been serving Charlotte area residents and small businesses since 2010, providing reliable, 
-              jargon-free technology solutions. Whether you're dealing with a slow computer, need to set up a new office network, 
-              or want a professional website for your small business, we're here to help with transparent pricing and friendly service.
+              IT Carolina has been serving Charlotte area residents and small businesses since 2010, providing expert, 
+              reliable technology solutions. Whether you're dealing with a slow computer, need professional web design, 
+              or want to set up a new office network for your small business, our expert team is here to help with transparent pricing and friendly service in Charlotte, NC.
             </p>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
             <div>
-              <h3 className="text-2xl font-bold mb-6 text-gray-900">Why Choose IT Carolina?</h3>
+              <h3 className="text-2xl font-bold mb-6 text-gray-900">Why Choose Our Expert Team?</h3>
               <p className="text-gray-700 mb-6 leading-relaxed">
-                We understand that technology problems can be frustrating and disruptive to your daily life or business operations. 
-                That's why we've built our company around three core principles: transparency, reliability, and exceptional customer service.
+                We understand that technology problems can be frustrating for both home users and small businesses. 
+                That's why we've built our expert IT support company around three core principles: transparency, reliability, and exceptional customer service throughout Charlotte, NC.
               </p>
               <p className="text-gray-700 mb-6 leading-relaxed">
-                Our team of certified technicians has over 15 years of combined experience helping Charlotte area residents and 
-                small businesses solve their technology challenges. From removing stubborn viruses to designing professional websites, 
-                we handle it all with the same level of care and expertise. <Link to="/about" className="text-blue-600 hover:text-blue-700 underline">Learn more about our team and mission</Link>.
+                Our team of expert certified technicians has over 15 years of combined experience helping Charlotte area residents and 
+                small businesses solve their technology challenges. From removing stubborn viruses to designing professional websites for small businesses, 
+                we handle it all with the same level of expert care. <Link to="/about" className="text-blue-600 hover:text-blue-700 underline">Learn more about our expert team and mission</Link>.
               </p>
               <div className="space-y-4">
                 <div className="flex items-start">
                   <CheckCircle className="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Flat-Rate, Transparent Pricing</h4>
-                    <p className="text-gray-700">No hourly rates or surprise fees. You know exactly what you'll pay before we start. <Link to="/pricing" className="text-blue-600 hover:text-blue-700 underline">View our complete pricing guide</Link>.</p>
+                    <h4 className="font-semibold text-gray-900 mb-1">Expert Flat-Rate, Transparent Pricing</h4>
+                    <p className="text-gray-700">No hourly rates or surprise fees. You know exactly what you'll pay before our expert technicians start. <Link to="/pricing" className="text-blue-600 hover:text-blue-700 underline">View our complete expert pricing guide</Link>.</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Users className="w-6 h-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Local Charlotte Focus</h4>
-                    <p className="text-gray-700">We're part of your community and understand the unique needs of Charlotte area businesses and residents.</p>
+                    <h4 className="font-semibold text-gray-900 mb-1">Local Charlotte Expert Focus</h4>
+                    <p className="text-gray-700">We're expert IT professionals who are part of your Charlotte community and understand the unique needs of Charlotte area small businesses and residents.</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Clock className="w-6 h-6 text-orange-600 mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Same-Day Emergency Service</h4>
-                    <p className="text-gray-700">When technology failures threaten your productivity, we respond quickly to get you back up and running.</p>
+                    <h4 className="font-semibold text-gray-900 mb-1">Expert Same-Day Emergency Service</h4>
+                    <p className="text-gray-700">When technology failures threaten your small business productivity, our expert team responds quickly to get you back up and running in Charlotte, NC.</p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="bg-gray-50 p-8 rounded-lg">
-              <h3 className="text-xl font-bold mb-4 text-gray-900">Common Problems We Solve</h3>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">Common Problems Our Expert Team Solves</h3>
               <ul className="space-y-3 text-gray-700">
                 <li>"My computer is running really slow"</li>
                 <li>"I think I have a virus or malware"</li>
                 <li>"My Wi-Fi keeps dropping out"</li>
                 <li>"My printer says it's offline but it's plugged in"</li>
                 <li>"I accidentally deleted important files"</li>
-                <li>"I need a simple website for my small business"</li>
-                <li>"Can you set up email for my business domain?"</li>
-                <li>"I need help backing up my important data"</li>
+                <li>"I need professional web design for my small business"</li>
+                <li>"Can you set up email for my small business domain?"</li>
+                <li>"I need expert help backing up my important data"</li>
               </ul>
               <div className="mt-6 space-y-3">
                 <Link 
                   to="/pricing" 
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
                 >
-                  View Our Service Pricing
+                  View Our Expert Service Pricing
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
                 <br />
@@ -97,7 +97,7 @@ const Index = () => {
                   to="/services/printer" 
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
                 >
-                  Printer Support Services
+                  Expert Printer Support Services
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </div>
@@ -106,52 +106,52 @@ const Index = () => {
           
           <div className="bg-blue-50 p-8 rounded-lg mb-16">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Serving Two Primary Audiences</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Expert Services for Two Primary Audiences</h3>
               <p className="text-gray-700 max-w-3xl mx-auto">
-                Our services are specifically designed for the unique needs of home users and small businesses in the Charlotte area.
+                Our expert services are specifically designed for the unique needs of home users and small businesses in the Charlotte area.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h4 className="text-xl font-bold mb-4 text-gray-900">For Home & Home-Office Users</h4>
                 <p className="text-gray-700 mb-4">
-                  Non-technical individuals who need reliable help with everyday computer problems, home office setup, 
+                  Non-technical individuals who need expert, reliable help with everyday computer problems, home office setup, 
                   and basic technology needs without confusing jargon or complicated solutions.
                 </p>
                 <ul className="space-y-2 text-gray-700">
-                  <li>• Computer tune-ups and virus removal</li>
-                  <li>• Home Wi-Fi setup and troubleshooting</li>
-                  <li>• Printer and peripheral support</li>
+                  <li>• Expert computer tune-ups and virus removal</li>
+                  <li>• Home Wi-Fi setup and expert troubleshooting</li>
+                  <li>• Printer and peripheral expert support</li>
                   <li>• Data backup and file recovery</li>
-                  <li>• Home office technology setup</li>
+                  <li>• Home office technology expert setup</li>
                 </ul>
                 <Link 
                   to="/services/home-office" 
                   className="inline-flex items-center mt-4 text-blue-600 hover:text-blue-700 font-medium"
                 >
-                  Learn About Home Support
+                  Learn About Expert Home Support
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h4 className="text-xl font-bold mb-4 text-gray-900">For Small LLCs & Startups</h4>
                 <p className="text-gray-700 mb-4">
-                  Growing businesses that need professional IT services, basic web presence, and light IT infrastructure 
+                  Growing small businesses that need expert professional IT services, professional web design, and light IT infrastructure 
                   without the complexity and cost of enterprise solutions.
                 </p>
                 <ul className="space-y-2 text-gray-700">
-                  <li>• Small business network setup</li>
-                  <li>• Professional website design and hosting</li>
-                  <li>• Business email setup (Microsoft 365/Google Workspace)</li>
-                  <li>• Managed backups and security</li>
-                  <li>• Ongoing IT support plans</li>
+                  <li>• Expert small business network setup</li>
+                  <li>• Professional web design and hosting</li>
+                  <li>• Small business email setup (Microsoft 365/Google Workspace)</li>
+                  <li>• Expert managed backups and security</li>
+                  <li>• Ongoing expert IT support plans</li>
                 </ul>
                 <div className="mt-4 space-y-2">
                   <Link 
                     to="/services/business" 
                     className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
                   >
-                    Explore Business Services
+                    Explore Expert Small Business Services
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                   <br />
@@ -159,7 +159,7 @@ const Index = () => {
                     to="/services/web-hosting" 
                     className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
                   >
-                    Web Design & Hosting
+                    Professional Web Design & Hosting
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </div>
@@ -168,66 +168,66 @@ const Index = () => {
           </div>
           
           <div className="text-center mb-12">
-            <h3 className="text-2xl font-bold mb-6 text-gray-900">How We Work</h3>
+            <h3 className="text-2xl font-bold mb-6 text-gray-900">How Our Expert Team Works</h3>
             <p className="text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Our process is designed to be as simple and stress-free as possible. We believe in clear communication, 
-              upfront pricing, and getting the job done right the first time.
+              Our expert process is designed to be as simple and stress-free as possible for both home users and small businesses in Charlotte, NC. 
+              We believe in clear communication, upfront pricing, and getting the job done right the first time.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl font-bold text-blue-600">1</span>
                 </div>
-                <h4 className="font-bold mb-2">Contact Us</h4>
-                <p className="text-gray-700">Call, email, or use our contact form to describe your problem or project needs.</p>
+                <h4 className="font-bold mb-2">Contact Our Expert Team</h4>
+                <p className="text-gray-700">Call, email, or use our contact form to describe your problem or small business project needs to our experts.</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl font-bold text-blue-600">2</span>
                 </div>
-                <h4 className="font-bold mb-2">Get a Quote</h4>
-                <p className="text-gray-700">We provide clear, upfront pricing with no hidden fees or hourly rate surprises.</p>
+                <h4 className="font-bold mb-2">Get Expert Quote</h4>
+                <p className="text-gray-700">Our expert team provides clear, upfront pricing with no hidden fees or hourly rate surprises.</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl font-bold text-blue-600">3</span>
                 </div>
-                <h4 className="font-bold mb-2">Problem Solved</h4>
-                <p className="text-gray-700">We complete the work efficiently and follow up to ensure everything is working perfectly.</p>
+                <h4 className="font-bold mb-2">Expert Problem Solved</h4>
+                <p className="text-gray-700">Our expert technicians complete the work efficiently and follow up to ensure everything is working perfectly.</p>
               </div>
             </div>
           </div>
 
           {/* Additional Content Section for Better SEO */}
           <div className="bg-gray-50 p-8 rounded-lg mb-12">
-            <h3 className="text-2xl font-bold mb-6 text-gray-900">IT Support Services in Charlotte, NC</h3>
+            <h3 className="text-2xl font-bold mb-6 text-gray-900">Expert IT Support Services in Charlotte, NC</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <h4 className="text-xl font-semibold mb-4 text-gray-900">Computer & Technology Services</h4>
+                <h4 className="text-xl font-semibold mb-4 text-gray-900">Expert Computer & Technology Services</h4>
                 <p className="text-gray-700 mb-4">
-                  Our computer repair and IT support services cover everything from basic troubleshooting to complex network setups. 
+                  Our expert computer repair and IT support services cover everything from basic troubleshooting to complex network setups for small businesses. 
                   We specialize in making technology work reliably for both home users and small businesses throughout the Charlotte metro area.
                 </p>
                 <ul className="text-gray-700 space-y-2">
-                  <li>• Virus and malware removal</li>
-                  <li>• Computer speed optimization</li>
-                  <li>• Hardware upgrades and repairs</li>
-                  <li>• Software installation and configuration</li>
-                  <li>• Data recovery and backup solutions</li>
+                  <li>• Expert virus and malware removal</li>
+                  <li>• Computer speed optimization by experts</li>
+                  <li>• Hardware upgrades and expert repairs</li>
+                  <li>• Software installation and expert configuration</li>
+                  <li>• Expert data recovery and backup solutions</li>
                 </ul>
               </div>
               <div>
-                <h4 className="text-xl font-semibold mb-4 text-gray-900">Web Design & Digital Services</h4>
+                <h4 className="text-xl font-semibold mb-4 text-gray-900">Professional Web Design & Digital Services</h4>
                 <p className="text-gray-700 mb-4">
-                  From simple one-page websites to comprehensive business solutions, we help Charlotte businesses establish their online presence. 
-                  Our web design services include hosting, domain registration, SSL certificates, and ongoing maintenance.
+                  From simple one-page websites to comprehensive small business solutions, our expert team helps Charlotte small businesses establish their online presence. 
+                  Our professional web design services include hosting, domain registration, SSL certificates, and ongoing maintenance.
                 </p>
                 <ul className="text-gray-700 space-y-2">
-                  <li>• Custom website design and development</li>
-                  <li>• Domain registration and management</li>
+                  <li>• Custom professional web design and development</li>
+                  <li>• Domain registration and expert management</li>
                   <li>• Web hosting and SSL certificates</li>
-                  <li>• Business email setup and management</li>
-                  <li>• Search engine optimization (SEO)</li>
+                  <li>• Small business email setup and management</li>
+                  <li>• Expert search engine optimization (SEO)</li>
                 </ul>
                 <div className="mt-4">
                   <Link to="/privacy-policy" className="text-blue-600 hover:text-blue-700 underline">
@@ -244,48 +244,48 @@ const Index = () => {
 
           {/* Contact Information Section */}
           <div className="bg-white border border-gray-200 p-8 rounded-lg mb-12">
-            <h3 className="text-2xl font-bold mb-6 text-center text-gray-900">Get in Touch Today</h3>
+            <h3 className="text-2xl font-bold mb-6 text-center text-gray-900">Get in Touch with Our Expert Team Today</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
               <div className="flex flex-col items-center">
                 <Phone className="w-8 h-8 text-blue-600 mb-3" />
-                <h4 className="font-semibold mb-2">Call Us</h4>
+                <h4 className="font-semibold mb-2">Call Our Experts</h4>
                 <a href="tel:+18886610020" className="text-blue-600 hover:text-blue-700">
                   (888) 661-0020
                 </a>
               </div>
               <div className="flex flex-col items-center">
                 <Mail className="w-8 h-8 text-blue-600 mb-3" />
-                <h4 className="font-semibold mb-2">Email Us</h4>
+                <h4 className="font-semibold mb-2">Email Our Expert Team</h4>
                 <a href="mailto:support@itcarolina.us" className="text-blue-600 hover:text-blue-700">
                   support@itcarolina.us
                 </a>
               </div>
               <div className="flex flex-col items-center">
                 <MapPin className="w-8 h-8 text-blue-600 mb-3" />
-                <h4 className="font-semibold mb-2">Service Area</h4>
+                <h4 className="font-semibold mb-2">Expert Service Area</h4>
                 <p className="text-gray-700">Charlotte, NC Metro Area</p>
               </div>
             </div>
           </div>
           
           <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-8 rounded-lg text-white text-center">
-            <h3 className="text-2xl font-bold mb-4">Ready to Solve Your Technology Challenges?</h3>
+            <h3 className="text-2xl font-bold mb-4">Ready to Solve Your Technology Challenges with Expert Help?</h3>
             <p className="mb-6 text-blue-100 max-w-2xl mx-auto">
-              Whether you're dealing with a frustrating computer problem or planning your next business technology project, 
-              we're here to help with honest advice and reliable solutions.
+              Whether you're dealing with a frustrating computer problem or planning your next small business technology project, 
+              our expert team is here to help with honest advice and reliable solutions in Charlotte, NC.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
                 href="tel:+18886610020" 
                 className="bg-white text-blue-600 px-6 py-3 rounded-md hover:bg-gray-100 transition-colors font-medium"
               >
-                Call (888) 661-0020
+                Call Expert Team (888) 661-0020
               </a>
               <Link 
                 to="/pricing" 
                 className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-400 transition-colors font-medium inline-flex items-center justify-center"
               >
-                View Pricing & Services
+                View Expert Pricing & Services
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </div>

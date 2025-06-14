@@ -29,54 +29,75 @@ const Pricing = () => {
         </div>
       </section>
 
-      <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Home IT Support */}
-            <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-              <div className="flex items-center mb-4">
-                <Home className="w-6 h-6 mr-2 text-blue-600" />
-                <h3 className="text-xl font-semibold text-blue-900">Home IT Support</h3>
-              </div>
-              <p className="text-gray-700 mb-4">For personal computers, laptops, printers, and home networks</p>
-              
+      {/* Dedicated Home IT Support Section */}
+      <section className="py-16 bg-blue-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-blue-900 mb-4">Home IT Support</h2>
+            <p className="text-xl text-gray-700">Our most popular service for personal computers, laptops, printers, and home networks</p>
+          </div>
+          
+          <div className="bg-white rounded-xl shadow-lg p-8 border-2 border-blue-200">
+            <div className="flex items-center justify-center mb-6">
+              <Home className="w-8 h-8 mr-3 text-blue-600" />
+              <h3 className="text-2xl font-bold text-blue-900">Home IT Support</h3>
+            </div>
+            
+            <div className="text-center mb-8">
               <div className="mb-4">
-                <p className="text-2xl font-bold text-blue-900">$99</p>
-                <p className="text-sm text-gray-600">On-site call out fee (includes first hour)</p>
-                <p className="text-lg font-semibold text-blue-900 mt-2">$75/hr</p>
-                <p className="text-sm text-gray-600">After first hour (billed in 15-minute increments)</p>
-                <p className="text-xs text-gray-500 mt-2">Most home computer issues are resolved within 1-2 hours</p>
+                <p className="text-4xl font-bold text-blue-900">$99</p>
+                <p className="text-lg text-gray-600">On-site call out fee (includes first hour)</p>
               </div>
+              <div className="mb-4">
+                <p className="text-3xl font-bold text-blue-900">$75/hr</p>
+                <p className="text-lg text-gray-600">After first hour (billed in 15-minute increments)</p>
+              </div>
+              <p className="text-sm text-gray-500 italic">Most home computer issues are resolved within 1-2 hours</p>
+            </div>
 
-              <div className="space-y-2 mb-4">
-                <p className="text-sm font-semibold text-gray-700 mb-2">Includes:</p>
+            <div className="mb-8">
+              <h4 className="text-lg font-semibold text-gray-900 mb-4 text-center">Includes:</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-center">
-                  <Check className="w-4 h-4 mr-2 text-green-500" />
-                  <span className="text-gray-600 text-sm">Computer/laptop troubleshooting & repair</span>
+                  <Check className="w-5 h-5 mr-3 text-green-500" />
+                  <span className="text-gray-700">Computer/laptop troubleshooting & repair</span>
                 </div>
                 <div className="flex items-center">
-                  <Check className="w-4 h-4 mr-2 text-green-500" />
-                  <span className="text-gray-600 text-sm">Virus & malware removal</span>
+                  <Check className="w-5 h-5 mr-3 text-green-500" />
+                  <span className="text-gray-700">Virus & malware removal</span>
                 </div>
                 <div className="flex items-center">
-                  <Check className="w-4 h-4 mr-2 text-green-500" />
-                  <span className="text-gray-600 text-sm">Home Wi-Fi setup & optimization</span>
+                  <Check className="w-5 h-5 mr-3 text-green-500" />
+                  <span className="text-gray-700">Home Wi-Fi setup & optimization</span>
                 </div>
                 <div className="flex items-center">
-                  <Check className="w-4 h-4 mr-2 text-green-500" />
-                  <span className="text-gray-600 text-sm">Printer & peripheral setup</span>
+                  <Check className="w-5 h-5 mr-3 text-green-500" />
+                  <span className="text-gray-700">Printer & peripheral setup</span>
                 </div>
                 <div className="flex items-center">
-                  <Check className="w-4 h-4 mr-2 text-green-500" />
-                  <span className="text-gray-600 text-sm">Data backup & recovery services</span>
+                  <Check className="w-5 h-5 mr-3 text-green-500" />
+                  <span className="text-gray-700">Data backup & recovery services</span>
                 </div>
               </div>
+            </div>
 
-              <button className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">
+            <div className="text-center">
+              <button className="bg-blue-600 text-white py-4 px-8 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors">
                 Book a Home Visit →
               </button>
             </div>
+          </div>
+        </div>
+      </section>
 
+      <section className="py-12 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Additional Services</h2>
+            <p className="text-xl text-gray-600">Specialized computer repair and IT services</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Virus Removal */}
             <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
               <h3 className="text-xl font-semibold text-blue-900 mb-4">Virus & Malware Removal</h3>
@@ -172,7 +193,7 @@ const Pricing = () => {
               <p className="text-2xl font-bold text-blue-900 mt-4">Custom Quote</p>
             </div>
 
-            {/* Printer Support - moved to bottom row */}
+            {/* Printer Support */}
             <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
               <h3 className="text-xl font-semibold text-blue-900 mb-4">Printer & Peripheral Support</h3>
               <p className="text-gray-700 mb-4">Setup, troubleshooting, and repair services for printers, scanners, and other computer peripherals.</p>

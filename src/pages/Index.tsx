@@ -215,11 +215,6 @@ const Index = () => {
                   <li>• Software installation and configuration</li>
                   <li>• Data recovery and backup solutions</li>
                 </ul>
-                <div className="mt-4">
-                  <Link to="/blog" className="text-blue-600 hover:text-blue-700 underline">
-                    Read our IT tips and tutorials
-                  </Link>
-                </div>
               </div>
               <div>
                 <h4 className="text-xl font-semibold mb-4 text-gray-900">Web Design & Digital Services</h4>

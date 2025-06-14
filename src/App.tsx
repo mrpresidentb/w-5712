@@ -16,6 +16,7 @@ import PrinterSupport from "./pages/PrinterSupport";
 import WebHosting from "./pages/WebHosting";
 import Pricing from "./pages/Pricing";
 import TermsOfService from "./pages/TermsOfService";
+import FAQ from "./pages/FAQ";
 
 const App = () => {
   const [queryClient] = useState(() => new QueryClient({
@@ -38,6 +39,7 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/faq" element={<FAQ />} />
             <Route path="/blog/:slug" element={<BlogPostDetail />} />
             <Route path="/services/home-office" element={<HomeOfficeSupport />} />
             <Route path="/services/business" element={<BusinessSupport />} />

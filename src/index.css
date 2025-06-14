@@ -55,6 +55,13 @@
   }
 }
 
+/* Custom gray color for smooth transitions */
+@layer utilities {
+  .bg-gray-25 {
+    background-color: rgb(252, 252, 252);
+  }
+}
+
 .section-container {
   @apply w-full px-4 sm:px-6 lg:px-8 py-12; /* Removed max-w-7xl mx-auto */
 }

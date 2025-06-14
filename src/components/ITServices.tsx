@@ -55,8 +55,11 @@ const ITServices = () => {
   ];
 
   return (
-    <section id="services" className="py-16 bg-gray-50">
-      <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto">
+    <section id="services" className="relative py-16">
+      {/* Gradient transition background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-25 to-gray-50"></div>
+      
+      <div className="relative w-full px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="text-center mb-12">
           <div className="inline-block mb-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
             Our Services

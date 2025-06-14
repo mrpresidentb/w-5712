@@ -10,6 +10,7 @@ interface SEOProps {
   name?: string;
   imageUrl?: string;
   canonical?: string;
+  keywords?: string;
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -18,7 +19,8 @@ const SEO: React.FC<SEOProps> = ({
   type = 'website',
   name = 'IT Carolina',
   imageUrl = '/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png',
-  canonical
+  canonical,
+  keywords = "computer repair near me, computer repair technician near me, computer repair charlotte nc, IT support near me, computer service near me, computer help near me, pc help near me, apple computer support, dell computer support, computer repair shops near me, personal computer repair service, computer support services near me"
 }) => {
   const location = useLocation();
   const currentUrl = canonical || `https://itcarolina.us${location.pathname}`;
@@ -124,7 +126,7 @@ const SEO: React.FC<SEOProps> = ({
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="keywords" content="computer repair near me, computer repair technician near me, computer repair charlotte nc, IT support near me, computer service near me, computer help near me, pc help near me, apple computer support, dell computer support, computer repair shops near me, personal computer repair service, computer support services near me" />
+      <meta name="keywords" content={keywords} />
       <link rel="canonical" href={currentUrl} />
       
       {/* Open Graph / Facebook */}

@@ -1,10 +1,8 @@
-
 import PageLayout from '@/components/PageLayout';
 import ITHero from '@/components/ITHero';
 import ITServices from '@/components/ITServices';
 import ITFeatures from '@/components/ITFeatures';
 import ITTestimonials from '@/components/ITTestimonials';
-import ContactInfo from '@/components/ContactInfo';
 import SEO from '@/components/SEO';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Users, Clock, Shield, Phone, Mail, MapPin } from 'lucide-react';
@@ -295,9 +293,6 @@ const Index = () => {
       
       <ITFeatures />
       <ITTestimonials />
-      
-      {/* Single Contact Section */}
-      <ContactInfo />
     </PageLayout>
   );
 };

@@ -10,10 +10,10 @@ const Index = () => {
   return (
     <PageLayout>
       <SEO 
-        title="Computer Repair & IT Support Charlotte NC | IT Carolina"
-        description="Professional computer repair, IT support, and web services in Charlotte NC. Same-day PC repair, virus removal, network setup, and small business IT solutions. Call (888) 661-0020."
+        title="Computer Repair Charlotte NC | IT Support | IT Carolina"
+        description="Professional computer repair & IT support in Charlotte NC. Same-day PC repair, virus removal, network setup. Call (888) 661-0020 for free quote."
         canonical="https://itcarolina.us/"
-        keywords="computer repair Charlotte NC, IT support Charlotte, PC repair near me, virus removal Charlotte, network setup Charlotte, small business IT Charlotte, computer technician Charlotte, laptop repair Charlotte"
+        keywords="computer repair Charlotte NC, IT support Charlotte, PC repair near me, virus removal Charlotte, network setup Charlotte, laptop repair Charlotte"
       />
       <ITHero />
       <ITServices />

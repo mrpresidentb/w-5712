@@ -1,3 +1,4 @@
+
 import PageLayout from '@/components/PageLayout';
 import SEO from '@/components/SEO';
 import { Check, Clock, Shield, Users, Home } from 'lucide-react';
@@ -7,9 +8,10 @@ const Pricing = () => {
   return (
     <PageLayout>
       <SEO 
-        title="Computer Repair Pricing | IT Support Costs Charlotte NC"
-        description="Transparent computer repair pricing in Charlotte NC. Flat-rate costs for virus removal, PC tune-ups, data recovery, and IT support. No hidden fees. Call (888) 661-0020."
+        title="Computer Repair Pricing Charlotte NC | IT Carolina"
+        description="Transparent computer repair pricing in Charlotte NC. Flat-rate costs for virus removal, PC tune-ups, data recovery. No hidden fees. Call (888) 661-0020."
         canonical="https://itcarolina.us/pricing"
+        keywords="computer repair pricing Charlotte NC, IT support costs, virus removal price, PC tune-up cost, data recovery pricing, flat rate computer repair"
       />
       
       <section className="pt-28 pb-16 bg-gradient-to-b from-blue-900 to-blue-800 text-white">

@@ -8,9 +8,10 @@ const About = () => {
   return (
     <PageLayout>
       <SEO 
-        title="About IT Carolina | Expert IT Support Team in Charlotte NC"
-        description="Learn about IT Carolina's expert IT support team serving Charlotte, NC. Local computer repair, network setup, and web design services with transparent pricing and personal service."
+        title="About IT Carolina | IT Support Team Charlotte NC"
+        description="Learn about IT Carolina's expert IT support team in Charlotte, NC. Local computer repair, network setup, and web design with transparent pricing."
         canonical="https://itcarolina.us/about"
+        keywords="IT Carolina team, Charlotte computer repair company, local IT support, computer technicians Charlotte NC, about IT Carolina"
       />
       
       <div className="pt-20 pb-16">

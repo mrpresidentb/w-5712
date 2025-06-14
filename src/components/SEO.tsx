@@ -127,6 +127,8 @@ const SEO: React.FC<SEOProps> = ({
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
+      <meta name="robots" content="index, follow" />
+      <meta name="googlebot" content="index, follow" />
       <link rel="canonical" href={currentUrl} />
       
       {/* Open Graph / Facebook */}
@@ -155,8 +157,6 @@ const SEO: React.FC<SEOProps> = ({
       
       {/* Additional meta tags */}
       <meta name="author" content={name} />
-      <meta name="robots" content="index, follow" />
-      <meta name="googlebot" content="index, follow" />
       
       {/* JSON-LD structured data */}
       <script type="application/ld+json">

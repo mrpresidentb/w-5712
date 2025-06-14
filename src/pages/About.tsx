@@ -2,6 +2,7 @@
 import PageLayout from '@/components/PageLayout';
 import SEO from '@/components/SEO';
 import { Shield, Users, Clock, Award } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const About = () => {
   return (
@@ -31,10 +32,14 @@ const About = () => {
                 At IT Carolina, we believe technology should work for you, not against you. Our mission is to 
                 provide reliable, honest, and affordable IT support that helps our clients focus on what they do best.
               </p>
-              <p className="text-gray-600 text-lg">
+              <p className="text-gray-600 text-lg mb-6">
                 We specialize in making complex technology simple and accessible for home users and small businesses 
                 throughout the Charlotte area. No confusing jargon, no hidden fees – just straightforward solutions 
                 that work.
+              </p>
+              <p className="text-gray-600 text-lg">
+                Have questions about our services or process? Check out our <Link to="/faq" className="text-blue-600 hover:text-blue-700 underline">frequently asked questions</Link> page 
+                for detailed information about computer repair costs, service areas, and what to expect when you work with us.
               </p>
             </div>
             
@@ -85,6 +90,9 @@ const About = () => {
                   <li>• Data backup and recovery</li>
                   <li>• Software installation and updates</li>
                 </ul>
+                <Link to="/services/home-office" className="text-blue-600 hover:text-blue-700 text-sm mt-3 inline-block">
+                  Learn more about home support services →
+                </Link>
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-4 text-blue-900">For Small Business</h3>
@@ -95,6 +103,9 @@ const About = () => {
                   <li>• Security solutions and monitoring</li>
                   <li>• Ongoing IT support plans</li>
                 </ul>
+                <Link to="/services/business" className="text-blue-600 hover:text-blue-700 text-sm mt-3 inline-block">
+                  Explore business IT solutions →
+                </Link>
               </div>
             </div>
           </div>

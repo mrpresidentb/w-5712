@@ -7,7 +7,7 @@ import ITTestimonials from '@/components/ITTestimonials';
 import ContactInfo from '@/components/ContactInfo';
 import SEO from '@/components/SEO';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Users, Clock, Shield } from 'lucide-react';
+import { ArrowRight, CheckCircle, Users, Clock, Shield, Phone, Mail, MapPin } from 'lucide-react';
 
 const Index = () => {
   return (
@@ -46,14 +46,14 @@ const Index = () => {
               <p className="text-gray-700 mb-6 leading-relaxed">
                 Our team of certified technicians has over 15 years of combined experience helping Charlotte area residents and 
                 small businesses solve their technology challenges. From removing stubborn viruses to designing professional websites, 
-                we handle it all with the same level of care and expertise.
+                we handle it all with the same level of care and expertise. <Link to="/about" className="text-blue-600 hover:text-blue-700 underline">Learn more about our team and mission</Link>.
               </p>
               <div className="space-y-4">
                 <div className="flex items-start">
                   <CheckCircle className="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Flat-Rate, Transparent Pricing</h4>
-                    <p className="text-gray-700">No hourly rates or surprise fees. You know exactly what you'll pay before we start.</p>
+                    <p className="text-gray-700">No hourly rates or surprise fees. You know exactly what you'll pay before we start. <Link to="/pricing" className="text-blue-600 hover:text-blue-700 underline">View our complete pricing guide</Link>.</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -84,12 +84,20 @@ const Index = () => {
                 <li>"Can you set up email for my business domain?"</li>
                 <li>"I need help backing up my important data"</li>
               </ul>
-              <div className="mt-6">
+              <div className="mt-6 space-y-3">
                 <Link 
                   to="/pricing" 
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
                 >
                   View Our Service Pricing
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
+                <br />
+                <Link 
+                  to="/services/printer" 
+                  className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  Printer Support Services
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </div>
@@ -118,7 +126,7 @@ const Index = () => {
                   <li>• Home office technology setup</li>
                 </ul>
                 <Link 
-                  to="/home-office-support" 
+                  to="/services/home-office" 
                   className="inline-flex items-center mt-4 text-blue-600 hover:text-blue-700 font-medium"
                 >
                   Learn About Home Support
@@ -138,13 +146,23 @@ const Index = () => {
                   <li>• Managed backups and security</li>
                   <li>• Ongoing IT support plans</li>
                 </ul>
-                <Link 
-                  to="/business-support" 
-                  className="inline-flex items-center mt-4 text-blue-600 hover:text-blue-700 font-medium"
-                >
-                  Explore Business Services
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
+                <div className="mt-4 space-y-2">
+                  <Link 
+                    to="/services/business" 
+                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Explore Business Services
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Link>
+                  <br />
+                  <Link 
+                    to="/services/web-hosting" 
+                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Web Design & Hosting
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -176,6 +194,81 @@ const Index = () => {
                 </div>
                 <h4 className="font-bold mb-2">Problem Solved</h4>
                 <p className="text-gray-700">We complete the work efficiently and follow up to ensure everything is working perfectly.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Content Section for Better SEO */}
+          <div className="bg-gray-50 p-8 rounded-lg mb-12">
+            <h3 className="text-2xl font-bold mb-6 text-gray-900">IT Support Services in Charlotte, NC</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h4 className="text-xl font-semibold mb-4 text-gray-900">Computer & Technology Services</h4>
+                <p className="text-gray-700 mb-4">
+                  Our computer repair and IT support services cover everything from basic troubleshooting to complex network setups. 
+                  We specialize in making technology work reliably for both home users and small businesses throughout the Charlotte metro area.
+                </p>
+                <ul className="text-gray-700 space-y-2">
+                  <li>• Virus and malware removal</li>
+                  <li>• Computer speed optimization</li>
+                  <li>• Hardware upgrades and repairs</li>
+                  <li>• Software installation and configuration</li>
+                  <li>• Data recovery and backup solutions</li>
+                </ul>
+                <div className="mt-4">
+                  <Link to="/blog" className="text-blue-600 hover:text-blue-700 underline">
+                    Read our IT tips and tutorials
+                  </Link>
+                </div>
+              </div>
+              <div>
+                <h4 className="text-xl font-semibold mb-4 text-gray-900">Web Design & Digital Services</h4>
+                <p className="text-gray-700 mb-4">
+                  From simple one-page websites to comprehensive business solutions, we help Charlotte businesses establish their online presence. 
+                  Our web design services include hosting, domain registration, SSL certificates, and ongoing maintenance.
+                </p>
+                <ul className="text-gray-700 space-y-2">
+                  <li>• Custom website design and development</li>
+                  <li>• Domain registration and management</li>
+                  <li>• Web hosting and SSL certificates</li>
+                  <li>• Business email setup and management</li>
+                  <li>• Search engine optimization (SEO)</li>
+                </ul>
+                <div className="mt-4">
+                  <Link to="/privacy-policy" className="text-blue-600 hover:text-blue-700 underline">
+                    View our privacy policy
+                  </Link>
+                  {" | "}
+                  <Link to="/terms" className="text-blue-600 hover:text-blue-700 underline">
+                    Terms of service
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Information Section */}
+          <div className="bg-white border border-gray-200 p-8 rounded-lg mb-12">
+            <h3 className="text-2xl font-bold mb-6 text-center text-gray-900">Get in Touch Today</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+              <div className="flex flex-col items-center">
+                <Phone className="w-8 h-8 text-blue-600 mb-3" />
+                <h4 className="font-semibold mb-2">Call Us</h4>
+                <a href="tel:+18886610020" className="text-blue-600 hover:text-blue-700">
+                  (888) 661-0020
+                </a>
+              </div>
+              <div className="flex flex-col items-center">
+                <Mail className="w-8 h-8 text-blue-600 mb-3" />
+                <h4 className="font-semibold mb-2">Email Us</h4>
+                <a href="mailto:support@itcarolina.us" className="text-blue-600 hover:text-blue-700">
+                  support@itcarolina.us
+                </a>
+              </div>
+              <div className="flex flex-col items-center">
+                <MapPin className="w-8 h-8 text-blue-600 mb-3" />
+                <h4 className="font-semibold mb-2">Service Area</h4>
+                <p className="text-gray-700">Charlotte, NC Metro Area</p>
               </div>
             </div>
           </div>

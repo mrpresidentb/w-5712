@@ -21,6 +21,7 @@ const SEO: React.FC<SEOProps> = ({
   canonical
 }) => {
   const location = useLocation();
+  // Fix canonical URL generation - always use the current page unless explicitly overridden
   const currentUrl = canonical || `https://itcarolina.us${location.pathname}`;
   const absoluteImageUrl = imageUrl.startsWith('http') ? imageUrl : `https://itcarolina.us${imageUrl}`;
 

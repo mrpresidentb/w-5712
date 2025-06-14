@@ -1,62 +1,63 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://itcarolina.us/</loc>
-    <lastmod>2025-06-12</lastmod>
+    <lastmod>2025-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/about</loc>
-    <lastmod>2025-06-12</lastmod>
+    <lastmod>2025-06-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/services/home-office</loc>
-    <lastmod>2025-06-12</lastmod>
+    <lastmod>2025-06-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/services/business</loc>
-    <lastmod>2025-06-12</lastmod>
+    <lastmod>2025-06-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/services/printer</loc>
-    <lastmod>2025-06-12</lastmod>
+    <lastmod>2025-06-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/services/web-hosting</loc>
-    <lastmod>2025-06-12</lastmod>
+    <lastmod>2025-06-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/pricing</loc>
-    <lastmod>2025-06-12</lastmod>
+    <lastmod>2025-06-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/blog</loc>
-    <lastmod>2025-06-12</lastmod>
+    <lastmod>2025-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/privacy-policy</loc>
-    <lastmod>2025-06-12</lastmod>
+    <lastmod>2025-06-14</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/terms</loc>
-    <lastmod>2025-06-12</lastmod>
+    <lastmod>2025-06-14</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

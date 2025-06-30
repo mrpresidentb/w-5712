@@ -58,12 +58,19 @@ const FAQ = () => {
     setOpenFAQ(openFAQ === index ? null : index);
   };
 
+  // Prepare FAQ data for structured data
+  const faqStructuredData = faqs.map(faq => ({
+    question: faq.question,
+    answer: faq.answer
+  }));
+
   return (
     <PageLayout>
       <SEO 
         title="Computer Repair FAQ | IT Support Questions | Charlotte NC"
         description="Common questions about computer repair, IT support, and technology services in Charlotte NC. Get answers about pricing, services, and local computer help."
         canonical="https://itcarolina.us/faq"
+        faqData={faqStructuredData}
       />
       
       <section className="pt-28 pb-16 bg-gradient-to-b from-blue-900 to-blue-800 text-white">

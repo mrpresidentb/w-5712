@@ -3,6 +3,25 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface HowToStep {
+  name: string;
+  text: string;
+  url?: string;
+}
+
+interface HowToData {
+  name: string;
+  description: string;
+  steps: HowToStep[];
+  totalTime?: string;
+  estimatedCost?: string;
+}
+
 interface SEOProps {
   title?: string;
   description?: string;
@@ -11,6 +30,8 @@ interface SEOProps {
   imageUrl?: string;
   canonical?: string;
   keywords?: string;
+  faqData?: FAQItem[];
+  howToData?: HowToData;
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -20,7 +41,9 @@ const SEO: React.FC<SEOProps> = ({
   name = 'IT Carolina',
   imageUrl = '/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png',
   canonical,
-  keywords = "computer repair near me, computer repair technician near me, computer repair charlotte nc, IT support near me, computer service near me, computer help near me, pc help near me, apple computer support, dell computer support, computer repair shops near me, personal computer repair service, computer support services near me"
+  keywords = "computer repair near me, computer repair technician near me, computer repair charlotte nc, IT support near me, computer service near me, computer help near me, pc help near me, apple computer support, dell computer support, computer repair shops near me, personal computer repair service, computer support services near me",
+  faqData,
+  howToData
 }) => {
   const location = useLocation();
   const currentUrl = canonical || `https://itcarolina.us${location.pathname}`;
@@ -122,6 +145,41 @@ const SEO: React.FC<SEOProps> = ({
     sameAs: []
   };
 
+  // FAQ Schema
+  const faqSchema = faqData ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqData.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
+      }
+    }))
+  } : null;
+
+  // HowTo Schema
+  const howToSchema = howToData ? {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: howToData.name,
+    description: howToData.description,
+    totalTime: howToData.totalTime,
+    estimatedCost: howToData.estimatedCost ? {
+      '@type': 'MonetaryAmount',
+      currency: 'USD',
+      value: howToData.estimatedCost
+    } : undefined,
+    step: howToData.steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      url: step.url
+    }))
+  } : null;
+
   return (
     <Helmet>
       <title>{title}</title>
@@ -158,10 +216,29 @@ const SEO: React.FC<SEOProps> = ({
       {/* Additional meta tags */}
       <meta name="author" content={name} />
       
+      {/* Core Web Vitals optimizations */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+      
       {/* JSON-LD structured data */}
       <script type="application/ld+json">
         {JSON.stringify(structuredData)}
       </script>
+      
+      {/* FAQ Schema */}
+      {faqSchema && (
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
+        </script>
+      )}
+      
+      {/* HowTo Schema */}
+      {howToSchema && (
+        <script type="application/ld+json">
+          {JSON.stringify(howToSchema)}
+        </script>
+      )}
     </Helmet>
   );
 };

@@ -46,24 +46,52 @@
 
   html, body {
     @apply m-0 p-0 overflow-x-hidden;
-    width: 100vw; /* Changed from w-full to 100vw */
-    max-width: 100%; /* Added max-width */
+    width: 100vw;
+    max-width: 100%;
   }
 
   body {
     @apply bg-white text-foreground font-space;
   }
+
+  /* Core Web Vitals optimizations */
+  img {
+    content-visibility: auto;
+    contain-intrinsic-size: 300px 200px;
+  }
+
+  /* Optimize for CLS (Cumulative Layout Shift) */
+  img[width][height] {
+    aspect-ratio: attr(width) / attr(height);
+  }
+
+  /* Prevent layout shifts from fonts */
+  .font-space {
+    font-display: swap;
+  }
 }
 
-/* Custom gray color for smooth transitions */
+/* Core Web Vitals - Reduce CLS */
 @layer utilities {
   .bg-gray-25 {
     background-color: rgb(252, 252, 252);
   }
+  
+  .aspect-ratio-preserve {
+    contain: layout style paint;
+  }
+  
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .gpu-accelerated {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .section-container {
-  @apply w-full px-4 sm:px-6 lg:px-8 py-12; /* Removed max-w-7xl mx-auto */
+  @apply w-full px-4 sm:px-6 lg:px-8 py-12;
 }
 
 .hover-lift {
@@ -81,8 +109,9 @@
 /* Banner styles */
 .banner-container {
   position: relative;
-  width: 100vw; /* Changed from 100% to 100vw */
+  width: 100vw;
   overflow: hidden;
+  contain: layout;
 }
 
 .banner-overlay {
@@ -103,7 +132,7 @@
 .banner-title {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 1.5rem; /* Adjusted to match 20-30px spacing */
+  margin-bottom: 1.5rem;
 }
 
 .banner-subtitle {
@@ -111,7 +140,7 @@
   max-width: 800px;
 }
 
-/* Animation classes */
+/* Animation classes - Optimized for performance */
 @keyframes float {
   0% {
     transform: translateY(0);
@@ -182,10 +211,12 @@
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-circle {
   animation: float 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-line {
@@ -194,6 +225,7 @@
 
 .animate-rotate {
   animation: rotate 20s linear infinite;
+  will-change: transform;
 }
 
 .animate-fade-in {
@@ -226,7 +258,7 @@
   animation: slideIn 0.6s ease-out forwards;
 }
 
-/* Hover animations */
+/* Hover animations - Optimized */
 .hover-underline {
   position: relative;
 }
@@ -248,13 +280,14 @@
 
 .hover-scale {
   transition: transform 0.3s ease;
+  will-change: transform;
 }
 
 .hover-scale:hover {
   transform: scale(1.05);
 }
 
-/* New pulse animation */
+/* Optimized pulse animation */
 @keyframes pulse-slow {
   0%, 100% {
     opacity: 1;
@@ -268,4 +301,22 @@
 
 .animate-pulse-slow {
   animation: pulse-slow 4s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Reduce paint on scroll */
+.optimized-scroll {
+  contain: layout style paint;
+  content-visibility: auto;
 }

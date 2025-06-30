@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X, ChevronDown, Shield, Headphones } from "lucide-react";
@@ -152,80 +153,81 @@ const Navbar = () => {
       <div className={cn("md:hidden transition-all duration-300 overflow-hidden w-full", isMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0")}>
         <div className={cn("px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-sm", isScrolled ? "bg-white" : "bg-blue-900")}>
           <Link to="/" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-          setIsMenuOpen(false);
-          window.scrollTo(0, 0);
-        }}>
+            setIsMenuOpen(false);
+            window.scrollTo(0, 0);
+          }}>
             Home
           </Link>
           
           <Link to="/about" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-          setIsMenuOpen(false);
-          window.scrollTo(0, 0);
-        }}>
+            setIsMenuOpen(false);
+            window.scrollTo(0, 0);
+          }}>
             About Us
           </Link>
           
           <div className="block">
             <button onClick={e => {
-            e.preventDefault();
-            const submenu = e.currentTarget.nextElementSibling;
-            if (submenu) {
-              submenu.classList.toggle('hidden');
-            }
-          }} className={cn("flex w-full justify-between items-center px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")}>
+              e.preventDefault();
+              const submenu = e.currentTarget.nextElementSibling;
+              if (submenu) {
+                submenu.classList.toggle('hidden');
+              }
+            }} className={cn("flex w-full justify-between items-center px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")}>
               <span>Services</span>
               <ChevronDown className="h-4 w-4" />
             </button>
             
             <div className="hidden ml-4 mt-1 space-y-1">
               <Link to="/services/home-office" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-              setIsMenuOpen(false);
-            }}>
-              Home & Home-Office Support
-            </Link>
+                setIsMenuOpen(false);
+              }}>
+                Home & Home-Office Support
+              </Link>
               <Link to="/services/business" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-              setIsMenuOpen(false);
-            }}>
-              Small Business IT Support
-            </Link>
+                setIsMenuOpen(false);
+              }}>
+                Small Business IT Support
+              </Link>
               <Link to="/services/printer" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-              setIsMenuOpen(false);
-            }}>
-              Printer & Peripherals
-            </Link>
+                setIsMenuOpen(false);
+              }}>
+                Printer & Peripherals
+              </Link>
               <Link to="/services/web-hosting" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-              setIsMenuOpen(false);
-            }}>
-              Web & Hosting Solutions
-            </Link>
+                setIsMenuOpen(false);
+              }}>
+                Web & Hosting Solutions
+              </Link>
+            </div>
           </div>
+          
+          <Link to="/blog" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
+            setIsMenuOpen(false);
+            window.scrollTo(0, 0);
+          }}>
+            Blog
+          </Link>
+          
+          <Link to="/pricing" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
+            setIsMenuOpen(false);
+            window.scrollTo(0, 0);
+          }}>
+            Pricing
+          </Link>
+          
+          <Link to="/faq" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
+            setIsMenuOpen(false);
+            window.scrollTo(0, 0);
+          }}>
+            FAQ
+          </Link>
+          
+          <button onClick={() => scrollToSection('contact')} className={cn("flex items-center w-full text-left px-3 py-2 rounded-md", isScrolled ? "bg-blue-600 text-white" : "bg-blue-700 text-white")}>
+            <Headphones className="mr-2 h-4 w-4" />
+            Get Support
+          </button>
         </div>
-        
-        <Link to="/blog" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-          setIsMenuOpen(false);
-          window.scrollTo(0, 0);
-        }}>
-          Blog
-        </Link>
-        
-        <Link to="/pricing" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-          setIsMenuOpen(false);
-          window.scrollTo(0, 0);
-        }}>
-          Pricing
-        </Link>
-        
-        <Link to="/faq" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-          setIsMenuOpen(false);
-          window.scrollTo(0, 0);
-        }}>
-          FAQ
-        </Link>
-        
-        <button onClick={() => scrollToSection('contact')} className={cn("flex items-center w-full text-left px-3 py-2 rounded-md", isScrolled ? "bg-blue-600 text-white" : "bg-blue-700 text-white")}>
-          <Headphones className="mr-2 h-4 w-4" />
-          Get Support
-        </button>
       </div>
     </motion.nav>
   );

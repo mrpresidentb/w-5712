@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import BlogPostDetail from "./pages/BlogPostDetail";
+import BlogListing from "./pages/BlogListing";
 import HomeOfficeSupport from "./pages/HomeOfficeSupport";
 import BusinessSupport from "./pages/BusinessSupport";
 import PrinterSupport from "./pages/PrinterSupport";
@@ -40,6 +41,7 @@ const App = () => {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/blog" element={<BlogListing />} />
             <Route path="/blog/:slug" element={<BlogPostDetail />} />
             <Route path="/services/home-office" element={<HomeOfficeSupport />} />
             <Route path="/services/business" element={<BusinessSupport />} />

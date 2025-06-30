@@ -1,11 +1,12 @@
 import { useParams, Link } from 'react-router-dom';
 import PageLayout from '@/components/PageLayout';
+import BlogSidebar from '@/components/BlogSidebar';
 import { Separator } from '@/components/ui/separator';
 import SEO from '@/components/SEO';
 import { useEffect } from 'react';
 import { blogPosts } from '@/data/blogPosts';
 import { motion } from 'framer-motion';
-import { BookOpen, Calendar, Clock, MessageSquare, Share, Tag } from 'lucide-react';
+import { BookOpen, Calendar, Clock, MessageSquare, Share, Tag, ArrowLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -96,12 +97,18 @@ const BlogPostDetail = () => {
     return (
       <PageLayout>
         <SEO 
-          title="Post Not Found - WRLDS Technologies" 
+          title="Post Not Found - IT Carolina" 
           description="The requested blog post could not be found."
         />
         <div className="container mx-auto px-4 py-16 min-h-[50vh] flex flex-col items-center justify-center">
           <h1 className="text-3xl font-bold mb-4">Post not found</h1>
           <p>We couldn't find the post you're looking for.</p>
+          <Link to="/blog" className="mt-4">
+            <Button variant="outline">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Blog
+            </Button>
+          </Link>
         </div>
       </PageLayout>
     );
@@ -118,14 +125,52 @@ const BlogPostDetail = () => {
   }, 0);
   const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
+  const breadcrumbItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Blog', href: '/blog' },
+    { label: post.title }
+  ];
+
+  // Article structured data
+  const articleStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt,
+    image: post.imageUrl,
+    author: {
+      '@type': 'Person',
+      name: post.author
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'IT Carolina',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png'
+      }
+    },
+    datePublished: post.date,
+    dateModified: post.date,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://itcarolina.us/blog/${post.slug}`
+    }
+  };
+
   return (
-    <PageLayout>
+    <PageLayout breadcrumbItems={breadcrumbItems}>
       <SEO 
-        title={`${post.title} - WRLDS Technologies`} 
+        title={`${post.title} - IT Carolina`} 
         description={post.excerpt} 
         imageUrl={post.imageUrl}
         type="article"
       />
+      
+      {/* Article structured data */}
+      <script type="application/ld+json">
+        {JSON.stringify(articleStructuredData)}
+      </script>
       
       <div 
         className="w-full pt-32 pb-16 bg-gradient-to-b from-black to-gray-900 text-white relative" 
@@ -145,7 +190,11 @@ const BlogPostDetail = () => {
             y: 0
           }} transition={{
             duration: 0.6
-          }} className="max-w-3xl mx-auto">
+          }} className="max-w-4xl mx-auto">
+            <Link to="/blog" className="inline-flex items-center text-white/80 hover:text-white mb-6">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Blog
+            </Link>
             <div className="flex items-center gap-2 mb-4">
               <Badge variant="secondary" className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 flex items-center gap-1.5">
                 <Tag size={14} />
@@ -170,54 +219,81 @@ const BlogPostDetail = () => {
       </div>
       
       <div className="container mx-auto px-4 py-12">
-        <div className="max-w-3xl mx-auto">
-          <motion.div initial={{
-            opacity: 0
-          }} animate={{
-            opacity: 1
-          }} transition={{
-            duration: 0.6,
-            delay: 0.2
-          }} className="prose prose-lg max-w-none">
-            {post.content.map((section, index) => <motion.div key={index} initial={{
-              opacity: 0,
-              y: 10
+        <div className="grid lg:grid-cols-4 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-3">
+            <motion.div initial={{
+              opacity: 0
             }} animate={{
-              opacity: 1,
-              y: 0
+              opacity: 1
             }} transition={{
-              duration: 0.4,
-              delay: 0.1 * index
-            }} className={cn("mb-8", section.type === 'quote' && "my-10")}>
-                {section.type === 'paragraph' && <p className="text-gray-700 mb-4 leading-relaxed">
-                  {renderContentWithLinks(section.content)}
-                </p>}
-                {section.type === 'heading' && <div className="flex items-center gap-3 mt-12 mb-6">
-                    <div className="w-1.5 h-7 bg-purple-500 rounded-full"></div>
-                    <h2 className="text-2xl font-bold text-gray-900">{section.content}</h2>
-                  </div>}
-                {section.type === 'subheading' && <h3 className="text-xl font-bold mt-8 mb-3 text-gray-800 flex items-center gap-2">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                    {section.content}
-                  </h3>}
-                {section.type === 'list' && <ul className="list-disc pl-5 my-4 space-y-2">
-                    {section.items?.map((item, itemIndex) => <li key={itemIndex} className="text-gray-700">{item}</li>)}
-                  </ul>}
-                {section.type === 'quote' && <blockquote className="border-l-4 border-purple-500 pl-5 py-2 my-8 bg-purple-50 rounded-r-lg italic text-gray-700">
-                    <div className="flex">
-                      <MessageSquare size={20} className="text-purple-500 mr-3 mt-1 flex-shrink-0" />
-                      <p className="text-lg m-0">{section.content}</p>
-                    </div>
-                  </blockquote>}
-              </motion.div>)}
-          </motion.div>
-          
-          <Separator className="my-8" />
-          
-          <div className="flex flex-col sm:flex-row items-center justify-between py-6 bg-gray-50 rounded-lg p-6 shadow-sm">
-            <div>
-              <p className="text-sm text-gray-600 font-medium">Category: {post.category}</p>
+              duration: 0.6,
+              delay: 0.2
+            }} className="prose prose-lg max-w-none">
+              {post.content.map((section, index) => (
+                <motion.div key={index} initial={{
+                  opacity: 0,
+                  y: 10
+                }} animate={{
+                  opacity: 1,
+                  y: 0
+                }} transition={{
+                  duration: 0.4,
+                  delay: 0.1 * index
+                }} className={cn("mb-8", section.type === 'quote' && "my-10")}>
+                  {section.type === 'paragraph' && <p className="text-gray-700 mb-4 leading-relaxed">
+                    {renderContentWithLinks(section.content)}
+                  </p>}
+                  {section.type === 'heading' && <div className="flex items-center gap-3 mt-12 mb-6">
+                      <div className="w-1.5 h-7 bg-purple-500 rounded-full"></div>
+                      <h2 className="text-2xl font-bold text-gray-900">{section.content}</h2>
+                    </div>}
+                  {section.type === 'subheading' && <h3 className="text-xl font-bold mt-8 mb-3 text-gray-800 flex items-center gap-2">
+                      <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                      {section.content}
+                    </h3>}
+                  {section.type === 'list' && <ul className="list-disc pl-5 my-4 space-y-2">
+                      {section.items?.map((item, itemIndex) => <li key={itemIndex} className="text-gray-700">{item}</li>)}
+                    </ul>}
+                  {section.type === 'quote' && <blockquote className="border-l-4 border-purple-500 pl-5 py-2 my-8 bg-purple-50 rounded-r-lg italic text-gray-700">
+                      <div className="flex">
+                        <MessageSquare size={20} className="text-purple-500 mr-3 mt-1 flex-shrink-0" />
+                        <p className="text-lg m-0">{section.content}</p>
+                      </div>
+                    </blockquote>}
+                </motion.div>
+              ))}
+            </motion.div>
+            
+            <Separator className="my-8" />
+            
+            <div className="flex flex-col sm:flex-row items-center justify-between py-6 bg-gray-50 rounded-lg p-6 shadow-sm">
+              <div>
+                <p className="text-sm text-gray-600 font-medium">Category: {post.category}</p>
+              </div>
+              <div className="flex items-center gap-2 mt-4 sm:mt-0">
+                <span className="text-sm text-gray-600">Share this article:</span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    navigator.share?.({
+                      title: post.title,
+                      text: post.excerpt,
+                      url: window.location.href
+                    }) || navigator.clipboard.writeText(window.location.href);
+                  }}
+                >
+                  <Share className="w-4 h-4 mr-1" />
+                  Share
+                </Button>
+              </div>
             </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="lg:col-span-1">
+            <BlogSidebar currentSlug={slug} />
           </div>
         </div>
       </div>

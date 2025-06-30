@@ -35,13 +35,14 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
-  return <motion.nav className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full", isScrolled ? "bg-white shadow-sm" : "bg-blue-900")} initial={{
-    opacity: 1,
-    y: 0
-  }} animate={{
-    opacity: 1,
-    y: 0
-  }}>
+  return (
+    <motion.nav className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full", isScrolled ? "bg-white shadow-sm" : "bg-blue-900")} initial={{
+      opacity: 1,
+      y: 0
+    }} animate={{
+      opacity: 1,
+      y: 0
+    }}>
       <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
@@ -113,6 +114,14 @@ const Navbar = () => {
                 </NavigationMenuItem>
                 
                 <NavigationMenuItem>
+                  <Link to="/blog">
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-blue-900" : "text-gray-100 hover:text-white bg-transparent hover:bg-blue-800")}>
+                      Blog
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                
+                <NavigationMenuItem>
                   <Link to="/faq">
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), isScrolled ? "text-gray-700 hover:text-blue-900" : "text-gray-100 hover:text-white bg-transparent hover:bg-blue-800")}>
                       FAQ
@@ -172,47 +181,54 @@ const Navbar = () => {
               <Link to="/services/home-office" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
               setIsMenuOpen(false);
             }}>
-                Home & Home-Office Support
-              </Link>
+              Home & Home-Office Support
+            </Link>
               <Link to="/services/business" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
               setIsMenuOpen(false);
             }}>
-                Small Business IT Support
-              </Link>
+              Small Business IT Support
+            </Link>
               <Link to="/services/printer" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
               setIsMenuOpen(false);
             }}>
-                Printer & Peripherals
-              </Link>
+              Printer & Peripherals
+            </Link>
               <Link to="/services/web-hosting" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
               setIsMenuOpen(false);
             }}>
-                Web & Hosting Solutions
-              </Link>
-            </div>
+              Web & Hosting Solutions
+            </Link>
           </div>
-          
-          <Link to="/pricing" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-          setIsMenuOpen(false);
-          window.scrollTo(0, 0);
-        }}>
-            Pricing
-          </Link>
-          
-          <Link to="/faq" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
-          setIsMenuOpen(false);
-          window.scrollTo(0, 0);
-        }}>
-            FAQ
-          </Link>
-          
-          <button onClick={() => scrollToSection('contact')} className={cn("flex items-center w-full text-left px-3 py-2 rounded-md", isScrolled ? "bg-blue-600 text-white" : "bg-blue-700 text-white")}>
-            <Headphones className="mr-2 h-4 w-4" />
-            Get Support
-          </button>
         </div>
+        
+        <Link to="/blog" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
+          setIsMenuOpen(false);
+          window.scrollTo(0, 0);
+        }}>
+          Blog
+        </Link>
+        
+        <Link to="/pricing" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
+          setIsMenuOpen(false);
+          window.scrollTo(0, 0);
+        }}>
+          Pricing
+        </Link>
+        
+        <Link to="/faq" className={cn("block px-3 py-2 rounded-md", isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-gray-200 hover:bg-blue-800")} onClick={() => {
+          setIsMenuOpen(false);
+          window.scrollTo(0, 0);
+        }}>
+          FAQ
+        </Link>
+        
+        <button onClick={() => scrollToSection('contact')} className={cn("flex items-center w-full text-left px-3 py-2 rounded-md", isScrolled ? "bg-blue-600 text-white" : "bg-blue-700 text-white")}>
+          <Headphones className="mr-2 h-4 w-4" />
+          Get Support
+        </button>
       </div>
-    </motion.nav>;
+    </motion.nav>
+  );
 };
 
 export default Navbar;

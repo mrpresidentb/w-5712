@@ -18,6 +18,7 @@ import WebHosting from "./pages/WebHosting";
 import Pricing from "./pages/Pricing";
 import TermsOfService from "./pages/TermsOfService";
 import FAQ from "./pages/FAQ";
+import BlogAdmin from "./pages/admin/BlogAdmin";
 
 const App = () => {
   const [queryClient] = useState(() => new QueryClient({
@@ -48,6 +49,7 @@ const App = () => {
             <Route path="/services/printer" element={<PrinterSupport />} />
             <Route path="/services/web-hosting" element={<WebHosting />} />
             <Route path="/pricing" element={<Pricing />} />
+            <Route path="/admin/blog" element={<BlogAdmin />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

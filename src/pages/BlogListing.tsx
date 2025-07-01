@@ -97,7 +97,10 @@ const BlogListing = () => {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <BlogSidebar />
+            <BlogSidebar 
+              selectedCategory={selectedCategory}
+              onCategorySelect={setSelectedCategory}
+            />
           </div>
         </div>
       </div>

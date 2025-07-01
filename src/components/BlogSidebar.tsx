@@ -6,9 +6,11 @@ import { useBlogData } from '@/hooks/useBlogData';
 
 interface BlogSidebarProps {
   currentSlug?: string;
+  selectedCategory?: string | null;
+  onCategorySelect?: (category: string | null) => void;
 }
 
-const BlogSidebar = ({ currentSlug }: BlogSidebarProps) => {
+const BlogSidebar = ({ currentSlug, selectedCategory, onCategorySelect }: BlogSidebarProps) => {
   const { blogPosts } = useBlogData();
   
   // Get recent posts (excluding current post if on detail page)
@@ -18,6 +20,12 @@ const BlogSidebar = ({ currentSlug }: BlogSidebarProps) => {
 
   // Get unique categories
   const categories = Array.from(new Set(blogPosts.map(post => post.category)));
+
+  const handleCategoryClick = (category: string) => {
+    if (onCategorySelect) {
+      onCategorySelect(selectedCategory === category ? null : category);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -59,8 +67,18 @@ const BlogSidebar = ({ currentSlug }: BlogSidebarProps) => {
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => {
               const postCount = blogPosts.filter(post => post.category === category).length;
+              const isSelected = selectedCategory === category;
               return (
-                <Badge key={category} variant="secondary" className="text-xs">
+                <Badge 
+                  key={category} 
+                  variant={isSelected ? "default" : "secondary"} 
+                  className={`text-xs cursor-pointer transition-colors ${
+                    isSelected 
+                      ? "bg-purple-600 hover:bg-purple-700" 
+                      : "hover:bg-secondary/80"
+                  }`}
+                  onClick={() => handleCategoryClick(category)}
+                >
                   {category} ({postCount})
                 </Badge>
               );

@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { BlogPost, BlogCategory } from '@/types/supabase-blog';
 import { fetchBlogPosts, fetchBlogPostBySlug, fetchBlogCategories } from '@/services/blogApiService';
 import { supabase } from '@/integrations/supabase/client';
@@ -11,7 +11,7 @@ export const useSupabaseBlog = (includeUnpublished: boolean = false) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -47,9 +47,9 @@ export const useSupabaseBlog = (includeUnpublished: boolean = false) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [includeUnpublished]);
 
-  const getBlogPostBySlug = async (slug: string): Promise<BlogPost | null> => {
+  const getBlogPostBySlug = useCallback(async (slug: string): Promise<BlogPost | null> => {
     try {
       console.log('[useSupabaseBlog] Getting blog post by slug:', slug);
       const post = await fetchBlogPostBySlug(slug);
@@ -58,15 +58,15 @@ export const useSupabaseBlog = (includeUnpublished: boolean = false) => {
       console.error('[useSupabaseBlog] Error fetching blog post by slug:', err);
       throw err;
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchPosts();
-  }, [includeUnpublished]);
+  }, [fetchPosts]);
 
-  const refetch = () => {
+  const refetch = useCallback(() => {
     fetchPosts();
-  };
+  }, [fetchPosts]);
 
   return {
     blogPosts,

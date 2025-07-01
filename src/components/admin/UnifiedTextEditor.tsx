@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -150,11 +151,23 @@ const UnifiedTextEditor: React.FC<UnifiedTextEditorProps> = ({
     const selectedText = textValue.substring(start, end);
     
     if (selectedText) {
-      // Wrap selected text
-      const newValue = 
-        textValue.substring(0, start) + 
-        startTag + selectedText + endTag + 
-        textValue.substring(end);
+      let newValue: string;
+      
+      // Special handling for LIST - convert each line to a list item
+      if (startTag === '[LIST]\n• ' && endTag === '\n[/LIST]') {
+        const lines = selectedText.split('\n').filter(line => line.trim());
+        const listItems = lines.map(line => `• ${line.trim()}`).join('\n');
+        newValue = 
+          textValue.substring(0, start) + 
+          '[LIST]\n' + listItems + '\n[/LIST]' + 
+          textValue.substring(end);
+      } else {
+        // Regular wrapping for other tags
+        newValue = 
+          textValue.substring(0, start) + 
+          startTag + selectedText + endTag + 
+          textValue.substring(end);
+      }
       
       setTextValue(newValue);
       
@@ -165,10 +178,10 @@ const UnifiedTextEditor: React.FC<UnifiedTextEditorProps> = ({
       // Restore cursor position
       setTimeout(() => {
         textarea.focus();
-        textarea.setSelectionRange(
-          start + startTag.length, 
-          end + startTag.length
-        );
+        const newCursorPos = startTag === '[LIST]\n• ' && endTag === '\n[/LIST]' 
+          ? start + newValue.substring(start).indexOf('[/LIST]') + 7
+          : start + startTag.length;
+        textarea.setSelectionRange(newCursorPos, newCursorPos);
       }, 0);
     } else {
       // Insert at cursor position

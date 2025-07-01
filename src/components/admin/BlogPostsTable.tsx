@@ -7,7 +7,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BlogPost } from '@/types/supabase-blog';
 import { useAdminOperations } from '@/hooks/useAdminOperations';
 import ImageUploader from './ImageUploader';
-import { Edit, Save, X, Eye, FileText, Calendar, User, Trash2 } from 'lucide-react';
+import SEOPreview from './SEOPreview';
+import { Edit, Save, X, Eye, FileText, Calendar, User, Trash2, Search, Globe } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 
 interface BlogPostsTableProps {
@@ -212,6 +214,27 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onRefresh, o
                           Edit
                         </Button>
                       )}
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            className="flex items-center gap-1"
+                          >
+                            <Search className="w-3 h-3" />
+                            SEO
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+                          <DialogHeader>
+                            <DialogTitle className="flex items-center gap-2">
+                              <Globe className="w-5 h-5" />
+                              SEO Preview - {post.title}
+                            </DialogTitle>
+                          </DialogHeader>
+                          <SEOPreview post={post} />
+                        </DialogContent>
+                      </Dialog>
                       <Button 
                         size="sm" 
                         variant="outline" 

@@ -1,4 +1,3 @@
-
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import PageLayout from '@/components/PageLayout';
@@ -98,34 +97,38 @@ const BlogPostDetail = () => {
     window.scrollTo(0, 0);
     
     const fetchPost = async () => {
+      console.log('[BlogPostDetail] Effect triggered');
+      console.log('[BlogPostDetail] URL params slug:', slug);
+      console.log('[BlogPostDetail] Current URL:', window.location.href);
+      
       if (!slug) {
-        console.error('No slug provided in URL params');
+        console.error('[BlogPostDetail] No slug provided in URL params');
         setError('No blog post slug found in URL');
         setLoading(false);
         return;
       }
       
       try {
-        console.log('Starting to fetch blog post with slug:', slug);
+        console.log('[BlogPostDetail] Starting to fetch blog post with slug:', slug);
         setLoading(true);
         setError(null);
         
         const fetchedPost = await getBlogPostBySlug(slug);
-        console.log('getBlogPostBySlug returned:', fetchedPost);
+        console.log('[BlogPostDetail] getBlogPostBySlug returned:', fetchedPost);
         
         if (fetchedPost) {
-          console.log('Setting post data:', fetchedPost.title);
+          console.log('[BlogPostDetail] Setting post data:', fetchedPost.title);
           setPost(fetchedPost);
         } else {
-          console.log('No post found for slug:', slug);
+          console.log('[BlogPostDetail] No post found for slug:', slug);
           setError(`Blog post with slug "${slug}" not found`);
         }
       } catch (err) {
-        console.error('Error in fetchPost:', err);
+        console.error('[BlogPostDetail] Error in fetchPost:', err);
         const errorMessage = err instanceof Error ? err.message : 'Failed to load blog post';
         setError(errorMessage);
       } finally {
-        console.log('Setting loading to false');
+        console.log('[BlogPostDetail] Setting loading to false');
         setLoading(false);
       }
     };
@@ -133,7 +136,12 @@ const BlogPostDetail = () => {
     fetchPost();
   }, [slug, getBlogPostBySlug]);
 
-  console.log('BlogPostDetail render - loading:', loading, 'error:', error, 'post:', post?.title);
+  console.log('[BlogPostDetail] Render state:', { 
+    loading, 
+    error, 
+    postTitle: post?.title,
+    slug 
+  });
 
   if (loading) {
     return (

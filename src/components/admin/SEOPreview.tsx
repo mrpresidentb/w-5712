@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
@@ -14,14 +14,23 @@ import {
   User,
   Tag,
   Calendar,
-  ExternalLink
+  ExternalLink,
+  RefreshCw,
+  CheckCircle,
+  AlertCircle,
+  Loader2
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface SEOPreviewProps {
   post: BlogPost;
 }
 
 const SEOPreview: React.FC<SEOPreviewProps> = ({ post }) => {
+  const [liveMetaData, setLiveMetaData] = useState<any>(null);
+  const [isLoadingLive, setIsLoadingLive] = useState(false);
+  const [liveDataError, setLiveDataError] = useState<string | null>(null);
+
   // Generate absolute URLs
   const absoluteImageUrl = post.image_url 
     ? (post.image_url.startsWith('http') ? post.image_url : `https://itcarolina.us${post.image_url}`)
@@ -30,6 +39,55 @@ const SEOPreview: React.FC<SEOPreviewProps> = ({ post }) => {
   const postUrl = `https://itcarolina.us/blog/${post.slug}`;
   const seoTitle = `${post.title} | IT Carolina - Charlotte NC Computer Repair`;
   const description = post.excerpt || 'Professional IT support for home and small business in Charlotte, NC';
+
+  // Fetch live meta data from the actual page
+  const fetchLiveMetaData = async () => {
+    if (!post.published) {
+      setLiveDataError('Page is not published yet');
+      return;
+    }
+
+    setIsLoadingLive(true);
+    setLiveDataError(null);
+    
+    try {
+      const response = await fetch(`${postUrl}?timestamp=${Date.now()}`);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      
+      const extractMeta = (selector: string) => {
+        const element = doc.querySelector(selector);
+        return element?.getAttribute('content') || element?.textContent || null;
+      };
+      
+      const liveData = {
+        title: doc.title || null,
+        description: extractMeta('meta[name="description"]'),
+        canonical: doc.querySelector('link[rel="canonical"]')?.getAttribute('href') || null,
+        ogType: extractMeta('meta[property="og:type"]'),
+        ogTitle: extractMeta('meta[property="og:title"]'),
+        ogDescription: extractMeta('meta[property="og:description"]'),
+        ogImage: extractMeta('meta[property="og:image"]'),
+        ogUrl: extractMeta('meta[property="og:url"]'),
+        twitterCard: extractMeta('meta[name="twitter:card"]'),
+        twitterTitle: extractMeta('meta[name="twitter:title"]'),
+        twitterImage: extractMeta('meta[name="twitter:image"]'),
+        lastFetched: new Date().toISOString()
+      };
+      
+      setLiveMetaData(liveData);
+    } catch (error) {
+      console.error('Error fetching live meta data:', error);
+      setLiveDataError(error instanceof Error ? error.message : 'Failed to fetch live data');
+    } finally {
+      setIsLoadingLive(false);
+    }
+  };
 
   // Calculate reading time
   const wordCount = post.content.reduce((count, section) => {
@@ -112,65 +170,160 @@ const SEOPreview: React.FC<SEOPreviewProps> = ({ post }) => {
     </div>
   );
 
-  const MetaTagsPreview = () => (
-    <div className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm">Basic Meta Tags</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="space-y-2 text-xs font-mono">
-              <div><span className="text-blue-600">&lt;title&gt;</span>{seoTitle}<span className="text-blue-600">&lt;/title&gt;</span></div>
-              <div><span className="text-blue-600">&lt;meta name="description"</span> content="{description}"<span className="text-blue-600">/&gt;</span></div>
-              <div><span className="text-blue-600">&lt;link rel="canonical"</span> href="{postUrl}"<span className="text-blue-600">/&gt;</span></div>
+  const MetaTagsPreview = () => {
+    const ComparisonRow = ({ label, expected, actual, type = 'text' }: { 
+      label: string; 
+      expected: string; 
+      actual?: string | null; 
+      type?: 'text' | 'url' 
+    }) => {
+      const isMatch = actual === expected;
+      const hasActual = actual !== null && actual !== undefined;
+      
+      return (
+        <div className="border rounded-lg p-3 space-y-2">
+          <div className="flex items-center justify-between">
+            <h4 className="text-sm font-medium">{label}</h4>
+            {liveMetaData && (
+              <div className="flex items-center gap-1">
+                {hasActual ? (
+                  isMatch ? (
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                  ) : (
+                    <AlertCircle className="w-4 h-4 text-orange-500" />
+                  )
+                ) : (
+                  <AlertCircle className="w-4 h-4 text-red-500" />
+                )}
+                <span className="text-xs text-gray-500">
+                  {hasActual ? (isMatch ? 'Match' : 'Different') : 'Missing'}
+                </span>
+              </div>
+            )}
+          </div>
+          
+          <div className="space-y-2">
+            <div>
+              <div className="text-xs font-medium text-gray-600">Expected:</div>
+              <div className="text-xs font-mono bg-gray-50 p-2 rounded break-all">
+                {type === 'url' && expected.length > 60 ? `${expected.substring(0, 60)}...` : expected}
+              </div>
             </div>
-          </CardContent>
-        </Card>
+            
+            {liveMetaData && (
+              <div>
+                <div className="text-xs font-medium text-gray-600">Live Data:</div>
+                <div className={`text-xs font-mono p-2 rounded break-all ${
+                  hasActual 
+                    ? (isMatch ? 'bg-green-50 text-green-800' : 'bg-orange-50 text-orange-800')
+                    : 'bg-red-50 text-red-800'
+                }`}>
+                  {hasActual ? (
+                    type === 'url' && actual.length > 60 ? `${actual.substring(0, 60)}...` : actual
+                  ) : (
+                    'Not found in live page'
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    };
 
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm">Open Graph Tags</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="space-y-2 text-xs font-mono">
-              <div><span className="text-green-600">&lt;meta property="og:type"</span> content="article"<span className="text-green-600">/&gt;</span></div>
-              <div><span className="text-green-600">&lt;meta property="og:title"</span> content="{seoTitle}"<span className="text-green-600">/&gt;</span></div>
-              <div><span className="text-green-600">&lt;meta property="og:image"</span> content="{absoluteImageUrl}"<span className="text-green-600">/&gt;</span></div>
-              <div><span className="text-green-600">&lt;meta property="og:url"</span> content="{postUrl}"<span className="text-green-600">/&gt;</span></div>
-            </div>
-          </CardContent>
-        </Card>
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-medium">Meta Tags Comparison</h3>
+          <div className="flex items-center gap-2">
+            {post.published ? (
+              <Button
+                onClick={fetchLiveMetaData}
+                disabled={isLoadingLive}
+                size="sm"
+                variant="outline"
+                className="flex items-center gap-2"
+              >
+                {isLoadingLive ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <RefreshCw className="w-4 h-4" />
+                )}
+                {liveMetaData ? 'Refresh Live Data' : 'Fetch Live Data'}
+              </Button>
+            ) : (
+              <Badge variant="secondary">Page not published</Badge>
+            )}
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm">Twitter Card Tags</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="space-y-2 text-xs font-mono">
-              <div><span className="text-purple-600">&lt;meta name="twitter:card"</span> content="summary_large_image"<span className="text-purple-600">/&gt;</span></div>
-              <div><span className="text-purple-600">&lt;meta name="twitter:title"</span> content="{seoTitle}"<span className="text-purple-600">/&gt;</span></div>
-              <div><span className="text-purple-600">&lt;meta name="twitter:image"</span> content="{absoluteImageUrl}"<span className="text-purple-600">/&gt;</span></div>
+        {liveDataError && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-red-700">
+              <AlertCircle className="w-4 h-4" />
+              <span className="font-medium">Error fetching live data:</span>
             </div>
-          </CardContent>
-        </Card>
+            <p className="text-red-600 text-sm mt-1">{liveDataError}</p>
+          </div>
+        )}
 
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm">Article Schema</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="space-y-2 text-xs font-mono">
-              <div><span className="text-orange-600">"@type":</span> "Article"</div>
-              <div><span className="text-orange-600">"headline":</span> "{post.title}"</div>
-              <div><span className="text-orange-600">"wordCount":</span> {wordCount}</div>
-              <div><span className="text-orange-600">"timeRequired":</span> "PT{readingTime}M"</div>
+        {liveMetaData && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-blue-700">
+              <CheckCircle className="w-4 h-4" />
+              <span className="font-medium">Live data fetched:</span>
             </div>
-          </CardContent>
-        </Card>
+            <p className="text-blue-600 text-sm mt-1">
+              Last updated: {new Date(liveMetaData.lastFetched).toLocaleString()}
+            </p>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 gap-4">
+          <ComparisonRow 
+            label="Page Title" 
+            expected={seoTitle} 
+            actual={liveMetaData?.title} 
+          />
+          <ComparisonRow 
+            label="Meta Description" 
+            expected={description} 
+            actual={liveMetaData?.description} 
+          />
+          <ComparisonRow 
+            label="Canonical URL" 
+            expected={postUrl} 
+            actual={liveMetaData?.canonical} 
+            type="url"
+          />
+          <ComparisonRow 
+            label="Open Graph Title" 
+            expected={seoTitle} 
+            actual={liveMetaData?.ogTitle} 
+          />
+          <ComparisonRow 
+            label="Open Graph Image" 
+            expected={absoluteImageUrl} 
+            actual={liveMetaData?.ogImage} 
+            type="url"
+          />
+          <ComparisonRow 
+            label="Twitter Card Type" 
+            expected="summary_large_image" 
+            actual={liveMetaData?.twitterCard} 
+          />
+        </div>
+
+        {!liveMetaData && post.published && (
+          <div className="text-center py-8 text-gray-500">
+            <Globe className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+            <p>Click "Fetch Live Data" to compare with actual page meta tags</p>
+            <p className="text-sm mt-1">This will help you identify any differences between expected and live data</p>
+          </div>
+        )}
       </div>
-    </div>
-  );
+    );
+  };
 
   const PostAnalysis = () => (
     <div className="space-y-4">

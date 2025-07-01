@@ -69,6 +69,20 @@ export const useSupabaseBlog = () => {
   const getBlogPostBySlug = async (slug: string): Promise<BlogPost | null> => {
     try {
       console.log('Fetching blog post by slug:', slug);
+      
+      // First, let's check what posts are available
+      const { data: allPosts, error: allPostsError } = await supabase
+        .from('blog_posts')
+        .select('slug, title, published')
+        .eq('published', true);
+      
+      if (allPostsError) {
+        console.error('Error fetching all posts for debugging:', allPostsError);
+      } else {
+        console.log('Available published posts:', allPosts?.map(p => ({ slug: p.slug, title: p.title })));
+      }
+      
+      // Now fetch the specific post
       const { data, error } = await supabase
         .from('blog_posts')
         .select('*')

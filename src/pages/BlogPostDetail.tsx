@@ -99,34 +99,41 @@ const BlogPostDetail = () => {
     
     const fetchPost = async () => {
       if (!slug) {
-        setError('No slug provided');
+        console.error('No slug provided in URL params');
+        setError('No blog post slug found in URL');
         setLoading(false);
         return;
       }
       
       try {
-        console.log('Fetching blog post with slug:', slug);
+        console.log('Starting to fetch blog post with slug:', slug);
         setLoading(true);
         setError(null);
         
         const fetchedPost = await getBlogPostBySlug(slug);
-        console.log('Fetched post:', fetchedPost);
+        console.log('getBlogPostBySlug returned:', fetchedPost);
         
         if (fetchedPost) {
+          console.log('Setting post data:', fetchedPost.title);
           setPost(fetchedPost);
         } else {
-          setError('Post not found');
+          console.log('No post found for slug:', slug);
+          setError(`Blog post with slug "${slug}" not found`);
         }
       } catch (err) {
-        console.error('Error fetching post:', err);
-        setError('Failed to load blog post');
+        console.error('Error in fetchPost:', err);
+        const errorMessage = err instanceof Error ? err.message : 'Failed to load blog post';
+        setError(errorMessage);
       } finally {
+        console.log('Setting loading to false');
         setLoading(false);
       }
     };
 
     fetchPost();
   }, [slug, getBlogPostBySlug]);
+
+  console.log('BlogPostDetail render - loading:', loading, 'error:', error, 'post:', post?.title);
 
   if (loading) {
     return (
@@ -152,6 +159,7 @@ const BlogPostDetail = () => {
           <h1 className="text-3xl font-bold mb-4">Post not found</h1>
           <p className="mb-2">We couldn't find the post you're looking for.</p>
           <p className="text-sm text-gray-600 mb-4">Error: {error}</p>
+          <p className="text-xs text-gray-500 mb-4">Requested slug: {slug}</p>
           <Link to="/blog" className="mt-4">
             <Button variant="outline">
               <ArrowLeft className="w-4 h-4 mr-2" />

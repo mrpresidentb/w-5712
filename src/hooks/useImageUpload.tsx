@@ -17,12 +17,13 @@ export const useImageUpload = () => {
       
       console.log('Uploading file to Supabase:', filename, 'Size:', file.size);
       
-      // Upload to Supabase storage
+      // Upload to Supabase storage with public access
       const { data, error } = await supabase.storage
         .from('blog-images')
         .upload(filename, file, {
           cacheControl: '3600',
-          upsert: false
+          upsert: false,
+          contentType: file.type
         });
 
       if (error) {
@@ -34,7 +35,7 @@ export const useImageUpload = () => {
         throw new Error('No data returned from upload');
       }
 
-      // Get public URL
+      // Get public URL using the correct path
       const { data: publicUrlData } = supabase.storage
         .from('blog-images')
         .getPublicUrl(data.path);

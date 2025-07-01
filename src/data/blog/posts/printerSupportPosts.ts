@@ -1,8 +1,16 @@
 
-import { ContentSection } from '../blogTypes';
+import { BlogPost } from '../blogTypes';
 
-export const printerSupportPosts = [
+export const printerSupportPosts: BlogPost[] = [
   {
+    id: '4',
+    slug: 'printer-troubleshooting-guide',
+    title: 'Printer Troubleshooting Guide: Fix Common Issues Fast',
+    excerpt: 'Printer not working? From paper jams to connectivity issues, learn how to diagnose and fix the most common printer problems. Professional tips from Charlotte\'s printer repair experts.',
+    date: 'June 20, 2025',
+    author: 'IT Carolina Team',
+    category: 'Printer Support',
+    imageUrl: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop',
     content: [
       {
         type: 'paragraph' as const,

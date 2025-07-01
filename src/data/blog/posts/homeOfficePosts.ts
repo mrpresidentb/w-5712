@@ -1,8 +1,16 @@
 
-import { ContentSection } from '../blogTypes';
+import { BlogPost } from '../blogTypes';
 
-export const homeOfficePosts = [
+export const homeOfficePosts: BlogPost[] = [
   {
+    id: '3',
+    slug: 'home-office-setup-tips',
+    title: 'Home Office Setup Tips: Create a Productive IT Environment',
+    excerpt: 'Working from home? Learn how to set up a reliable, efficient home office with proper networking, ergonomics, and technology choices. Expert advice from Charlotte\'s IT support professionals.',
+    date: 'June 22, 2025',
+    author: 'IT Carolina Team',
+    category: 'Home Office',
+    imageUrl: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop',
     content: [
       {
         type: 'paragraph' as const,

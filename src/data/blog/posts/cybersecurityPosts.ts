@@ -1,8 +1,16 @@
 
-import { ContentSection } from '../blogTypes';
+import { BlogPost } from '../blogTypes';
 
-export const cybersecurityPosts = [
+export const cybersecurityPosts: BlogPost[] = [
   {
+    id: '5',
+    slug: 'cybersecurity-tips-small-businesses',
+    title: 'Cybersecurity Tips for Small Businesses: Protect Your Data',
+    excerpt: 'Small businesses are prime targets for cyber attacks. Learn essential cybersecurity practices to protect your company data, customer information, and business operations from digital threats.',
+    date: 'June 18, 2025',
+    author: 'IT Carolina Team',
+    category: 'Cybersecurity',
+    imageUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop',
     content: [
       {
         type: 'paragraph' as const,

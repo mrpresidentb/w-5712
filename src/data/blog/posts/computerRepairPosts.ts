@@ -1,8 +1,16 @@
 
-import { ContentSection } from '../blogTypes';
+import { BlogPost } from '../blogTypes';
 
-export const computerRepairPosts = [
+export const computerRepairPosts: BlogPost[] = [
   {
+    id: '2',
+    slug: 'when-repair-vs-replace-computer',
+    title: 'When to Repair vs Replace Your Computer: A Cost-Benefit Guide',
+    excerpt: 'Struggling to decide whether to fix your old computer or buy a new one? Our IT experts break down the key factors to consider, helping you make the most cost-effective decision for your situation.',
+    date: 'June 25, 2025',
+    author: 'IT Carolina Team',
+    category: 'Computer Repair',
+    imageUrl: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop',
     content: [
       {
         type: 'paragraph' as const,
@@ -77,6 +85,14 @@ export const computerRepairPosts = [
     ]
   },
   {
+    id: '6',
+    slug: 'signs-computer-needs-professional-help',
+    title: 'Signs Your Computer Needs Professional Help: Don\'t Wait Too Long',
+    excerpt: 'Recognize the warning signs that indicate your computer needs professional attention. Learn when DIY fixes aren\'t enough and how to prevent minor issues from becoming major problems.',
+    date: 'June 15, 2025',
+    author: 'IT Carolina Team',
+    category: 'Computer Repair',
+    imageUrl: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop',
     content: [
       {
         type: 'paragraph' as const,

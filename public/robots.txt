@@ -14,4 +14,3 @@ Disallow: /admin/*
 Disallow: /*.json$
 
 Sitemap: https://itcarolina.us/sitemap.xml
-

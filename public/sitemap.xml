@@ -3,61 +3,61 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://itcarolina.us/</loc>
-    <lastmod>2025-06-28</lastmod>
+    <lastmod>2025-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/about</loc>
-    <lastmod>2025-06-28</lastmod>
+    <lastmod>2025-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/services/home-office</loc>
-    <lastmod>2025-06-28</lastmod>
+    <lastmod>2025-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/services/business</loc>
-    <lastmod>2025-06-28</lastmod>
+    <lastmod>2025-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/services/printer</loc>
-    <lastmod>2025-06-28</lastmod>
+    <lastmod>2025-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/services/web-hosting</loc>
-    <lastmod>2025-06-28</lastmod>
+    <lastmod>2025-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/pricing</loc>
-    <lastmod>2025-06-28</lastmod>
+    <lastmod>2025-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/faq</loc>
-    <lastmod>2025-06-28</lastmod>
+    <lastmod>2025-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/privacy-policy</loc>
-    <lastmod>2025-06-28</lastmod>
+    <lastmod>2025-07-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/terms</loc>
-    <lastmod>2025-06-28</lastmod>
+    <lastmod>2025-07-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
@@ -73,39 +73,38 @@
   <!-- Blog Posts -->
   <url>
     <loc>https://itcarolina.us/blog/common-computer-problems-solutions</loc>
-    <lastmod>2025-06-28</lastmod>
+    <lastmod>2025-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/blog/when-repair-vs-replace-computer</loc>
-    <lastmod>2025-06-25</lastmod>
+    <lastmod>2024-12-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/blog/home-office-setup-tips</loc>
-    <lastmod>2025-06-22</lastmod>
+    <lastmod>2024-12-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/blog/printer-troubleshooting-guide</loc>
-    <lastmod>2025-06-20</lastmod>
+    <lastmod>2024-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://itcarolina.us/blog/cybersecurity-tips-small-businesses</loc>
-    <lastmod>2025-06-18</lastmod>
+    <lastmod>2024-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://itcarolina.us/blog/signs-computer-needs-professional-help</loc>
-    <lastmod>2025-06-15</lastmod>
+    <loc>https://itcarolina.us/blog/computer-running-slow-solutions</loc>
+    <lastmod>2024-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 </urlset>
-

@@ -276,9 +276,9 @@ const BlogPostDetail = () => {
       name: 'IT Carolina',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png',
-        width: 512,
-        height: 512
+        url: 'https://itcarolina.us/og.jpg',
+        width: 1200,
+        height: 630
       }
     },
     datePublished: new Date(post.created_at).toISOString(),
@@ -317,7 +317,7 @@ const BlogPostDetail = () => {
   // Ensure we have an absolute URL for the image
   const blogPostImageUrl = post.image_url 
     ? (post.image_url.startsWith('http') ? post.image_url : `https://itcarolina.us${post.image_url}`)
-    : 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png';
+    : 'https://itcarolina.us/og.jpg';
 
   console.log('[BlogPostDetail] Post image_url:', post.image_url);
   console.log('[BlogPostDetail] Final blogPostImageUrl:', blogPostImageUrl);

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,7 +9,7 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { BlogPost, ContentSection } from '@/types/supabase-blog';
-import RichTextEditor from './RichTextEditor';
+import UnifiedTextEditor from './UnifiedTextEditor';
 import ImageUploader from './ImageUploader';
 import { Calendar, Save, Eye, X } from 'lucide-react';
 import { toast } from 'sonner';
@@ -258,8 +259,8 @@ const ArticleEditor: React.FC<ArticleEditorProps> = ({
         </CardContent>
       </Card>
 
-      {/* Content Editor */}
-      <RichTextEditor
+      {/* Unified Content Editor */}
+      <UnifiedTextEditor
         content={formData.content}
         onChange={handleContentChange}
         placeholder="Start writing your article content..."

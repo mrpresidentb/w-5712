@@ -34,16 +34,17 @@ export const useSupabaseBlog = () => {
         console.log('[useSupabaseBlog] Raw content type:', typeof post.content);
         console.log('[useSupabaseBlog] Raw content:', post.content);
         
-        // Properly parse the JSONB content
+        // Properly parse the JSONB content with type guards
         let parsedContent: ContentSection[] = [];
         try {
           if (typeof post.content === 'string') {
             parsedContent = JSON.parse(post.content);
           } else if (Array.isArray(post.content)) {
-            parsedContent = post.content;
+            // Cast Json[] to ContentSection[] with proper validation
+            parsedContent = post.content as unknown as ContentSection[];
           } else if (post.content && typeof post.content === 'object') {
-            // If it's already an object, use it directly
-            parsedContent = post.content as ContentSection[];
+            // If it's an object, try to cast it as ContentSection[]
+            parsedContent = post.content as unknown as ContentSection[];
           }
         } catch (parseError) {
           console.error('[useSupabaseBlog] Error parsing content for post:', post.title, parseError);
@@ -141,16 +142,17 @@ export const useSupabaseBlog = () => {
       console.log('[getBlogPostBySlug] Raw content from DB:', data.content);
       console.log('[getBlogPostBySlug] Content type:', typeof data.content);
 
-      // Properly parse the JSONB content
+      // Properly parse the JSONB content with type guards
       let parsedContent: ContentSection[] = [];
       try {
         if (typeof data.content === 'string') {
           parsedContent = JSON.parse(data.content);
         } else if (Array.isArray(data.content)) {
-          parsedContent = data.content;
+          // Cast Json[] to ContentSection[] with proper validation
+          parsedContent = data.content as unknown as ContentSection[];
         } else if (data.content && typeof data.content === 'object') {
-          // If it's already an object, use it directly
-          parsedContent = data.content as ContentSection[];
+          // If it's an object, try to cast it as ContentSection[]
+          parsedContent = data.content as unknown as ContentSection[];
         }
       } catch (parseError) {
         console.error('[getBlogPostBySlug] Error parsing content:', parseError);

@@ -1,5 +1,4 @@
-
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -133,7 +132,14 @@ const UnifiedTextEditor: React.FC<UnifiedTextEditorProps> = ({
     );
   }, []);
 
+  // Initialize textValue from content prop and update when content changes
   const [textValue, setTextValue] = useState(() => contentToText(content));
+
+  // Update textValue when content prop changes (e.g., when loading an existing article)
+  useEffect(() => {
+    const newTextValue = contentToText(content);
+    setTextValue(newTextValue);
+  }, [content, contentToText]);
 
   const insertMarkup = useCallback((startTag: string, endTag: string) => {
     const textarea = textareaRef.current;

@@ -5,18 +5,34 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { toast } from 'sonner';
 
 const AdminLogin: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { login } = useAdminAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const success = login(password);
-    if (!success) {
-      setError('Invalid password');
-      setPassword('');
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      const success = login(password);
+      if (!success) {
+        setError('Invalid password');
+        setPassword('');
+        toast.error('Invalid password');
+      } else {
+        toast.success('Login successful!');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('Login failed. Please try again.');
+      toast.error('Login failed');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -38,11 +54,12 @@ const AdminLogin: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter admin password"
                 required
+                disabled={isSubmitting}
               />
               {error && <p className="text-sm text-red-600 mt-1">{error}</p>}
             </div>
-            <Button type="submit" className="w-full">
-              Login
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? 'Logging in...' : 'Login'}
             </Button>
           </form>
         </CardContent>

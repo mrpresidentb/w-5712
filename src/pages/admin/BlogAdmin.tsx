@@ -7,6 +7,7 @@ import { useSupabaseBlog } from '@/hooks/useSupabaseBlog';
 import BlogPostsTable from '@/components/admin/BlogPostsTable';
 import ArticleEditor from '@/components/admin/ArticleEditor';
 import AdminLogin from '@/components/admin/AdminLogin';
+import AdminHeader from '@/components/admin/AdminHeader';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { BlogPost } from '@/types/supabase-blog';
@@ -14,12 +15,27 @@ import { Plus, FileText, Image, Settings, BarChart3 } from 'lucide-react';
 import { toast } from 'sonner';
 
 const BlogAdmin = () => {
-  const { isAuthenticated } = useAdminAuth();
+  const { isAuthenticated, isLoading } = useAdminAuth();
   const { blogPosts, loading, error, refetch } = useSupabaseBlog();
   const [currentView, setCurrentView] = useState<'list' | 'create' | 'edit'>('list');
   const [editingArticle, setEditingArticle] = useState<BlogPost | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
+  // Show loading screen while checking authentication
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+            <p>Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show login form if not authenticated
   if (!isAuthenticated) {
     return <AdminLogin />;
   }
@@ -97,6 +113,7 @@ const BlogAdmin = () => {
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
+        <AdminHeader />
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
@@ -110,6 +127,7 @@ const BlogAdmin = () => {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
+        <AdminHeader />
         <Card className="max-w-md mx-auto">
           <CardHeader>
             <CardTitle className="text-red-600">Error</CardTitle>
@@ -125,6 +143,8 @@ const BlogAdmin = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <AdminHeader />
+      
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Blog Administration</h1>
         <p className="text-gray-600">Manage your blog posts, images, and content</p>

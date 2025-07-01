@@ -10,30 +10,48 @@ export const useAdminAuth = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const session = localStorage.getItem(SESSION_KEY);
-    if (session) {
-      const { timestamp } = JSON.parse(session);
-      if (Date.now() - timestamp < SESSION_DURATION) {
-        setIsAuthenticated(true);
-      } else {
-        localStorage.removeItem(SESSION_KEY);
+    checkExistingSession();
+  }, []);
+
+  const checkExistingSession = () => {
+    try {
+      const session = localStorage.getItem(SESSION_KEY);
+      if (session) {
+        const { timestamp } = JSON.parse(session);
+        if (Date.now() - timestamp < SESSION_DURATION) {
+          setIsAuthenticated(true);
+        } else {
+          localStorage.removeItem(SESSION_KEY);
+        }
       }
+    } catch (error) {
+      console.error('Error checking session:', error);
+      localStorage.removeItem(SESSION_KEY);
     }
     setIsLoading(false);
-  }, []);
+  };
 
   const login = (password: string): boolean => {
     if (password === ADMIN_PASSWORD) {
-      localStorage.setItem(SESSION_KEY, JSON.stringify({ timestamp: Date.now() }));
-      setIsAuthenticated(true);
-      return true;
+      try {
+        localStorage.setItem(SESSION_KEY, JSON.stringify({ timestamp: Date.now() }));
+        setIsAuthenticated(true);
+        return true;
+      } catch (error) {
+        console.error('Error saving session:', error);
+        return false;
+      }
     }
     return false;
   };
 
   const logout = () => {
-    localStorage.removeItem(SESSION_KEY);
-    setIsAuthenticated(false);
+    try {
+      localStorage.removeItem(SESSION_KEY);
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   return { isAuthenticated, isLoading, login, logout };

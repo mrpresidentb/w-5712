@@ -102,16 +102,21 @@ export const useSupabaseBlog = () => {
       return transformedPost;
     } catch (err) {
       console.error('Error fetching blog post by slug:', err);
-      return null;
+      throw err; // Re-throw to let the component handle it
     }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       console.log('Starting to fetch blog data...');
-      await Promise.all([fetchBlogPosts(), fetchCategories()]);
-      setLoading(false);
-      console.log('Finished fetching blog data');
+      try {
+        await Promise.all([fetchBlogPosts(), fetchCategories()]);
+      } catch (err) {
+        console.error('Error in fetchData:', err);
+      } finally {
+        setLoading(false);
+        console.log('Finished fetching blog data');
+      }
     };
 
     fetchData();
@@ -129,4 +134,3 @@ export const useSupabaseBlog = () => {
     getBlogPostBySlug
   };
 };
-

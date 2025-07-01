@@ -4,15 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { LogOut, RefreshCw } from 'lucide-react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
-import { useBlogData } from '@/hooks/useBlogData';
+import { useSupabaseBlog } from '@/hooks/useSupabaseBlog';
 import AdminLogin from '@/components/admin/AdminLogin';
 import BlogPostsTable from '@/components/admin/BlogPostsTable';
 
 const BlogAdmin: React.FC = () => {
   const { isAuthenticated, isLoading, login, logout } = useAdminAuth();
-  const { blogPosts, updateBlogPost, resetBlogData } = useBlogData();
+  const { blogPosts, loading, error, refetch } = useSupabaseBlog();
 
-  if (isLoading) {
+  if (isLoading || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">Loading...</div>
@@ -22,6 +22,20 @@ const BlogAdmin: React.FC = () => {
 
   if (!isAuthenticated) {
     return <AdminLogin onLogin={login} />;
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center text-red-600">
+          <p>Error loading blog posts: {error}</p>
+          <Button onClick={refetch} className="mt-4">
+            <RefreshCw className="w-4 h-4 mr-2" />
+            Retry
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -35,11 +49,11 @@ const BlogAdmin: React.FC = () => {
           <div className="flex gap-2">
             <Button 
               variant="outline" 
-              onClick={resetBlogData}
+              onClick={refetch}
               className="flex items-center gap-2"
             >
               <RefreshCw className="w-4 h-4" />
-              Reset Data
+              Refresh Data
             </Button>
             <Button 
               variant="outline" 
@@ -57,7 +71,7 @@ const BlogAdmin: React.FC = () => {
             <CardHeader>
               <CardTitle>Admin Dashboard</CardTitle>
               <CardDescription>
-                Upload and assign images to blog posts. Changes are saved automatically.
+                Upload and assign images to blog posts. Changes are saved automatically to Supabase.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -69,13 +83,13 @@ const BlogAdmin: React.FC = () => {
                 <div className="bg-green-50 p-4 rounded-lg">
                   <div className="font-semibold text-green-800">With Images</div>
                   <div className="text-2xl font-bold text-green-600">
-                    {blogPosts.filter(post => post.imageUrl).length}
+                    {blogPosts.filter(post => post.image_url).length}
                   </div>
                 </div>
                 <div className="bg-orange-50 p-4 rounded-lg">
                   <div className="font-semibold text-orange-800">Need Images</div>
                   <div className="text-2xl font-bold text-orange-600">
-                    {blogPosts.filter(post => !post.imageUrl).length}
+                    {blogPosts.filter(post => !post.image_url).length}
                   </div>
                 </div>
               </div>
@@ -84,7 +98,7 @@ const BlogAdmin: React.FC = () => {
 
           <BlogPostsTable 
             blogPosts={blogPosts} 
-            onUpdatePost={updateBlogPost} 
+            onRefresh={refetch}
           />
         </div>
       </div>

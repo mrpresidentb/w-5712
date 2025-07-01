@@ -3,33 +3,55 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { BlogPost } from '@/data/blog/blogTypes';
+import { BlogPost } from '@/types/supabase-blog';
 import ImageUploader from './ImageUploader';
 import { Edit, Save, X } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface BlogPostsTableProps {
   blogPosts: BlogPost[];
-  onUpdatePost: (postId: string, updates: Partial<BlogPost>) => void;
+  onRefresh: () => void;
 }
 
-const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onUpdatePost }) => {
+const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onRefresh }) => {
   const [editingPost, setEditingPost] = useState<string | null>(null);
   const [tempImageUrl, setTempImageUrl] = useState<string>('');
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const handleEditStart = (post: BlogPost) => {
     console.log('Starting edit for post:', post.title);
     setEditingPost(post.id);
-    setTempImageUrl(post.imageUrl || '');
+    setTempImageUrl(post.image_url || '');
   };
 
-  const handleSave = (postId: string) => {
+  const handleSave = async (postId: string) => {
+    if (!tempImageUrl) return;
+    
+    setIsUpdating(true);
     console.log('Saving image for post:', postId, 'Image URL:', tempImageUrl);
-    if (tempImageUrl) {
-      onUpdatePost(postId, { imageUrl: tempImageUrl });
+    
+    try {
+      const { error } = await supabase
+        .from('blog_posts')
+        .update({ image_url: tempImageUrl })
+        .eq('id', postId);
+
+      if (error) {
+        console.error('Error updating post:', error);
+        alert('Failed to update post image');
+        return;
+      }
+
       console.log('Post updated successfully');
+      setEditingPost(null);
+      setTempImageUrl('');
+      onRefresh(); // Refresh the data
+    } catch (error) {
+      console.error('Error updating post:', error);
+      alert('Failed to update post image');
+    } finally {
+      setIsUpdating(false);
     }
-    setEditingPost(null);
-    setTempImageUrl('');
   };
 
   const handleCancel = () => {
@@ -86,10 +108,10 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onUpdatePost
                       )}
                       <ImageUploader onImageUploaded={handleImageUploaded} />
                     </div>
-                  ) : post.imageUrl ? (
+                  ) : post.image_url ? (
                     <div>
                       <img 
-                        src={post.imageUrl} 
+                        src={post.image_url} 
                         alt={post.title}
                         className="w-24 h-16 object-cover rounded border"
                       />
@@ -108,16 +130,17 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onUpdatePost
                       <Button 
                         size="sm" 
                         onClick={() => handleSave(post.id)}
-                        disabled={!tempImageUrl}
+                        disabled={!tempImageUrl || isUpdating}
                         className="flex items-center gap-1"
                       >
                         <Save className="w-3 h-3" />
-                        Save
+                        {isUpdating ? 'Saving...' : 'Save'}
                       </Button>
                       <Button 
                         size="sm" 
                         variant="outline" 
                         onClick={handleCancel}
+                        disabled={isUpdating}
                         className="flex items-center gap-1"
                       >
                         <X className="w-3 h-3" />
@@ -132,7 +155,7 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onUpdatePost
                       className="flex items-center gap-1"
                     >
                       <Edit className="w-3 h-3" />
-                      {post.imageUrl ? 'Change' : 'Add'} Image
+                      {post.image_url ? 'Change' : 'Add'} Image
                     </Button>
                   )}
                 </TableCell>

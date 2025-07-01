@@ -1,10 +1,11 @@
+
 import { useParams, Link } from 'react-router-dom';
 import PageLayout from '@/components/PageLayout';
 import BlogSidebar from '@/components/BlogSidebar';
 import { Separator } from '@/components/ui/separator';
 import SEO from '@/components/SEO';
 import { useEffect } from 'react';
-import { blogPosts } from '@/data/blogPosts';
+import { useBlogData } from '@/hooks/useBlogData';
 import { motion } from 'framer-motion';
 import { BookOpen, Calendar, Clock, MessageSquare, Share, Tag, ArrowLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -87,6 +88,7 @@ const renderContentWithLinks = (content: string) => {
 
 const BlogPostDetail = () => {
   const { slug } = useParams<{ slug: string; }>();
+  const { blogPosts } = useBlogData();
   const post = blogPosts.find(post => post.slug === slug);
   
   useEffect(() => {

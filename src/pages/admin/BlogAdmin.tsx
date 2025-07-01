@@ -59,7 +59,7 @@ const BlogAdmin: React.FC = () => {
               <CardDescription>
                 Upload and assign images to blog posts. Changes are saved automatically.
               </CardDescription>
-            </CardContent>
+            </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                 <div className="bg-blue-50 p-4 rounded-lg">

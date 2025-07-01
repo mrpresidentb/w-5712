@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { BlogPost } from '@/types/supabase-blog';
 import { toast } from 'sonner';
+import { blogPosts } from '@/data/blog';
 
 // Helper function to render content with links
 const renderContentWithLinks = (content: string) => {
@@ -98,7 +99,7 @@ const BlogPostDetail = () => {
   // Enhanced share functionality
   const handleShare = async () => {
     try {
-      if (navigator.share) {
+      if (navigator.share && navigator.canShare) {
         await navigator.share({
           title: post?.title,
           text: post?.excerpt || '',
@@ -128,7 +129,6 @@ const BlogPostDetail = () => {
     const fetchPost = async () => {
       console.log('[BlogPostDetail] Effect triggered');
       console.log('[BlogPostDetail] URL params slug:', slug);
-      console.log('[BlogPostDetail] Current URL:', window.location.href);
       
       if (!slug) {
         console.error('[BlogPostDetail] No slug provided in URL params');
@@ -142,16 +142,44 @@ const BlogPostDetail = () => {
         setLoading(true);
         setError(null);
         
+        // First try to get from Supabase
         const fetchedPost = await getBlogPostBySlug(slug);
         console.log('[BlogPostDetail] getBlogPostBySlug returned:', fetchedPost);
         
         if (fetchedPost) {
-          console.log('[BlogPostDetail] Setting post data:', fetchedPost.title);
-          console.log('[BlogPostDetail] Post content sections:', fetchedPost.content?.length || 0);
+          console.log('[BlogPostDetail] Supabase post found:', fetchedPost.title);
+          console.log('[BlogPostDetail] Supabase post content sections:', fetchedPost.content?.length || 0);
+          console.log('[BlogPostDetail] Supabase post content preview:', JSON.stringify(fetchedPost.content?.slice(0, 2), null, 2));
           setPost(fetchedPost);
         } else {
-          console.log('[BlogPostDetail] No post found for slug:', slug);
-          setError(`Blog post with slug "${slug}" not found`);
+          // Fallback to static data
+          console.log('[BlogPostDetail] No post found in Supabase, checking static data...');
+          const staticPost = blogPosts.find(p => p.slug === slug);
+          if (staticPost) {
+            console.log('[BlogPostDetail] Static post found:', staticPost.title);
+            console.log('[BlogPostDetail] Static post content sections:', staticPost.content?.length || 0);
+            console.log('[BlogPostDetail] Static post content preview:', JSON.stringify(staticPost.content?.slice(0, 2), null, 2));
+            
+            // Convert static post to BlogPost format
+            const convertedPost: BlogPost = {
+              id: staticPost.id,
+              slug: staticPost.slug,
+              title: staticPost.title,
+              excerpt: staticPost.excerpt,
+              content: staticPost.content,
+              date: staticPost.date,
+              author: staticPost.author,
+              category: staticPost.category,
+              image_url: staticPost.imageUrl || null,
+              published: true,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            };
+            setPost(convertedPost);
+          } else {
+            console.log('[BlogPostDetail] No post found for slug:', slug);
+            setError(`Blog post with slug "${slug}" not found`);
+          }
         }
       } catch (err) {
         console.error('[BlogPostDetail] Error in fetchPost:', err);
@@ -164,7 +192,7 @@ const BlogPostDetail = () => {
     };
 
     fetchPost();
-  }, [slug]); // Remove getBlogPostBySlug from dependencies since it's now memoized
+  }, [slug, getBlogPostBySlug]);
 
   console.log('[BlogPostDetail] Render state:', { 
     loading, 
@@ -408,6 +436,7 @@ const BlogPostDetail = () => {
               ) : (
                 <div className="text-center py-8">
                   <p className="text-gray-600">No content available for this post.</p>
+                  <p className="text-sm text-gray-500 mt-2">Post data: {JSON.stringify(post, null, 2)}</p>
                 </div>
               )}
             </motion.div>

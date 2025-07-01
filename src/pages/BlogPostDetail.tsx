@@ -134,7 +134,7 @@ const BlogPostDetail = () => {
     };
 
     fetchPost();
-  }, [slug, getBlogPostBySlug]);
+  }, [slug]); // Remove getBlogPostBySlug from dependencies since it's now memoized
 
   console.log('[BlogPostDetail] Render state:', { 
     loading, 

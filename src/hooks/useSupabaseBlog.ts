@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { BlogPost, BlogCategory, ContentSection } from '@/types/supabase-blog';
 
@@ -71,7 +71,8 @@ export const useSupabaseBlog = () => {
     }
   };
 
-  const getBlogPostBySlug = async (slug: string): Promise<BlogPost | null> => {
+  // Memoize the getBlogPostBySlug function to prevent infinite re-renders
+  const getBlogPostBySlug = useCallback(async (slug: string): Promise<BlogPost | null> => {
     try {
       console.log('[getBlogPostBySlug] Starting fetch for slug:', slug);
       
@@ -128,7 +129,7 @@ export const useSupabaseBlog = () => {
       console.error('[getBlogPostBySlug] Error fetching blog post by slug:', err);
       throw err; // Re-throw to let the component handle it
     }
-  };
+  }, []); // Empty dependency array since this function doesn't depend on any state
 
   useEffect(() => {
     const fetchData = async () => {
@@ -144,6 +145,11 @@ export const useSupabaseBlog = () => {
     };
 
     fetchData();
+  }, []); // Empty dependency array to run only once
+
+  const refetch = useCallback(() => {
+    fetchBlogPosts();
+    fetchCategories();
   }, []);
 
   return {
@@ -151,10 +157,7 @@ export const useSupabaseBlog = () => {
     categories,
     loading,
     error,
-    refetch: () => {
-      fetchBlogPosts();
-      fetchCategories();
-    },
+    refetch,
     getBlogPostBySlug
   };
 };

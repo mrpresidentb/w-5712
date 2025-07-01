@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { BlogPost, BlogCategory } from '@/types/supabase-blog';
+import { BlogPost, BlogCategory, ContentSection } from '@/types/supabase-blog';
 
 export const useSupabaseBlog = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
@@ -20,10 +20,10 @@ export const useSupabaseBlog = () => {
 
       if (error) throw error;
 
-      // Transform the data to match our interface
+      // Transform the data to match our interface with proper type casting
       const transformedPosts: BlogPost[] = (data || []).map(post => ({
         ...post,
-        content: Array.isArray(post.content) ? post.content : [],
+        content: (post.content as ContentSection[]) || [],
         date: new Date(post.date).toLocaleDateString('en-US', { 
           year: 'numeric', 
           month: 'long', 
@@ -68,7 +68,7 @@ export const useSupabaseBlog = () => {
 
       return {
         ...data,
-        content: Array.isArray(data.content) ? data.content : [],
+        content: (data.content as ContentSection[]) || [],
         date: new Date(data.date).toLocaleDateString('en-US', { 
           year: 'numeric', 
           month: 'long', 

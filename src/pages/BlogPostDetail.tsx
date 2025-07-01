@@ -315,7 +315,10 @@ const BlogPostDetail = () => {
   // Ensure we have an absolute URL for the image
   const blogPostImageUrl = post.image_url 
     ? (post.image_url.startsWith('http') ? post.image_url : `https://itcarolina.us${post.image_url}`)
-    : undefined;
+    : 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png';
+
+  console.log('[BlogPostDetail] Post image_url:', post.image_url);
+  console.log('[BlogPostDetail] Final blogPostImageUrl:', blogPostImageUrl);
 
   return (
     <PageLayout breadcrumbItems={breadcrumbItems}>

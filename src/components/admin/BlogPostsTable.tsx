@@ -1,13 +1,12 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { BlogPost } from '@/types/supabase-blog';
+import { useAdminOperations } from '@/hooks/useAdminOperations';
 import ImageUploader from './ImageUploader';
 import { Edit, Save, X, Eye, FileText, Calendar, User } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
 interface BlogPostsTableProps {
@@ -17,9 +16,9 @@ interface BlogPostsTableProps {
 }
 
 const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onRefresh, onEdit }) => {
+  const { updateBlogPost, isLoading: isUpdating } = useAdminOperations();
   const [editingImagePost, setEditingImagePost] = useState<string | null>(null);
   const [tempImageUrl, setTempImageUrl] = useState<string>('');
-  const [isUpdating, setIsUpdating] = useState(false);
 
   const handleImageEditStart = (post: BlogPost) => {
     console.log('Starting image edit for post:', post.title);
@@ -30,23 +29,12 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onRefresh, o
   const handleImageSave = async (postId: string) => {
     if (!tempImageUrl) return;
     
-    setIsUpdating(true);
     console.log('Saving image for post:', postId, 'Image URL:', tempImageUrl);
     
     try {
-      const { error } = await supabase
-        .from('blog_posts')
-        .update({ 
-          image_url: tempImageUrl,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', postId);
-
-      if (error) {
-        console.error('Error updating post:', error);
-        toast.error('Failed to update post image');
-        return;
-      }
+      await updateBlogPost(postId, { 
+        image_url: tempImageUrl
+      });
 
       console.log('Post image updated successfully');
       setEditingImagePost(null);
@@ -56,8 +44,6 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onRefresh, o
     } catch (error) {
       console.error('Error updating post:', error);
       toast.error('Failed to update post image');
-    } finally {
-      setIsUpdating(false);
     }
   };
 
@@ -122,7 +108,11 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onRefresh, o
                         </div>
                         <div className="flex items-center gap-1">
                           <Calendar className="w-3 h-3" />
-                          {formatDate(post.created_at)}
+                          {new Date(post.created_at).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric'
+                          })}
                         </div>
                       </div>
                       {post.excerpt && (
@@ -140,7 +130,11 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onRefresh, o
                   </TableCell>
                   
                   <TableCell>
-                    {getStatusBadge(post)}
+                    {post.published ? (
+                      <Badge variant="default" className="bg-green-500">Published</Badge>
+                    ) : (
+                      <Badge variant="secondary">Draft</Badge>
+                    )}
                   </TableCell>
                   
                   <TableCell>

@@ -1,25 +1,23 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSupabaseBlog } from '@/hooks/useSupabaseBlog';
+import { useAdminOperations } from '@/hooks/useAdminOperations';
 import BlogPostsTable from '@/components/admin/BlogPostsTable';
 import ArticleEditor from '@/components/admin/ArticleEditor';
 import AdminLogin from '@/components/admin/AdminLogin';
 import AdminHeader from '@/components/admin/AdminHeader';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
-import { supabase } from '@/integrations/supabase/client';
 import { BlogPost } from '@/types/supabase-blog';
-import { Plus, FileText, Image, Settings, BarChart3 } from 'lucide-react';
+import { Plus, FileText, Image } from 'lucide-react';
 import { toast } from 'sonner';
 
 const BlogAdmin = () => {
   const { isAuthenticated, isLoading } = useAdminAuth();
   const { blogPosts, loading, error, refetch } = useSupabaseBlog();
+  const { updateBlogPost, createBlogPost, isLoading: isSaving } = useAdminOperations();
   const [currentView, setCurrentView] = useState<'list' | 'create' | 'edit'>('list');
   const [editingArticle, setEditingArticle] = useState<BlogPost | null>(null);
-  const [isSaving, setIsSaving] = useState(false);
 
   // Show loading screen while checking authentication
   if (isLoading) {
@@ -51,45 +49,14 @@ const BlogAdmin = () => {
   };
 
   const handleSaveArticle = async (articleData: Partial<BlogPost>) => {
-    setIsSaving(true);
     try {
       if (editingArticle) {
         // Update existing article
-        const { error } = await supabase
-          .from('blog_posts')
-          .update({
-            title: articleData.title,
-            slug: articleData.slug,
-            excerpt: articleData.excerpt,
-            content: articleData.content as any, // Cast to any to handle Json type
-            category: articleData.category,
-            author: articleData.author,
-            image_url: articleData.image_url,
-            published: articleData.published,
-            date: articleData.date,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', editingArticle.id);
-
-        if (error) throw error;
+        await updateBlogPost(editingArticle.id, articleData);
         toast.success('Article updated successfully!');
       } else {
         // Create new article
-        const { error } = await supabase
-          .from('blog_posts')
-          .insert({
-            title: articleData.title!,
-            slug: articleData.slug!,
-            excerpt: articleData.excerpt,
-            content: articleData.content as any, // Cast to any to handle Json type
-            category: articleData.category!,
-            author: articleData.author || 'IT Carolina Team',
-            image_url: articleData.image_url,
-            published: articleData.published ?? true,
-            date: articleData.date || new Date().toISOString().split('T')[0]
-          });
-
-        if (error) throw error;
+        await createBlogPost(articleData);
         toast.success('Article created successfully!');
       }
 
@@ -98,10 +65,8 @@ const BlogAdmin = () => {
       setEditingArticle(null);
     } catch (error) {
       console.error('Error saving article:', error);
-      toast.error('Failed to save article');
+      toast.error('Failed to save article. Please check your permissions.');
       throw error;
-    } finally {
-      setIsSaving(false);
     }
   };
 

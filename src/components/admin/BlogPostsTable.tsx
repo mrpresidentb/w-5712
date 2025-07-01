@@ -17,24 +17,29 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onUpdatePost
   const [tempImageUrl, setTempImageUrl] = useState<string>('');
 
   const handleEditStart = (post: BlogPost) => {
+    console.log('Starting edit for post:', post.title);
     setEditingPost(post.id);
     setTempImageUrl(post.imageUrl || '');
   };
 
   const handleSave = (postId: string) => {
+    console.log('Saving image for post:', postId, 'Image URL:', tempImageUrl);
     if (tempImageUrl) {
       onUpdatePost(postId, { imageUrl: tempImageUrl });
+      console.log('Post updated successfully');
     }
     setEditingPost(null);
     setTempImageUrl('');
   };
 
   const handleCancel = () => {
+    console.log('Cancelling edit');
     setEditingPost(null);
     setTempImageUrl('');
   };
 
   const handleImageUploaded = (imagePath: string) => {
+    console.log('Image uploaded, setting temp URL:', imagePath);
     setTempImageUrl(imagePath);
   };
 
@@ -47,39 +52,54 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onUpdatePost
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Title</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Current Image</TableHead>
-              <TableHead>Actions</TableHead>
+              <TableHead className="w-2/5">Title</TableHead>
+              <TableHead className="w-1/5">Category</TableHead>
+              <TableHead className="w-1/3">Current Image</TableHead>
+              <TableHead className="w-1/5">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {blogPosts.map((post) => (
               <TableRow key={post.id}>
-                <TableCell className="font-medium max-w-xs">
-                  <div className="truncate">{post.title}</div>
+                <TableCell className="font-medium">
+                  <div className="max-w-xs truncate" title={post.title}>
+                    {post.title}
+                  </div>
                 </TableCell>
-                <TableCell>{post.category}</TableCell>
+                <TableCell>
+                  <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
+                    {post.category}
+                  </span>
+                </TableCell>
                 <TableCell>
                   {editingPost === post.id ? (
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       {tempImageUrl && (
-                        <img 
-                          src={tempImageUrl} 
-                          alt="Preview" 
-                          className="w-20 h-12 object-cover rounded"
-                        />
+                        <div className="mb-2">
+                          <div className="text-xs text-gray-600 mb-1">Preview:</div>
+                          <img 
+                            src={tempImageUrl} 
+                            alt="Preview" 
+                            className="w-24 h-16 object-cover rounded border"
+                          />
+                        </div>
                       )}
                       <ImageUploader onImageUploaded={handleImageUploaded} />
                     </div>
                   ) : post.imageUrl ? (
-                    <img 
-                      src={post.imageUrl} 
-                      alt={post.title}
-                      className="w-20 h-12 object-cover rounded"
-                    />
+                    <div>
+                      <img 
+                        src={post.imageUrl} 
+                        alt={post.title}
+                        className="w-24 h-16 object-cover rounded border"
+                      />
+                      <div className="text-xs text-gray-500 mt-1">✓ Has image</div>
+                    </div>
                   ) : (
-                    <span className="text-gray-400">No image</span>
+                    <div className="text-center py-4">
+                      <div className="text-gray-400 text-sm">No image</div>
+                      <div className="text-xs text-orange-600">Needs image</div>
+                    </div>
                   )}
                 </TableCell>
                 <TableCell>
@@ -89,16 +109,30 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onUpdatePost
                         size="sm" 
                         onClick={() => handleSave(post.id)}
                         disabled={!tempImageUrl}
+                        className="flex items-center gap-1"
                       >
-                        <Save className="w-4 h-4" />
+                        <Save className="w-3 h-3" />
+                        Save
                       </Button>
-                      <Button size="sm" variant="outline" onClick={handleCancel}>
-                        <X className="w-4 h-4" />
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={handleCancel}
+                        className="flex items-center gap-1"
+                      >
+                        <X className="w-3 h-3" />
+                        Cancel
                       </Button>
                     </div>
                   ) : (
-                    <Button size="sm" variant="outline" onClick={() => handleEditStart(post)}>
-                      <Edit className="w-4 h-4" />
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      onClick={() => handleEditStart(post)}
+                      className="flex items-center gap-1"
+                    >
+                      <Edit className="w-3 h-3" />
+                      {post.imageUrl ? 'Change' : 'Add'} Image
                     </Button>
                   )}
                 </TableCell>

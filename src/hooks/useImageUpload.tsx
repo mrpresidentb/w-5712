@@ -9,19 +9,24 @@ export const useImageUpload = () => {
     setIsUploading(true);
     
     try {
-      // Generate unique filename
+      // Create a URL for the uploaded file
+      const imageUrl = URL.createObjectURL(file);
+      
+      // Generate unique filename for reference
       const timestamp = Date.now();
       const randomId = Math.random().toString(36).substr(2, 9);
       const extension = file.name.split('.').pop();
       const filename = `blog-${timestamp}-${randomId}.${extension}`;
-      const imagePath = `/lovable-uploads/${filename}`;
       
-      // In a real application, you would upload to a server
-      // For this demo, we'll simulate the upload and store the path
+      // In a real app, you would upload to server here
+      // For demo purposes, we'll use the object URL
+      console.log('Uploading file:', filename, 'Size:', file.size);
+      
+      // Simulate upload delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      setUploadedImages(prev => [...prev, imagePath]);
-      return imagePath;
+      setUploadedImages(prev => [...prev, imageUrl]);
+      return imageUrl;
     } catch (error) {
       console.error('Upload failed:', error);
       throw new Error('Failed to upload image');

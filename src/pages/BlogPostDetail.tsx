@@ -1,3 +1,4 @@
+
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import PageLayout from '@/components/PageLayout';
@@ -11,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { BlogPost } from '@/types/supabase-blog';
+import { toast } from 'sonner';
 
 // Helper function to render content with links
 const renderContentWithLinks = (content: string) => {
@@ -93,6 +95,33 @@ const BlogPostDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
+  // Enhanced share functionality
+  const handleShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: post?.title,
+          text: post?.excerpt || '',
+          url: window.location.href
+        });
+        toast.success('Content shared successfully!');
+      } else {
+        // Fallback to clipboard
+        await navigator.clipboard.writeText(window.location.href);
+        toast.success('Link copied to clipboard!');
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      // Fallback to clipboard if share fails
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        toast.success('Link copied to clipboard!');
+      } catch (clipboardError) {
+        toast.error('Unable to share or copy link');
+      }
+    }
+  };
+  
   useEffect(() => {
     window.scrollTo(0, 0);
     
@@ -118,6 +147,7 @@ const BlogPostDetail = () => {
         
         if (fetchedPost) {
           console.log('[BlogPostDetail] Setting post data:', fetchedPost.title);
+          console.log('[BlogPostDetail] Post content sections:', fetchedPost.content?.length || 0);
           setPost(fetchedPost);
         } else {
           console.log('[BlogPostDetail] No post found for slug:', slug);
@@ -140,6 +170,7 @@ const BlogPostDetail = () => {
     loading, 
     error, 
     postTitle: post?.title,
+    contentSections: post?.content?.length,
     slug 
   });
 
@@ -328,39 +359,57 @@ const BlogPostDetail = () => {
               duration: 0.6,
               delay: 0.2
             }} className="prose prose-lg max-w-none">
-              {post.content.map((section, index) => (
-                <motion.div key={index} initial={{
-                  opacity: 0,
-                  y: 10
-                }} animate={{
-                  opacity: 1,
-                  y: 0
-                }} transition={{
-                  duration: 0.4,
-                  delay: 0.1 * index
-                }} className={cn("mb-8", section.type === 'quote' && "my-10")}>
-                  {section.type === 'paragraph' && <p className="text-gray-700 mb-4 leading-relaxed">
-                    {renderContentWithLinks(section.content || '')}
-                  </p>}
-                  {section.type === 'heading' && <div className="flex items-center gap-3 mt-12 mb-6">
-                      <div className="w-1.5 h-7 bg-purple-500 rounded-full"></div>
-                      <h2 className="text-2xl font-bold text-gray-900">{section.content}</h2>
-                    </div>}
-                  {section.type === 'subheading' && <h3 className="text-xl font-bold mt-8 mb-3 text-gray-800 flex items-center gap-2">
-                      <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                      {section.content}
-                    </h3>}
-                  {section.type === 'list' && <ul className="list-disc pl-5 my-4 space-y-2">
-                      {section.items?.map((item, itemIndex) => <li key={itemIndex} className="text-gray-700">{item}</li>)}
-                    </ul>}
-                  {section.type === 'quote' && <blockquote className="border-l-4 border-purple-500 pl-5 py-2 my-8 bg-purple-50 rounded-r-lg italic text-gray-700">
-                      <div className="flex">
-                        <MessageSquare size={20} className="text-purple-500 mr-3 mt-1 flex-shrink-0" />
-                        <p className="text-lg m-0">{section.content}</p>
+              {post.content && post.content.length > 0 ? (
+                post.content.map((section, index) => (
+                  <motion.div key={index} initial={{
+                    opacity: 0,
+                    y: 10
+                  }} animate={{
+                    opacity: 1,
+                    y: 0
+                  }} transition={{
+                    duration: 0.4,
+                    delay: 0.1 * index
+                  }} className={cn("mb-8", section.type === 'quote' && "my-10")}>
+                    {section.type === 'paragraph' && (
+                      <p className="text-gray-700 mb-4 leading-relaxed text-lg">
+                        {renderContentWithLinks(section.content || '')}
+                      </p>
+                    )}
+                    {section.type === 'heading' && (
+                      <div className="flex items-center gap-3 mt-12 mb-6">
+                        <div className="w-1.5 h-7 bg-purple-500 rounded-full"></div>
+                        <h2 className="text-2xl font-bold text-gray-900">{section.content}</h2>
                       </div>
-                    </blockquote>}
-                </motion.div>
-              ))}
+                    )}
+                    {section.type === 'subheading' && (
+                      <h3 className="text-xl font-bold mt-8 mb-3 text-gray-800 flex items-center gap-2">
+                        <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                        {section.content}
+                      </h3>
+                    )}
+                    {section.type === 'list' && (
+                      <ul className="list-disc pl-5 my-4 space-y-2">
+                        {section.items?.map((item, itemIndex) => (
+                          <li key={itemIndex} className="text-gray-700 text-lg">{item}</li>
+                        ))}
+                      </ul>
+                    )}
+                    {section.type === 'quote' && (
+                      <blockquote className="border-l-4 border-purple-500 pl-5 py-2 my-8 bg-purple-50 rounded-r-lg italic text-gray-700">
+                        <div className="flex">
+                          <MessageSquare size={20} className="text-purple-500 mr-3 mt-1 flex-shrink-0" />
+                          <p className="text-lg m-0">{section.content}</p>
+                        </div>
+                      </blockquote>
+                    )}
+                  </motion.div>
+                ))
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-gray-600">No content available for this post.</p>
+                </div>
+              )}
             </motion.div>
             
             <Separator className="my-8" />
@@ -374,13 +423,7 @@ const BlogPostDetail = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => {
-                    navigator.share?.({
-                      title: post.title,
-                      text: post.excerpt || '',
-                      url: window.location.href
-                    }) || navigator.clipboard.writeText(window.location.href);
-                  }}
+                  onClick={handleShare}
                 >
                   <Share className="w-4 h-4 mr-1" />
                   Share

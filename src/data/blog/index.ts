@@ -15,7 +15,7 @@ export const blogPosts: BlogPost[] = [
     date: 'June 28, 2025',
     author: 'IT Carolina Team',
     category: 'Troubleshooting',
-    imageUrl: '/lovable-uploads/photo-1486312338219-ce68d2c6f44d.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop',
     content: troubleshootingPosts[0].content
   },
   {
@@ -26,7 +26,7 @@ export const blogPosts: BlogPost[] = [
     date: 'June 25, 2025',
     author: 'IT Carolina Team',
     category: 'Computer Repair',
-    imageUrl: '/lovable-uploads/photo-1531297484001-80022131f5a1.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop',
     content: computerRepairPosts[0].content
   },
   {
@@ -37,7 +37,7 @@ export const blogPosts: BlogPost[] = [
     date: 'June 22, 2025',
     author: 'IT Carolina Team',
     category: 'Home Office',
-    imageUrl: '/lovable-uploads/photo-1498050108023-c5249f4df085.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop',
     content: homeOfficePosts[0].content
   },
   {
@@ -48,7 +48,7 @@ export const blogPosts: BlogPost[] = [
     date: 'June 20, 2025',
     author: 'IT Carolina Team',
     category: 'Printer Support',
-    imageUrl: '/lovable-uploads/photo-1488590528505-98d2b5aba04b.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop',
     content: printerSupportPosts[0].content
   },
   {
@@ -59,7 +59,7 @@ export const blogPosts: BlogPost[] = [
     date: 'June 18, 2025',
     author: 'IT Carolina Team',
     category: 'Cybersecurity',
-    imageUrl: '/lovable-uploads/photo-1518770660439-4636190af475.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop',
     content: cybersecurityPosts[0].content
   },
   {
@@ -70,7 +70,7 @@ export const blogPosts: BlogPost[] = [
     date: 'June 15, 2025',
     author: 'IT Carolina Team',
     category: 'Computer Repair',
-    imageUrl: '/lovable-uploads/photo-1461749280684-dccba630e2f6.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop',
     content: computerRepairPosts[1].content
   }
 ];

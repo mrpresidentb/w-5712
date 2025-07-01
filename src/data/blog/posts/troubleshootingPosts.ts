@@ -1,4 +1,3 @@
-
 import { BlogPost } from '../blogTypes';
 
 export const troubleshootingPosts: BlogPost[] = [
@@ -7,10 +6,10 @@ export const troubleshootingPosts: BlogPost[] = [
     slug: 'common-computer-problems-solutions',
     title: 'Common Computer Problems and Solutions Every User Should Know',
     excerpt: 'Learn how to identify and fix the most frequent computer issues that slow down your PC, from startup problems to performance issues. Get expert tips from Charlotte\'s trusted IT support team.',
-    date: 'December 28, 2024',
+    date: 'June 28, 2025',
     author: 'IT Carolina Team',
     category: 'Troubleshooting',
-    imageUrl: '/lovable-uploads/photo-1486312338219-ce68d2c6f44d.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop',
     content: [
       {
         type: 'paragraph',

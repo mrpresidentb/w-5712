@@ -7,7 +7,7 @@ interface LazyImageProps {
   alt: string;
   className?: string;
   loading?: 'lazy' | 'eager';
-  fetchpriority?: 'high' | 'low' | 'auto';
+  fetchPriority?: 'high' | 'low' | 'auto';
 }
 
 const LazyImage: React.FC<LazyImageProps> = ({ 
@@ -15,7 +15,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
   alt, 
   className, 
   loading = 'lazy',
-  fetchpriority = 'auto'
+  fetchPriority = 'auto'
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -38,7 +38,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
         src={hasError ? '/placeholder.svg' : src}
         alt={alt}
         loading={loading}
-        fetchpriority={fetchpriority}
+        fetchPriority={fetchPriority}
         onLoad={handleLoad}
         onError={handleError}
         className={cn(

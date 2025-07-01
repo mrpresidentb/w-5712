@@ -30,14 +30,14 @@ export const useImageUpload = () => {
         throw new Error(`Upload failed: ${error.message}`);
       }
 
-      if (!data) {
+      if (!data || !data.path) {
         throw new Error('No data returned from upload');
       }
 
       // Get public URL
       const { data: publicUrlData } = supabase.storage
         .from('blog-images')
-        .getPublicUrl(filename);
+        .getPublicUrl(data.path);
 
       if (!publicUrlData?.publicUrl) {
         throw new Error('Failed to get public URL');

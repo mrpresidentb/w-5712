@@ -32,6 +32,8 @@ interface SEOProps {
   keywords?: string;
   faqData?: FAQItem[];
   howToData?: HowToData;
+  publishedTime?: string;
+  modifiedTime?: string;
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -43,7 +45,9 @@ const SEO: React.FC<SEOProps> = ({
   canonical,
   keywords = "computer repair near me, computer repair technician near me, computer repair charlotte nc, IT support near me, computer service near me, computer help near me, pc help near me, apple computer support, dell computer support, computer repair shops near me, personal computer repair service, computer support services near me",
   faqData,
-  howToData
+  howToData,
+  publishedTime,
+  modifiedTime
 }) => {
   const location = useLocation();
   const currentUrl = canonical || `https://itcarolina.us${location.pathname}`;
@@ -211,8 +215,18 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:image:alt" content={title} />
       
       {/* Facebook specific tags for better cache control */}
-      <meta property="fb:app_id" content="" />
+      <meta property="fb:app_id" content="1234567890" />
       <meta property="article:publisher" content="IT Carolina" />
+      
+      {/* Article specific meta tags for blog posts */}
+      {type === 'article' && (
+        <>
+          <meta property="article:author" content="IT Carolina" />
+          <meta property="article:section" content="Technology" />
+          <meta property="og:article:published_time" content={publishedTime || new Date().toISOString()} />
+          <meta property="og:article:modified_time" content={modifiedTime || new Date().toISOString()} />
+        </>
+      )}
       
       {/* Local Business */}
       <meta name="geo.region" content="US-NC" />

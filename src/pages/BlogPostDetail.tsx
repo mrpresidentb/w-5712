@@ -326,6 +326,8 @@ const BlogPostDetail = () => {
         type="article"
         keywords={getCategoryKeywords(post.category)}
         canonical={`https://itcarolina.us/blog/${post.slug}`}
+        publishedTime={post.created_at}
+        modifiedTime={post.updated_at}
       />
       
       {/* Article structured data */}

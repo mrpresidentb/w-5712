@@ -2,4 +2,15 @@
 User-agent: *
 Allow: /
 
+# Allow blog content
+Allow: /blog/
+Allow: /blog/*
+
+# Block admin areas
+Disallow: /admin/
+Disallow: /admin/*
+
+# Block private files
+Disallow: /*.json$
+
 Sitemap: https://itcarolina.us/sitemap.xml

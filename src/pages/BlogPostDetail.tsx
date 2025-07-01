@@ -133,40 +133,73 @@ const BlogPostDetail = () => {
     { label: post.title }
   ];
 
-  // Article structured data
+  // Enhanced Article structured data
   const articleStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
     description: post.excerpt,
-    image: post.imageUrl,
+    image: {
+      '@type': 'ImageObject',
+      url: `https://itcarolina.us${post.imageUrl}`,
+      width: 1200,
+      height: 630
+    },
     author: {
-      '@type': 'Person',
-      name: post.author
+      '@type': 'Organization',
+      name: post.author,
+      url: 'https://itcarolina.us'
     },
     publisher: {
       '@type': 'Organization',
       name: 'IT Carolina',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png'
+        url: 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png',
+        width: 512,
+        height: 512
       }
     },
-    datePublished: post.date,
-    dateModified: post.date,
+    datePublished: new Date(post.date).toISOString(),
+    dateModified: new Date(post.date).toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `https://itcarolina.us/blog/${post.slug}`
-    }
+    },
+    articleSection: post.category,
+    wordCount: wordCount,
+    timeRequired: `PT${readingTime}M`,
+    keywords: [
+      'computer repair charlotte nc',
+      'IT support charlotte',
+      post.category.toLowerCase(),
+      'charlotte computer help',
+      'IT services north carolina'
+    ].join(', ')
+  };
+
+  // Enhanced SEO keywords based on post category
+  const getCategoryKeywords = (category: string) => {
+    const baseKeywords = 'computer repair charlotte nc, IT support charlotte nc, computer help charlotte';
+    const categoryKeywords = {
+      'Troubleshooting': 'computer troubleshooting, PC problems, computer issues, slow computer fix',
+      'Computer Repair': 'computer repair service, PC repair charlotte, laptop repair, computer fix',
+      'Home Office': 'home office setup, remote work IT, home network setup, work from home technology',
+      'Printer Support': 'printer repair charlotte, printer troubleshooting, printer setup, printer problems',
+      'Cybersecurity': 'small business cybersecurity, data protection, network security, cyber threats'
+    };
+    return `${baseKeywords}, ${categoryKeywords[category] || ''}`;
   };
 
   return (
     <PageLayout breadcrumbItems={breadcrumbItems}>
       <SEO 
-        title={`${post.title} - IT Carolina`} 
+        title={`${post.title} | IT Carolina - Charlotte NC Computer Repair`} 
         description={post.excerpt} 
         imageUrl={post.imageUrl}
         type="article"
+        keywords={getCategoryKeywords(post.category)}
+        canonical={`https://itcarolina.us/blog/${post.slug}`}
       />
       
       {/* Article structured data */}

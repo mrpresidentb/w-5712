@@ -25,12 +25,56 @@ const BlogListing = () => {
     { label: 'Blog' }
   ];
 
+  // Enhanced blog listing structured data
+  const blogStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    '@id': 'https://itcarolina.us/blog',
+    name: 'IT Carolina Blog',
+    description: 'Expert IT support tips, computer troubleshooting guides, and technology insights for home users and small businesses in Charlotte, North Carolina.',
+    url: 'https://itcarolina.us/blog',
+    publisher: {
+      '@type': 'Organization',
+      name: 'IT Carolina',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png'
+      }
+    },
+    blogPost: blogPosts.map(post => ({
+      '@type': 'BlogPosting',
+      headline: post.title,
+      url: `https://itcarolina.us/blog/${post.slug}`,
+      datePublished: new Date(post.date).toISOString(),
+      author: {
+        '@type': 'Organization',
+        name: post.author
+      },
+      image: `https://itcarolina.us${post.imageUrl}`
+    }))
+  };
+
+  const pageTitle = selectedCategory 
+    ? `${selectedCategory} Articles | IT Carolina Blog - Charlotte NC`
+    : 'IT Support Blog - Charlotte NC | Computer Repair Tips & Guides';
+    
+  const pageDescription = selectedCategory
+    ? `Expert ${selectedCategory.toLowerCase()} tips and guides for Charlotte area home users and small businesses. Professional IT support advice from IT Carolina.`
+    : 'Expert IT support tips, computer troubleshooting guides, and technology insights for home users and small businesses in Charlotte, North Carolina.';
+
   return (
     <PageLayout breadcrumbItems={breadcrumbItems}>
       <SEO 
-        title="IT Support Blog - Charlotte NC | IT Carolina" 
-        description="Expert IT support tips, computer troubleshooting guides, and technology insights for home users and small businesses in Charlotte, North Carolina."
+        title={pageTitle}
+        description={pageDescription}
+        keywords="IT support blog charlotte nc, computer repair tips, troubleshooting guides, technology insights, home office setup, cybersecurity tips, printer support"
+        canonical="https://itcarolina.us/blog"
       />
+      
+      {/* Blog structured data */}
+      <script type="application/ld+json">
+        {JSON.stringify(blogStructuredData)}
+      </script>
       
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16">

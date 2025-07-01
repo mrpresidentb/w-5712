@@ -23,7 +23,7 @@ export const useSupabaseBlog = () => {
       // Transform the data to match our interface with proper type casting
       const transformedPosts: BlogPost[] = (data || []).map(post => ({
         ...post,
-        content: (post.content as ContentSection[]) || [],
+        content: (post.content as unknown as ContentSection[]) || [],
         date: new Date(post.date).toLocaleDateString('en-US', { 
           year: 'numeric', 
           month: 'long', 
@@ -68,7 +68,7 @@ export const useSupabaseBlog = () => {
 
       return {
         ...data,
-        content: (data.content as ContentSection[]) || [],
+        content: (data.content as unknown as ContentSection[]) || [],
         date: new Date(data.date).toLocaleDateString('en-US', { 
           year: 'numeric', 
           month: 'long', 

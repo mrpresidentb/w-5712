@@ -32,8 +32,8 @@ const UnifiedTextEditor: React.FC<UnifiedTextEditorProps> = ({
         case 'quote':
           return `[QUOTE]${section.content || ''}[/QUOTE]`;
         case 'list':
-          const listItems = section.items?.join('\n• ') || '';
-          return `[LIST]\n• ${listItems}[/LIST]`;
+          const listItems = section.items?.join('\n') || '';
+          return `[LIST]\n${listItems}\n[/LIST]`;
         default:
           return section.content || '';
       }
@@ -43,89 +43,79 @@ const UnifiedTextEditor: React.FC<UnifiedTextEditorProps> = ({
   // Parse unified text back to ContentSection[]
   const textToContent = useCallback((text: string): ContentSection[] => {
     const sections: ContentSection[] = [];
-    const lines = text.split('\n');
-    let currentSection: ContentSection | null = null;
-    let buffer = '';
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].trim();
-      
-      // Check for opening tags
-      if (line.includes('[HEADING]')) {
-        if (buffer.trim()) {
-          sections.push({ type: 'paragraph', content: buffer.trim() });
-          buffer = '';
-        }
-        const content = line.replace('[HEADING]', '').replace('[/HEADING]', '');
-        sections.push({ type: 'heading', content });
-        continue;
-      }
-      
-      if (line.includes('[SUBHEADING]')) {
-        if (buffer.trim()) {
-          sections.push({ type: 'paragraph', content: buffer.trim() });
-          buffer = '';
-        }
-        const content = line.replace('[SUBHEADING]', '').replace('[/SUBHEADING]', '');
-        sections.push({ type: 'subheading', content });
-        continue;
-      }
-      
-      if (line.includes('[QUOTE]')) {
-        if (buffer.trim()) {
-          sections.push({ type: 'paragraph', content: buffer.trim() });
-          buffer = '';
-        }
-        const content = line.replace('[QUOTE]', '').replace('[/QUOTE]', '');
-        sections.push({ type: 'quote', content });
-        continue;
-      }
-      
-      if (line.includes('[LIST]')) {
-        if (buffer.trim()) {
-          sections.push({ type: 'paragraph', content: buffer.trim() });
-          buffer = '';
-        }
-        currentSection = { type: 'list', items: [] };
-        continue;
-      }
-      
-      if (line.includes('[/LIST]')) {
-        if (currentSection && currentSection.type === 'list') {
-          sections.push(currentSection);
-          currentSection = null;
-        }
-        continue;
-      }
-      
-      // Handle list items
-      if (currentSection && currentSection.type === 'list' && line.startsWith('•')) {
-        const item = line.substring(1).trim();
-        if (item) {
-          currentSection.items = currentSection.items || [];
-          currentSection.items.push(item);
-        }
-        continue;
-      }
-      
-      // Regular paragraph content
-      if (currentSection && currentSection.type === 'list') {
-        // We're in a list but this isn't a list item, end the list
-        sections.push(currentSection);
-        currentSection = null;
-        buffer = line;
-      } else {
-        buffer += (buffer ? '\n' : '') + line;
-      }
-    }
+    let remainingText = text;
     
-    // Handle remaining buffer
-    if (buffer.trim()) {
-      sections.push({ type: 'paragraph', content: buffer.trim() });
-    }
-    
-    if (currentSection) {
-      sections.push(currentSection);
+    // Process the text sequentially to handle all formatting
+    while (remainingText.length > 0) {
+      let foundMatch = false;
+      
+      // Check for HEADING
+      const headingMatch = remainingText.match(/\[HEADING\](.*?)\[\/HEADING\]/s);
+      if (headingMatch && remainingText.indexOf(headingMatch[0]) === 0) {
+        sections.push({ type: 'heading', content: headingMatch[1].trim() });
+        remainingText = remainingText.substring(headingMatch[0].length);
+        foundMatch = true;
+        continue;
+      }
+      
+      // Check for SUBHEADING
+      const subheadingMatch = remainingText.match(/\[SUBHEADING\](.*?)\[\/SUBHEADING\]/s);
+      if (subheadingMatch && remainingText.indexOf(subheadingMatch[0]) === 0) {
+        sections.push({ type: 'subheading', content: subheadingMatch[1].trim() });
+        remainingText = remainingText.substring(subheadingMatch[0].length);
+        foundMatch = true;
+        continue;
+      }
+      
+      // Check for QUOTE
+      const quoteMatch = remainingText.match(/\[QUOTE\](.*?)\[\/QUOTE\]/s);
+      if (quoteMatch && remainingText.indexOf(quoteMatch[0]) === 0) {
+        sections.push({ type: 'quote', content: quoteMatch[1].trim() });
+        remainingText = remainingText.substring(quoteMatch[0].length);
+        foundMatch = true;
+        continue;
+      }
+      
+      // Check for LIST
+      const listMatch = remainingText.match(/\[LIST\](.*?)\[\/LIST\]/s);
+      if (listMatch && remainingText.indexOf(listMatch[0]) === 0) {
+        const listContent = listMatch[1].trim();
+        const items = listContent
+          .split('\n')
+          .map(line => line.trim())
+          .filter(line => line.length > 0)
+          .map(line => line.replace(/^•\s*/, '')); // Remove bullet points if present
+        
+        if (items.length > 0) {
+          sections.push({ type: 'list', items });
+        }
+        remainingText = remainingText.substring(listMatch[0].length);
+        foundMatch = true;
+        continue;
+      }
+      
+      if (!foundMatch) {
+        // Find the next tag or use the rest of the text
+        const nextTagMatch = remainingText.match(/\[(HEADING|SUBHEADING|QUOTE|LIST)\]/);
+        let textToAdd: string;
+        
+        if (nextTagMatch) {
+          textToAdd = remainingText.substring(0, nextTagMatch.index);
+          remainingText = remainingText.substring(nextTagMatch.index || 0);
+        } else {
+          textToAdd = remainingText;
+          remainingText = '';
+        }
+        
+        // Add as paragraph if there's content
+        const paragraphContent = textToAdd.trim();
+        if (paragraphContent) {
+          sections.push({ type: 'paragraph', content: paragraphContent });
+        }
+      }
+      
+      // Skip empty lines between sections
+      remainingText = remainingText.replace(/^\s*\n+/, '');
     }
     
     return sections.filter(section => 
@@ -155,8 +145,12 @@ const UnifiedTextEditor: React.FC<UnifiedTextEditorProps> = ({
       
       // Special handling for LIST - convert each line to a list item
       if (startTag === '[LIST]\n• ' && endTag === '\n[/LIST]') {
-        const lines = selectedText.split('\n').filter(line => line.trim());
-        const listItems = lines.map(line => `• ${line.trim()}`).join('\n');
+        const lines = selectedText
+          .split('\n')
+          .map(line => line.trim())
+          .filter(line => line.length > 0);
+        
+        const listItems = lines.join('\n');
         newValue = 
           textValue.substring(0, start) + 
           '[LIST]\n' + listItems + '\n[/LIST]' + 
@@ -267,7 +261,7 @@ const UnifiedTextEditor: React.FC<UnifiedTextEditorProps> = ({
               <li>• Use <code>[HEADING]text[/HEADING]</code> for headings</li>
               <li>• Use <code>[SUBHEADING]text[/SUBHEADING]</code> for subheadings</li>
               <li>• Use <code>[QUOTE]text[/QUOTE]</code> for quotes</li>
-              <li>• Use <code>[LIST]</code> with bullet points <code>• item</code> then <code>[/LIST]</code></li>
+              <li>• Use <code>[LIST]</code> with items on separate lines then <code>[/LIST]</code></li>
               <li>• Regular text becomes paragraphs automatically</li>
             </ul>
           </div>

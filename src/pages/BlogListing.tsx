@@ -36,7 +36,7 @@ const BlogListing = () => {
       name: 'IT Carolina',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png'
+        url: 'https://itcarolina.us/og.jpg'
       }
     },
     blogPost: blogPosts.map(post => ({

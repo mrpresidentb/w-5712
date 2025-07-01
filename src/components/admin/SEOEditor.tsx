@@ -21,7 +21,7 @@ const SEOEditor: React.FC<SEOEditorProps> = ({ post, onUpdate }) => {
   const generateDefaultValues = () => {
     const defaultTitle = `${post.title} | IT Carolina - Charlotte NC Computer Repair`;
     const defaultDescription = post.excerpt || 'Professional IT support for home and small business in Charlotte, NC';
-    const defaultImage = post.image_url || 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png';
+    const defaultImage = post.image_url || 'https://itcarolina.us/og.jpg';
     
     onUpdate({
       custom_title: defaultTitle,
@@ -141,7 +141,7 @@ const SEOEditor: React.FC<SEOEditorProps> = ({ post, onUpdate }) => {
               id="og_image"
               value={post.og_image || ''}
               onChange={(e) => handleInputChange('og_image', e.target.value)}
-              placeholder={post.image_url || 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png'}
+              placeholder={post.image_url || 'https://itcarolina.us/og.jpg'}
             />
           </div>
         </CardContent>
@@ -183,7 +183,7 @@ const SEOEditor: React.FC<SEOEditorProps> = ({ post, onUpdate }) => {
               id="twitter_image"
               value={post.twitter_image || ''}
               onChange={(e) => handleInputChange('twitter_image', e.target.value)}
-              placeholder={post.image_url || 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png'}
+              placeholder={post.image_url || 'https://itcarolina.us/og.jpg'}
             />
           </div>
         </CardContent>

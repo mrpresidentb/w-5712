@@ -90,7 +90,7 @@ const ArticleEditor: React.FC<ArticleEditorProps> = ({
       if (formData.title && !article) {
         const defaultTitle = `${formData.title} | IT Carolina - Charlotte NC Computer Repair`;
         const defaultDescription = formData.excerpt || 'Professional IT support for home and small business in Charlotte, NC';
-        const defaultImage = formData.image_url || 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png';
+        const defaultImage = formData.image_url || 'https://itcarolina.us/og.jpg';
         
         setFormData(prev => ({
           ...prev,

@@ -43,7 +43,7 @@ const SEOPreview: React.FC<SEOPreviewProps> = ({ post }) => {
   
   const absoluteImageUrl = ogImage 
     ? (ogImage.startsWith('http') ? ogImage : `https://itcarolina.us${ogImage}`)
-    : 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png';
+    : 'https://itcarolina.us/og.jpg';
   
   const postUrl = `https://itcarolina.us/blog/${post.slug}`;
 

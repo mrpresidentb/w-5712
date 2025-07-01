@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -97,6 +96,12 @@ const ArticleEditor: React.FC<ArticleEditorProps> = ({
 
   const handleImageUploaded = (imagePath: string) => {
     setFormData(prev => ({ ...prev, image_url: imagePath }));
+    setIsDirty(true);
+    toast.success('Featured image updated!');
+  };
+
+  const handleRemoveImage = () => {
+    setFormData(prev => ({ ...prev, image_url: '' }));
     setIsDirty(true);
   };
 
@@ -239,32 +244,17 @@ const ArticleEditor: React.FC<ArticleEditorProps> = ({
         </CardContent>
       </Card>
 
-      {/* Featured Image */}
+      {/* Enhanced Featured Image */}
       <Card>
         <CardHeader>
           <CardTitle>Featured Image</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {formData.image_url && (
-              <div className="relative">
-                <img 
-                  src={formData.image_url} 
-                  alt="Featured image preview"
-                  className="w-full max-w-md h-48 object-cover rounded border"
-                />
-                <Button
-                  size="sm"
-                  variant="destructive"
-                  className="absolute top-2 right-2"
-                  onClick={() => handleInputChange('image_url', '')}
-                >
-                  <X className="w-4 h-4" />
-                </Button>
-              </div>
-            )}
-            <ImageUploader onImageUploaded={handleImageUploaded} />
-          </div>
+          <ImageUploader
+            onImageUploaded={handleImageUploaded}
+            currentImage={formData.image_url}
+            onRemoveImage={handleRemoveImage}
+          />
         </CardContent>
       </Card>
 

@@ -3,28 +3,31 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
 import { BlogPost } from '@/types/supabase-blog';
 import ImageUploader from './ImageUploader';
-import { Edit, Save, X } from 'lucide-react';
+import { Edit, Save, X, Eye, FileText, Calendar, User } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 interface BlogPostsTableProps {
   blogPosts: BlogPost[];
   onRefresh: () => void;
+  onEdit?: (post: BlogPost) => void;
 }
 
-const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onRefresh }) => {
-  const [editingPost, setEditingPost] = useState<string | null>(null);
+const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onRefresh, onEdit }) => {
+  const [editingImagePost, setEditingImagePost] = useState<string | null>(null);
   const [tempImageUrl, setTempImageUrl] = useState<string>('');
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const handleEditStart = (post: BlogPost) => {
-    console.log('Starting edit for post:', post.title);
-    setEditingPost(post.id);
+  const handleImageEditStart = (post: BlogPost) => {
+    console.log('Starting image edit for post:', post.title);
+    setEditingImagePost(post.id);
     setTempImageUrl(post.image_url || '');
   };
 
-  const handleSave = async (postId: string) => {
+  const handleImageSave = async (postId: string) => {
     if (!tempImageUrl) return;
     
     setIsUpdating(true);
@@ -33,30 +36,34 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onRefresh })
     try {
       const { error } = await supabase
         .from('blog_posts')
-        .update({ image_url: tempImageUrl })
+        .update({ 
+          image_url: tempImageUrl,
+          updated_at: new Date().toISOString()
+        })
         .eq('id', postId);
 
       if (error) {
         console.error('Error updating post:', error);
-        alert('Failed to update post image');
+        toast.error('Failed to update post image');
         return;
       }
 
-      console.log('Post updated successfully');
-      setEditingPost(null);
+      console.log('Post image updated successfully');
+      setEditingImagePost(null);
       setTempImageUrl('');
-      onRefresh(); // Refresh the data
+      onRefresh();
+      toast.success('Image updated successfully!');
     } catch (error) {
       console.error('Error updating post:', error);
-      alert('Failed to update post image');
+      toast.error('Failed to update post image');
     } finally {
       setIsUpdating(false);
     }
   };
 
-  const handleCancel = () => {
-    console.log('Cancelling edit');
-    setEditingPost(null);
+  const handleImageCancel = () => {
+    console.log('Cancelling image edit');
+    setEditingImagePost(null);
     setTempImageUrl('');
   };
 
@@ -65,104 +72,172 @@ const BlogPostsTable: React.FC<BlogPostsTableProps> = ({ blogPosts, onRefresh })
     setTempImageUrl(imagePath);
   };
 
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  const getStatusBadge = (post: BlogPost) => {
+    if (post.published) {
+      return <Badge variant="default" className="bg-green-500">Published</Badge>;
+    }
+    return <Badge variant="secondary">Draft</Badge>;
+  };
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Blog Posts Management</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <FileText className="w-5 h-5" />
+          Articles Management
+        </CardTitle>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-2/5">Title</TableHead>
-              <TableHead className="w-1/5">Category</TableHead>
-              <TableHead className="w-1/3">Current Image</TableHead>
-              <TableHead className="w-1/5">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {blogPosts.map((post) => (
-              <TableRow key={post.id}>
-                <TableCell className="font-medium">
-                  <div className="max-w-xs truncate" title={post.title}>
-                    {post.title}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
-                    {post.category}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  {editingPost === post.id ? (
-                    <div className="space-y-3">
-                      {tempImageUrl && (
-                        <div className="mb-2">
-                          <div className="text-xs text-gray-600 mb-1">Preview:</div>
-                          <img 
-                            src={tempImageUrl} 
-                            alt="Preview" 
-                            className="w-24 h-16 object-cover rounded border"
-                          />
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-2/5">Article</TableHead>
+                <TableHead className="w-1/6">Category</TableHead>
+                <TableHead className="w-1/6">Status</TableHead>
+                <TableHead className="w-1/4">Featured Image</TableHead>
+                <TableHead className="w-1/4">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {blogPosts.map((post) => (
+                <TableRow key={post.id}>
+                  <TableCell>
+                    <div className="space-y-1">
+                      <div className="font-medium truncate max-w-xs" title={post.title}>
+                        {post.title}
+                      </div>
+                      <div className="flex items-center gap-4 text-xs text-gray-500">
+                        <div className="flex items-center gap-1">
+                          <User className="w-3 h-3" />
+                          {post.author}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          {formatDate(post.created_at)}
+                        </div>
+                      </div>
+                      {post.excerpt && (
+                        <div className="text-xs text-gray-600 truncate max-w-xs" title={post.excerpt}>
+                          {post.excerpt}
                         </div>
                       )}
-                      <ImageUploader onImageUploaded={handleImageUploaded} />
                     </div>
-                  ) : post.image_url ? (
-                    <div>
-                      <img 
-                        src={post.image_url} 
-                        alt={post.title}
-                        className="w-24 h-16 object-cover rounded border"
-                      />
-                      <div className="text-xs text-gray-500 mt-1">✓ Has image</div>
+                  </TableCell>
+                  
+                  <TableCell>
+                    <Badge variant="outline" className="text-xs">
+                      {post.category}
+                    </Badge>
+                  </TableCell>
+                  
+                  <TableCell>
+                    {getStatusBadge(post)}
+                  </TableCell>
+                  
+                  <TableCell>
+                    {editingImagePost === post.id ? (
+                      <div className="space-y-3">
+                        {tempImageUrl && (
+                          <div className="mb-2">
+                            <div className="text-xs text-gray-600 mb-1">Preview:</div>
+                            <img 
+                              src={tempImageUrl} 
+                              alt="Preview" 
+                              className="w-20 h-12 object-cover rounded border"
+                            />
+                          </div>
+                        )}
+                        <ImageUploader onImageUploaded={handleImageUploaded} />
+                      </div>
+                    ) : post.image_url ? (
+                      <div className="flex items-center gap-2">
+                        <img 
+                          src={post.image_url} 
+                          alt={post.title}
+                          className="w-20 h-12 object-cover rounded border"
+                        />
+                        <div className="text-xs text-green-600">✓</div>
+                      </div>
+                    ) : (
+                      <div className="text-center py-2">
+                        <div className="text-gray-400 text-xs">No image</div>
+                        <div className="text-xs text-orange-600">Recommended</div>
+                      </div>
+                    )}
+                  </TableCell>
+                  
+                  <TableCell>
+                    <div className="flex gap-1">
+                      {editingImagePost === post.id ? (
+                        <>
+                          <Button 
+                            size="sm" 
+                            onClick={() => handleImageSave(post.id)}
+                            disabled={!tempImageUrl || isUpdating}
+                            className="flex items-center gap-1"
+                          >
+                            <Save className="w-3 h-3" />
+                            {isUpdating ? 'Saving...' : 'Save'}
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            onClick={handleImageCancel}
+                            disabled={isUpdating}
+                            className="flex items-center gap-1"
+                          >
+                            <X className="w-3 h-3" />
+                            Cancel
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          {onEdit && (
+                            <Button 
+                              size="sm" 
+                              variant="default"
+                              onClick={() => onEdit(post)}
+                              className="flex items-center gap-1"
+                            >
+                              <Edit className="w-3 h-3" />
+                              Edit
+                            </Button>
+                          )}
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            onClick={() => handleImageEditStart(post)}
+                            className="flex items-center gap-1"
+                          >
+                            <Eye className="w-3 h-3" />
+                            {post.image_url ? 'Change' : 'Add'} Image
+                          </Button>
+                        </>
+                      )}
                     </div>
-                  ) : (
-                    <div className="text-center py-4">
-                      <div className="text-gray-400 text-sm">No image</div>
-                      <div className="text-xs text-orange-600">Needs image</div>
-                    </div>
-                  )}
-                </TableCell>
-                <TableCell>
-                  {editingPost === post.id ? (
-                    <div className="flex gap-2">
-                      <Button 
-                        size="sm" 
-                        onClick={() => handleSave(post.id)}
-                        disabled={!tempImageUrl || isUpdating}
-                        className="flex items-center gap-1"
-                      >
-                        <Save className="w-3 h-3" />
-                        {isUpdating ? 'Saving...' : 'Save'}
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="outline" 
-                        onClick={handleCancel}
-                        disabled={isUpdating}
-                        className="flex items-center gap-1"
-                      >
-                        <X className="w-3 h-3" />
-                        Cancel
-                      </Button>
-                    </div>
-                  ) : (
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      onClick={() => handleEditStart(post)}
-                      className="flex items-center gap-1"
-                    >
-                      <Edit className="w-3 h-3" />
-                      {post.image_url ? 'Change' : 'Add'} Image
-                    </Button>
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+        
+        {blogPosts.length === 0 && (
+          <div className="text-center py-8 text-gray-500">
+            <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+            <p>No articles found</p>
+            <p className="text-sm mt-1">Create your first article to get started</p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

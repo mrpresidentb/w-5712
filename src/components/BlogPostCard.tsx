@@ -1,52 +1,78 @@
 
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Calendar, Clock, User } from 'lucide-react';
+import { BlogPost } from '@/data/blog/blogTypes';
+import LazyImage from './LazyImage';
 
 interface BlogPostCardProps {
-  title: string;
-  excerpt: string;
-  imageUrl: string;
-  date: string;
-  slug: string;
-  category: string;
+  post: BlogPost;
 }
 
-const BlogPostCard = ({
-  title,
-  excerpt,
-  imageUrl,
-  date,
-  slug,
-  category
-}: BlogPostCardProps) => {
+const BlogPostCard = ({ post }: BlogPostCardProps) => {
+  // Calculate reading time (average 200 words per minute)
+  const wordCount = post.content.reduce((count, section) => {
+    if (section.content) {
+      return count + section.content.split(/\s+/).length;
+    } else if (section.items) {
+      return count + section.items.join(' ').split(/\s+/).length;
+    }
+    return count;
+  }, 0);
+  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
   return (
-    <Link to={`/blog/${slug}`}>
-      <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full">
-        <div className="grid grid-rows-[200px,1fr]">
-          <div
-            className="bg-cover bg-center"
-            style={{ backgroundImage: `url('${imageUrl}')` }}
-          >
-            <div className="w-full h-full bg-black/20 flex items-center justify-center">
-              <span className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium text-white inline-block">
-                {category}
-              </span>
-            </div>
-          </div>
-          <CardContent className="p-6">
-            <p className="text-gray-500 text-sm mb-2">{date}</p>
-            <h3 className="text-xl font-bold mb-2 line-clamp-2">{title}</h3>
-            <p className="text-gray-700 mb-4 line-clamp-3">{excerpt}</p>
-            <Button variant="outline" className="group mt-auto">
-              Read more 
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </CardContent>
+    <Card className="h-full flex flex-col hover:shadow-lg transition-shadow duration-300 overflow-hidden group">
+      <div className="relative overflow-hidden">
+        <LazyImage
+          src={post.imageUrl || '/placeholder.svg'}
+          alt={post.title}
+          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+        <div className="absolute top-4 left-4">
+          <Badge variant="secondary" className="bg-white/90 backdrop-blur-sm">
+            {post.category}
+          </Badge>
         </div>
-      </Card>
-    </Link>
+      </div>
+      
+      <CardContent className="flex-1 p-6">
+        <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+          <div className="flex items-center gap-1">
+            <Calendar size={14} />
+            <span>{post.date}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <Clock size={14} />
+            <span>{readingTime} min read</span>
+          </div>
+        </div>
+        
+        <h2 className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">
+          {post.title}
+        </h2>
+        
+        <p className="text-gray-600 mb-4 line-clamp-3">
+          {post.excerpt}
+        </p>
+      </CardContent>
+      
+      <CardFooter className="px-6 pb-6 pt-0">
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center gap-2 text-sm text-gray-500">
+            <User size={14} />
+            <span>{post.author}</span>
+          </div>
+          <Link 
+            to={`/blog/${post.slug}`}
+            className="text-purple-600 hover:text-purple-800 font-medium text-sm transition-colors"
+          >
+            Read More →
+          </Link>
+        </div>
+      </CardFooter>
+    </Card>
   );
 };
 

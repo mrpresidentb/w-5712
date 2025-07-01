@@ -4,18 +4,16 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useAdminAuth } from '@/hooks/useAdminAuth';
 
-interface AdminLoginProps {
-  onLogin: (password: string) => boolean;
-}
-
-const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
+const AdminLogin: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { login } = useAdminAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const success = onLogin(password);
+    const success = login(password);
     if (!success) {
       setError('Invalid password');
       setPassword('');

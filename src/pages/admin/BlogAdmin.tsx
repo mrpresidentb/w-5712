@@ -45,7 +45,7 @@ const BlogAdmin = () => {
             title: articleData.title,
             slug: articleData.slug,
             excerpt: articleData.excerpt,
-            content: articleData.content,
+            content: articleData.content as any, // Cast to any to handle Json type
             category: articleData.category,
             author: articleData.author,
             image_url: articleData.image_url,
@@ -65,7 +65,7 @@ const BlogAdmin = () => {
             title: articleData.title!,
             slug: articleData.slug!,
             excerpt: articleData.excerpt,
-            content: articleData.content!,
+            content: articleData.content as any, // Cast to any to handle Json type
             category: articleData.category!,
             author: articleData.author || 'IT Carolina Team',
             image_url: articleData.image_url,

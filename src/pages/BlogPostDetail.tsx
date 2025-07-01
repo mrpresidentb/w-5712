@@ -1,4 +1,3 @@
-
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import PageLayout from '@/components/PageLayout';
@@ -263,7 +262,7 @@ const BlogPostDetail = () => {
     description: post.excerpt || '',
     image: post.image_url ? {
       '@type': 'ImageObject',
-      url: post.image_url,
+      url: post.image_url.startsWith('http') ? post.image_url : `https://itcarolina.us${post.image_url}`,
       width: 1200,
       height: 630
     } : undefined,
@@ -313,12 +312,17 @@ const BlogPostDetail = () => {
     return `${baseKeywords}, ${categoryKeywords[category] || ''}`;
   };
 
+  // Ensure we have an absolute URL for the image
+  const blogPostImageUrl = post.image_url 
+    ? (post.image_url.startsWith('http') ? post.image_url : `https://itcarolina.us${post.image_url}`)
+    : undefined;
+
   return (
     <PageLayout breadcrumbItems={breadcrumbItems}>
       <SEO 
         title={`${post.title} | IT Carolina - Charlotte NC Computer Repair`} 
         description={post.excerpt || ''} 
-        imageUrl={post.image_url || undefined}
+        imageUrl={blogPostImageUrl}
         type="article"
         keywords={getCategoryKeywords(post.category)}
         canonical={`https://itcarolina.us/blog/${post.slug}`}

@@ -104,7 +104,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      admin_create_blog_post: {
+        Args: { post_data: Json }
+        Returns: string
+      }
+      admin_update_blog_post: {
+        Args: { post_id: string; updates: Json }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { BlogPost } from '@/types/supabase-blog';
+import { BlogPost, ContentSection } from '@/types/supabase-blog';
 
 export const useAdminOperations = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,26 +12,21 @@ export const useAdminOperations = () => {
       console.log('[useAdminOperations] Starting update for post:', id);
       console.log('[useAdminOperations] Updates:', updates);
 
-      // Use direct SQL query to bypass RLS for admin operations
-      const { data, error } = await supabase.rpc('admin_update_blog_post', {
+      // Convert ContentSection[] to Json for Supabase
+      const supabaseUpdates = {
+        ...updates,
+        content: updates.content ? JSON.parse(JSON.stringify(updates.content)) : undefined
+      };
+
+      // Use RPC function to bypass RLS for admin operations
+      const { error } = await supabase.rpc('admin_update_blog_post', {
         post_id: id,
-        updates: updates
+        updates: supabaseUpdates
       });
 
       if (error) {
         console.error('[useAdminOperations] RPC error:', error);
-        // Fallback to direct update (this might still hit RLS)
-        const { error: directError } = await supabase
-          .from('blog_posts')
-          .update({
-            ...updates,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', id);
-        
-        if (directError) {
-          throw directError;
-        }
+        throw error;
       }
 
       console.log('[useAdminOperations] Update successful');
@@ -49,23 +44,26 @@ export const useAdminOperations = () => {
     try {
       console.log('[useAdminOperations] Creating new post:', postData);
 
-      const { data, error } = await supabase
-        .from('blog_posts')
-        .insert({
-          title: postData.title!,
-          slug: postData.slug!,
-          excerpt: postData.excerpt,
-          content: postData.content as any,
-          category: postData.category!,
-          author: postData.author || 'IT Carolina Team',
-          image_url: postData.image_url,
-          published: postData.published ?? true,
-          date: postData.date || new Date().toISOString().split('T')[0]
-        })
-        .select()
-        .single();
+      // Convert ContentSection[] to Json for Supabase
+      const supabasePostData = {
+        title: postData.title!,
+        slug: postData.slug!,
+        excerpt: postData.excerpt || null,
+        content: postData.content ? JSON.parse(JSON.stringify(postData.content)) : [],
+        category: postData.category!,
+        author: postData.author || 'IT Carolina Team',
+        image_url: postData.image_url || null,
+        published: postData.published ?? true,
+        date: postData.date || new Date().toISOString().split('T')[0]
+      };
+
+      // Use RPC function to create blog post
+      const { data, error } = await supabase.rpc('admin_create_blog_post', {
+        post_data: supabasePostData
+      });
 
       if (error) {
+        console.error('[useAdminOperations] RPC error:', error);
         throw error;
       }
 

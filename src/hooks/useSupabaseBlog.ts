@@ -31,9 +31,31 @@ export const useSupabaseBlog = () => {
       // Transform the data to match our interface with proper type casting
       const transformedPosts: BlogPost[] = (data || []).map(post => {
         console.log('[useSupabaseBlog] Processing post:', post.title, 'with slug:', post.slug);
+        console.log('[useSupabaseBlog] Raw content type:', typeof post.content);
+        console.log('[useSupabaseBlog] Raw content:', post.content);
+        
+        // Properly parse the JSONB content
+        let parsedContent: ContentSection[] = [];
+        try {
+          if (typeof post.content === 'string') {
+            parsedContent = JSON.parse(post.content);
+          } else if (Array.isArray(post.content)) {
+            parsedContent = post.content;
+          } else if (post.content && typeof post.content === 'object') {
+            // If it's already an object, use it directly
+            parsedContent = post.content as ContentSection[];
+          }
+        } catch (parseError) {
+          console.error('[useSupabaseBlog] Error parsing content for post:', post.title, parseError);
+          parsedContent = [];
+        }
+        
+        console.log('[useSupabaseBlog] Parsed content sections:', parsedContent.length);
+        console.log('[useSupabaseBlog] Parsed content preview:', parsedContent.slice(0, 2));
+        
         return {
           ...post,
-          content: (post.content as unknown as ContentSection[]) || [],
+          content: parsedContent,
           date: new Date(post.date).toLocaleDateString('en-US', { 
             year: 'numeric', 
             month: 'long', 
@@ -42,7 +64,11 @@ export const useSupabaseBlog = () => {
         };
       });
 
-      console.log('[useSupabaseBlog] Transformed blog posts:', transformedPosts.map(p => ({ title: p.title, slug: p.slug })));
+      console.log('[useSupabaseBlog] Transformed blog posts:', transformedPosts.map(p => ({ 
+        title: p.title, 
+        slug: p.slug, 
+        contentSections: p.content.length 
+      })));
       setBlogPosts(transformedPosts);
     } catch (err) {
       console.error('[useSupabaseBlog] Error fetching blog posts:', err);
@@ -112,10 +138,31 @@ export const useSupabaseBlog = () => {
       }
 
       console.log('[getBlogPostBySlug] Found blog post:', data);
+      console.log('[getBlogPostBySlug] Raw content from DB:', data.content);
+      console.log('[getBlogPostBySlug] Content type:', typeof data.content);
+
+      // Properly parse the JSONB content
+      let parsedContent: ContentSection[] = [];
+      try {
+        if (typeof data.content === 'string') {
+          parsedContent = JSON.parse(data.content);
+        } else if (Array.isArray(data.content)) {
+          parsedContent = data.content;
+        } else if (data.content && typeof data.content === 'object') {
+          // If it's already an object, use it directly
+          parsedContent = data.content as ContentSection[];
+        }
+      } catch (parseError) {
+        console.error('[getBlogPostBySlug] Error parsing content:', parseError);
+        parsedContent = [];
+      }
+
+      console.log('[getBlogPostBySlug] Parsed content sections:', parsedContent.length);
+      console.log('[getBlogPostBySlug] Parsed content details:', parsedContent);
 
       const transformedPost: BlogPost = {
         ...data,
-        content: (data.content as unknown as ContentSection[]) || [],
+        content: parsedContent,
         date: new Date(data.date).toLocaleDateString('en-US', { 
           year: 'numeric', 
           month: 'long', 
@@ -123,7 +170,7 @@ export const useSupabaseBlog = () => {
         })
       };
 
-      console.log('[getBlogPostBySlug] Transformed blog post:', transformedPost);
+      console.log('[getBlogPostBySlug] Final transformed post content sections:', transformedPost.content.length);
       return transformedPost;
     } catch (err) {
       console.error('[getBlogPostBySlug] Error fetching blog post by slug:', err);

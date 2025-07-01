@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, User } from 'lucide-react';
-import { BlogPost } from '@/data/blog/blogTypes';
+import { BlogPost } from '@/types/supabase-blog';
 import LazyImage from './LazyImage';
 
 interface BlogPostCardProps {
@@ -27,7 +27,7 @@ const BlogPostCard = ({ post }: BlogPostCardProps) => {
       <Link to={`/blog/${post.slug}`} className="flex flex-col h-full">
         <div className="relative overflow-hidden">
           <LazyImage
-            src={post.imageUrl || '/placeholder.svg'}
+            src={post.image_url || '/placeholder.svg'}
             alt={post.title}
             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
           />

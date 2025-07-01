@@ -6,14 +6,12 @@ import BlogSidebar from '@/components/BlogSidebar';
 import SEO from '@/components/SEO';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
-import { useBlogData } from '@/hooks/useBlogData';
+import { useSupabaseBlog } from '@/hooks/useSupabaseBlog';
+import { Loader2 } from 'lucide-react';
 
 const BlogListing = () => {
-  const { blogPosts } = useBlogData();
+  const { blogPosts, categories, loading, error } = useSupabaseBlog();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  // Get unique categories
-  const categories = Array.from(new Set(blogPosts.map(post => post.category)));
 
   // Filter posts by category
   const filteredPosts = selectedCategory 
@@ -45,12 +43,12 @@ const BlogListing = () => {
       '@type': 'BlogPosting',
       headline: post.title,
       url: `https://itcarolina.us/blog/${post.slug}`,
-      datePublished: new Date(post.date).toISOString(),
+      datePublished: new Date(post.created_at).toISOString(),
       author: {
         '@type': 'Organization',
         name: post.author
       },
-      image: `https://itcarolina.us${post.imageUrl}`
+      image: post.image_url ? `https://itcarolina.us${post.image_url}` : undefined
     }))
   };
 
@@ -61,6 +59,32 @@ const BlogListing = () => {
   const pageDescription = selectedCategory
     ? `Expert ${selectedCategory.toLowerCase()} tips and guides for Charlotte area home users and small businesses. Professional IT support advice from IT Carolina.`
     : 'Expert IT support tips, computer troubleshooting guides, and technology insights for home users and small businesses in Charlotte, North Carolina.';
+
+  if (loading) {
+    return (
+      <PageLayout breadcrumbItems={breadcrumbItems}>
+        <div className="min-h-[50vh] flex items-center justify-center">
+          <div className="flex items-center gap-2">
+            <Loader2 className="h-6 w-6 animate-spin" />
+            <span>Loading blog posts...</span>
+          </div>
+        </div>
+      </PageLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <PageLayout breadcrumbItems={breadcrumbItems}>
+        <div className="min-h-[50vh] flex items-center justify-center">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-2">Error Loading Blog Posts</h2>
+            <p className="text-gray-600">{error}</p>
+          </div>
+        </div>
+      </PageLayout>
+    );
+  }
 
   return (
     <PageLayout breadcrumbItems={breadcrumbItems}>
@@ -107,15 +131,15 @@ const BlogListing = () => {
               All Posts ({blogPosts.length})
             </Badge>
             {categories.map((category) => {
-              const count = blogPosts.filter(post => post.category === category).length;
+              const count = blogPosts.filter(post => post.category === category.name).length;
               return (
                 <Badge 
-                  key={category}
-                  variant={selectedCategory === category ? "default" : "outline"}
+                  key={category.id}
+                  variant={selectedCategory === category.name ? "default" : "outline"}
                   className="cursor-pointer"
-                  onClick={() => setSelectedCategory(category)}
+                  onClick={() => setSelectedCategory(category.name)}
                 >
-                  {category} ({count})
+                  {category.name} ({count})
                 </Badge>
               );
             })}
@@ -125,18 +149,30 @@ const BlogListing = () => {
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-3">
-            <div className="grid md:grid-cols-2 gap-6">
-              {filteredPosts.map((post, index) => (
-                <motion.div
-                  key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <BlogPostCard post={post} />
-                </motion.div>
-              ))}
-            </div>
+            {filteredPosts.length === 0 ? (
+              <div className="text-center py-12">
+                <h3 className="text-xl font-semibold mb-2">No posts found</h3>
+                <p className="text-gray-600">
+                  {selectedCategory 
+                    ? `No posts found in the ${selectedCategory} category.`
+                    : 'No blog posts are available at the moment.'
+                  }
+                </p>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-6">
+                {filteredPosts.map((post, index) => (
+                  <motion.div
+                    key={post.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    <BlogPostCard post={post} />
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Sidebar */}

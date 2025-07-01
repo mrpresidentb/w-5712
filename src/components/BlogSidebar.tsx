@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { useBlogData } from '@/hooks/useBlogData';
+import { useSupabaseBlog } from '@/hooks/useSupabaseBlog';
 
 interface BlogSidebarProps {
   currentSlug?: string;
@@ -11,15 +11,12 @@ interface BlogSidebarProps {
 }
 
 const BlogSidebar = ({ currentSlug, selectedCategory, onCategorySelect }: BlogSidebarProps) => {
-  const { blogPosts } = useBlogData();
+  const { blogPosts, categories } = useSupabaseBlog();
   
   // Get recent posts (excluding current post if on detail page)
   const recentPosts = blogPosts
     .filter(post => post.slug !== currentSlug)
     .slice(0, 5);
-
-  // Get unique categories
-  const categories = Array.from(new Set(blogPosts.map(post => post.category)));
 
   const handleCategoryClick = (category: string) => {
     if (onCategorySelect) {
@@ -37,9 +34,9 @@ const BlogSidebar = ({ currentSlug, selectedCategory, onCategorySelect }: BlogSi
         <CardContent className="space-y-4">
           {recentPosts.map((post) => (
             <div key={post.id} className="flex gap-3">
-              {post.imageUrl && (
+              {post.image_url && (
                 <img 
-                  src={post.imageUrl} 
+                  src={post.image_url} 
                   alt={post.title}
                   className="w-16 h-12 object-cover rounded flex-shrink-0"
                 />
@@ -66,20 +63,20 @@ const BlogSidebar = ({ currentSlug, selectedCategory, onCategorySelect }: BlogSi
         <CardContent>
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => {
-              const postCount = blogPosts.filter(post => post.category === category).length;
-              const isSelected = selectedCategory === category;
+              const postCount = blogPosts.filter(post => post.category === category.name).length;
+              const isSelected = selectedCategory === category.name;
               return (
                 <Badge 
-                  key={category} 
+                  key={category.id} 
                   variant={isSelected ? "default" : "secondary"} 
                   className={`text-xs cursor-pointer transition-colors ${
                     isSelected 
                       ? "bg-purple-600 hover:bg-purple-700" 
                       : "hover:bg-secondary/80"
                   }`}
-                  onClick={() => handleCategoryClick(category)}
+                  onClick={() => handleCategoryClick(category.name)}
                 >
-                  {category} ({postCount})
+                  {category.name} ({postCount})
                 </Badge>
               );
             })}

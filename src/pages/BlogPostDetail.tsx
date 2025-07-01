@@ -1,16 +1,17 @@
 
 import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import PageLayout from '@/components/PageLayout';
 import BlogSidebar from '@/components/BlogSidebar';
 import { Separator } from '@/components/ui/separator';
 import SEO from '@/components/SEO';
-import { useEffect } from 'react';
-import { useBlogData } from '@/hooks/useBlogData';
+import { useSupabaseBlog } from '@/hooks/useSupabaseBlog';
 import { motion } from 'framer-motion';
-import { BookOpen, Calendar, Clock, MessageSquare, Share, Tag, ArrowLeft } from 'lucide-react';
+import { BookOpen, Calendar, Clock, MessageSquare, Share, Tag, ArrowLeft, Loader2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { BlogPost } from '@/types/supabase-blog';
 
 // Helper function to render content with links
 const renderContentWithLinks = (content: string) => {
@@ -88,14 +89,49 @@ const renderContentWithLinks = (content: string) => {
 
 const BlogPostDetail = () => {
   const { slug } = useParams<{ slug: string; }>();
-  const { blogPosts } = useBlogData();
-  const post = blogPosts.find(post => post.slug === slug);
+  const { getBlogPostBySlug } = useSupabaseBlog();
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [slug]);
+    
+    const fetchPost = async () => {
+      if (!slug) return;
+      
+      try {
+        setLoading(true);
+        const fetchedPost = await getBlogPostBySlug(slug);
+        setPost(fetchedPost);
+        if (!fetchedPost) {
+          setError('Post not found');
+        }
+      } catch (err) {
+        console.error('Error fetching post:', err);
+        setError('Failed to load blog post');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (!post) {
+    fetchPost();
+  }, [slug, getBlogPostBySlug]);
+
+  if (loading) {
+    return (
+      <PageLayout>
+        <div className="min-h-[50vh] flex items-center justify-center">
+          <div className="flex items-center gap-2">
+            <Loader2 className="h-6 w-6 animate-spin" />
+            <span>Loading blog post...</span>
+          </div>
+        </div>
+      </PageLayout>
+    );
+  }
+
+  if (error || !post) {
     return (
       <PageLayout>
         <SEO 
@@ -138,13 +174,13 @@ const BlogPostDetail = () => {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
-    description: post.excerpt,
-    image: {
+    description: post.excerpt || '',
+    image: post.image_url ? {
       '@type': 'ImageObject',
-      url: `https://itcarolina.us${post.imageUrl}`,
+      url: post.image_url,
       width: 1200,
       height: 630
-    },
+    } : undefined,
     author: {
       '@type': 'Organization',
       name: post.author,
@@ -160,8 +196,8 @@ const BlogPostDetail = () => {
         height: 512
       }
     },
-    datePublished: new Date(post.date).toISOString(),
-    dateModified: new Date(post.date).toISOString(),
+    datePublished: new Date(post.created_at).toISOString(),
+    dateModified: new Date(post.updated_at).toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `https://itcarolina.us/blog/${post.slug}`
@@ -195,8 +231,8 @@ const BlogPostDetail = () => {
     <PageLayout breadcrumbItems={breadcrumbItems}>
       <SEO 
         title={`${post.title} | IT Carolina - Charlotte NC Computer Repair`} 
-        description={post.excerpt} 
-        imageUrl={post.imageUrl}
+        description={post.excerpt || ''} 
+        imageUrl={post.image_url || undefined}
         type="article"
         keywords={getCategoryKeywords(post.category)}
         canonical={`https://itcarolina.us/blog/${post.slug}`}
@@ -210,7 +246,7 @@ const BlogPostDetail = () => {
       <div 
         className="w-full pt-32 pb-16 bg-gradient-to-b from-black to-gray-900 text-white relative" 
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('${post.imageUrl}')`,
+          backgroundImage: post.image_url ? `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('${post.image_url}')` : 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7))',
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat'
@@ -277,7 +313,7 @@ const BlogPostDetail = () => {
                   delay: 0.1 * index
                 }} className={cn("mb-8", section.type === 'quote' && "my-10")}>
                   {section.type === 'paragraph' && <p className="text-gray-700 mb-4 leading-relaxed">
-                    {renderContentWithLinks(section.content)}
+                    {renderContentWithLinks(section.content || '')}
                   </p>}
                   {section.type === 'heading' && <div className="flex items-center gap-3 mt-12 mb-6">
                       <div className="w-1.5 h-7 bg-purple-500 rounded-full"></div>
@@ -314,7 +350,7 @@ const BlogPostDetail = () => {
                   onClick={() => {
                     navigator.share?.({
                       title: post.title,
-                      text: post.excerpt,
+                      text: post.excerpt || '',
                       url: window.location.href
                     }) || navigator.clipboard.writeText(window.location.href);
                   }}

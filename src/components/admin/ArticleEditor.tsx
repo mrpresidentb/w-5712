@@ -11,7 +11,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { BlogPost, ContentSection } from '@/types/supabase-blog';
 import UnifiedTextEditor from './UnifiedTextEditor';
 import ImageUploader from './ImageUploader';
+import SEOEditor from './SEOEditor';
+import SEOPreview from './SEOPreview';
 import { Calendar, Save, Eye, X } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 
 interface ArticleEditorProps {
@@ -37,7 +40,7 @@ const ArticleEditor: React.FC<ArticleEditorProps> = ({
   onCancel,
   isLoading = false
 }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Partial<BlogPost>>({
     title: '',
     slug: '',
     excerpt: '',
@@ -46,7 +49,16 @@ const ArticleEditor: React.FC<ArticleEditorProps> = ({
     author: 'IT Carolina Team',
     image_url: '',
     published: true,
-    date: new Date().toISOString().split('T')[0]
+    date: new Date().toISOString().split('T')[0],
+    custom_title: '',
+    custom_description: '',
+    custom_keywords: '',
+    og_title: '',
+    og_description: '',
+    og_image: '',
+    twitter_title: '',
+    twitter_description: '',
+    twitter_image: ''
   });
 
   const [isDirty, setIsDirty] = useState(false);
@@ -62,10 +74,39 @@ const ArticleEditor: React.FC<ArticleEditorProps> = ({
         author: article.author || 'IT Carolina Team',
         image_url: article.image_url || '',
         published: article.published ?? true,
-        date: article.date ? new Date(article.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
+        date: article.date ? new Date(article.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+        custom_title: article.custom_title || '',
+        custom_description: article.custom_description || '',
+        custom_keywords: article.custom_keywords || '',
+        og_title: article.og_title || '',
+        og_description: article.og_description || '',
+        og_image: article.og_image || '',
+        twitter_title: article.twitter_title || '',
+        twitter_description: article.twitter_description || '',
+        twitter_image: article.twitter_image || ''
       });
+    } else {
+      // Auto-generate SEO data for new articles when title changes
+      if (formData.title && !article) {
+        const defaultTitle = `${formData.title} | IT Carolina - Charlotte NC Computer Repair`;
+        const defaultDescription = formData.excerpt || 'Professional IT support for home and small business in Charlotte, NC';
+        const defaultImage = formData.image_url || 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png';
+        
+        setFormData(prev => ({
+          ...prev,
+          custom_title: prev.custom_title || defaultTitle,
+          custom_description: prev.custom_description || defaultDescription,
+          custom_keywords: prev.custom_keywords || `computer repair charlotte nc, IT support charlotte, ${prev.category?.toLowerCase() || 'IT services'}, charlotte computer help`,
+          og_title: prev.og_title || defaultTitle,
+          og_description: prev.og_description || defaultDescription,
+          og_image: prev.og_image || defaultImage,
+          twitter_title: prev.twitter_title || formData.title,
+          twitter_description: prev.twitter_description || defaultDescription,
+          twitter_image: prev.twitter_image || defaultImage
+        }));
+      }
     }
-  }, [article]);
+  }, [article, formData.title, formData.excerpt, formData.category, formData.image_url]);
 
   const generateSlug = (title: string) => {
     return title
@@ -87,6 +128,11 @@ const ArticleEditor: React.FC<ArticleEditorProps> = ({
       
       return newData;
     });
+    setIsDirty(true);
+  };
+
+  const handleSEOUpdate = (updates: Partial<BlogPost>) => {
+    setFormData(prev => ({ ...prev, ...updates }));
     setIsDirty(true);
   };
 
@@ -265,6 +311,25 @@ const ArticleEditor: React.FC<ArticleEditorProps> = ({
         onChange={handleContentChange}
         placeholder="Start writing your article content..."
       />
+
+      {/* SEO & Preview Tabs */}
+      <Tabs defaultValue="seo" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="seo">SEO Settings</TabsTrigger>
+          <TabsTrigger value="preview">SEO Preview</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="seo" className="mt-6">
+          <SEOEditor 
+            post={formData as BlogPost} 
+            onUpdate={handleSEOUpdate}
+          />
+        </TabsContent>
+        
+        <TabsContent value="preview" className="mt-6">
+          <SEOPreview post={formData as BlogPost} />
+        </TabsContent>
+      </Tabs>
 
       {/* Publishing Options */}
       <Card>

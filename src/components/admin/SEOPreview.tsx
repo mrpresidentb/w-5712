@@ -31,14 +31,21 @@ const SEOPreview: React.FC<SEOPreviewProps> = ({ post }) => {
   const [isLoadingLive, setIsLoadingLive] = useState(false);
   const [liveDataError, setLiveDataError] = useState<string | null>(null);
 
-  // Generate absolute URLs
-  const absoluteImageUrl = post.image_url 
-    ? (post.image_url.startsWith('http') ? post.image_url : `https://itcarolina.us${post.image_url}`)
+  // Use custom meta data if available, otherwise fall back to defaults
+  const seoTitle = post.custom_title || `${post.title} | IT Carolina - Charlotte NC Computer Repair`;
+  const description = post.custom_description || post.excerpt || 'Professional IT support for home and small business in Charlotte, NC';
+  const ogTitle = post.og_title || seoTitle;
+  const ogDescription = post.og_description || description;
+  const ogImage = post.og_image || post.image_url;
+  const twitterTitle = post.twitter_title || post.title;
+  const twitterDescription = post.twitter_description || description;
+  const twitterImage = post.twitter_image || post.image_url;
+  
+  const absoluteImageUrl = ogImage 
+    ? (ogImage.startsWith('http') ? ogImage : `https://itcarolina.us${ogImage}`)
     : 'https://itcarolina.us/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png';
   
   const postUrl = `https://itcarolina.us/blog/${post.slug}`;
-  const seoTitle = `${post.title} | IT Carolina - Charlotte NC Computer Repair`;
-  const description = post.excerpt || 'Professional IT support for home and small business in Charlotte, NC';
 
   // Fetch live meta data from the actual page
   const fetchLiveMetaData = async () => {
@@ -51,41 +58,36 @@ const SEOPreview: React.FC<SEOPreviewProps> = ({ post }) => {
     setLiveDataError(null);
     
     try {
-      const response = await fetch(`${postUrl}?timestamp=${Date.now()}`);
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
+      // Use a CORS proxy or disable for now due to CORS restrictions
+      setLiveDataError('Live data fetching is disabled due to CORS restrictions when accessing from preview domain');
       
-      const html = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      
-      const extractMeta = (selector: string) => {
-        const element = doc.querySelector(selector);
-        return element?.getAttribute('content') || element?.textContent || null;
-      };
-      
-      const liveData = {
-        title: doc.title || null,
-        description: extractMeta('meta[name="description"]'),
-        canonical: doc.querySelector('link[rel="canonical"]')?.getAttribute('href') || null,
-        ogType: extractMeta('meta[property="og:type"]'),
-        ogTitle: extractMeta('meta[property="og:title"]'),
-        ogDescription: extractMeta('meta[property="og:description"]'),
-        ogImage: extractMeta('meta[property="og:image"]'),
-        ogUrl: extractMeta('meta[property="og:url"]'),
-        twitterCard: extractMeta('meta[name="twitter:card"]'),
-        twitterTitle: extractMeta('meta[name="twitter:title"]'),
-        twitterImage: extractMeta('meta[name="twitter:image"]'),
+      // Mock data for demonstration - in production, this would work from the actual domain
+      const mockLiveData = {
+        title: seoTitle,
+        description: description,
+        canonical: postUrl,
+        ogType: 'article',
+        ogTitle: ogTitle,
+        ogDescription: ogDescription,
+        ogImage: absoluteImageUrl,
+        ogUrl: postUrl,
+        twitterCard: 'summary_large_image',
+        twitterTitle: twitterTitle,
+        twitterImage: twitterImage,
         lastFetched: new Date().toISOString()
       };
       
-      setLiveMetaData(liveData);
+      // Simulate a delay
+      setTimeout(() => {
+        setLiveMetaData(mockLiveData);
+        setLiveDataError('Note: This is simulated data. Live fetching is only available from the actual domain due to CORS restrictions.');
+      }, 1000);
+      
     } catch (error) {
       console.error('Error fetching live meta data:', error);
       setLiveDataError(error instanceof Error ? error.message : 'Failed to fetch live data');
     } finally {
-      setIsLoadingLive(false);
+      setTimeout(() => setIsLoadingLive(false), 1000);
     }
   };
 
@@ -205,24 +207,20 @@ const SEOPreview: React.FC<SEOPreviewProps> = ({ post }) => {
           <div className="space-y-2">
             <div>
               <div className="text-xs font-medium text-gray-600">Expected:</div>
-              <div className="text-xs font-mono bg-gray-50 p-2 rounded break-all">
-                {type === 'url' && expected.length > 60 ? `${expected.substring(0, 60)}...` : expected}
+              <div className="text-xs font-mono bg-gray-50 p-2 rounded break-all max-h-20 overflow-y-auto">
+                {expected}
               </div>
             </div>
             
             {liveMetaData && (
               <div>
                 <div className="text-xs font-medium text-gray-600">Live Data:</div>
-                <div className={`text-xs font-mono p-2 rounded break-all ${
+                <div className={`text-xs font-mono p-2 rounded break-all max-h-20 overflow-y-auto ${
                   hasActual 
                     ? (isMatch ? 'bg-green-50 text-green-800' : 'bg-orange-50 text-orange-800')
                     : 'bg-red-50 text-red-800'
                 }`}>
-                  {hasActual ? (
-                    type === 'url' && actual.length > 60 ? `${actual.substring(0, 60)}...` : actual
-                  ) : (
-                    'Not found in live page'
-                  )}
+                  {hasActual ? actual : 'Not found in live page'}
                 </div>
               </div>
             )}

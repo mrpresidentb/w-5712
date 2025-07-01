@@ -12,6 +12,15 @@ export interface BlogPost {
   published: boolean;
   created_at: string;
   updated_at: string;
+  custom_title?: string | null;
+  custom_description?: string | null;
+  custom_keywords?: string | null;
+  og_title?: string | null;
+  og_description?: string | null;
+  og_image?: string | null;
+  twitter_title?: string | null;
+  twitter_description?: string | null;
+  twitter_image?: string | null;
 }
 
 export interface BlogCategory {

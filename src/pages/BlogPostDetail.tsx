@@ -299,8 +299,10 @@ const BlogPostDetail = () => {
     ].join(', ')
   };
 
-  // Enhanced SEO keywords based on post category
-  const getCategoryKeywords = (category: string) => {
+  // Use custom meta data if available, otherwise generate defaults
+  const finalTitle = post.custom_title || `${post.title} | IT Carolina - Charlotte NC Computer Repair`;
+  const finalDescription = post.custom_description || post.excerpt || 'Professional IT support for home and small business in Charlotte, NC';
+  const finalKeywords = post.custom_keywords || (() => {
     const baseKeywords = 'computer repair charlotte nc, IT support charlotte nc, computer help charlotte';
     const categoryKeywords = {
       'Troubleshooting': 'computer troubleshooting, PC problems, computer issues, slow computer fix',
@@ -309,8 +311,8 @@ const BlogPostDetail = () => {
       'Printer Support': 'printer repair charlotte, printer troubleshooting, printer setup, printer problems',
       'Cybersecurity': 'small business cybersecurity, data protection, network security, cyber threats'
     };
-    return `${baseKeywords}, ${categoryKeywords[category] || ''}`;
-  };
+    return `${baseKeywords}, ${categoryKeywords[post.category] || ''}`;
+  })();
 
   // Ensure we have an absolute URL for the image
   const blogPostImageUrl = post.image_url 
@@ -323,11 +325,11 @@ const BlogPostDetail = () => {
   return (
     <PageLayout breadcrumbItems={breadcrumbItems}>
       <SEO 
-        title={`${post.title} | IT Carolina - Charlotte NC Computer Repair`} 
-        description={post.excerpt || ''} 
-        imageUrl={blogPostImageUrl}
+        title={finalTitle} 
+        description={finalDescription} 
+        imageUrl={post.og_image || blogPostImageUrl}
         type="article"
-        keywords={getCategoryKeywords(post.category)}
+        keywords={finalKeywords}
         canonical={`https://itcarolina.us/blog/${post.slug}`}
         publishedTime={post.created_at}
         modifiedTime={post.updated_at}

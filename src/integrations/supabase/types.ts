@@ -60,13 +60,22 @@ export type Database = {
           category: string
           content: Json
           created_at: string
+          custom_description: string | null
+          custom_keywords: string | null
+          custom_title: string | null
           date: string
           excerpt: string | null
           id: string
           image_url: string | null
+          og_description: string | null
+          og_image: string | null
+          og_title: string | null
           published: boolean
           slug: string
           title: string
+          twitter_description: string | null
+          twitter_image: string | null
+          twitter_title: string | null
           updated_at: string
         }
         Insert: {
@@ -74,13 +83,22 @@ export type Database = {
           category: string
           content: Json
           created_at?: string
+          custom_description?: string | null
+          custom_keywords?: string | null
+          custom_title?: string | null
           date?: string
           excerpt?: string | null
           id?: string
           image_url?: string | null
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
           published?: boolean
           slug: string
           title: string
+          twitter_description?: string | null
+          twitter_image?: string | null
+          twitter_title?: string | null
           updated_at?: string
         }
         Update: {
@@ -88,13 +106,22 @@ export type Database = {
           category?: string
           content?: Json
           created_at?: string
+          custom_description?: string | null
+          custom_keywords?: string | null
+          custom_title?: string | null
           date?: string
           excerpt?: string | null
           id?: string
           image_url?: string | null
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
           published?: boolean
           slug?: string
           title?: string
+          twitter_description?: string | null
+          twitter_image?: string | null
+          twitter_title?: string | null
           updated_at?: string
         }
         Relationships: []

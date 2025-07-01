@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,7 +15,7 @@ import { toast } from 'sonner';
 
 const BlogAdmin = () => {
   const { isAuthenticated, isLoading } = useAdminAuth();
-  const { blogPosts, loading, error, refetch } = useSupabaseBlog();
+  const { blogPosts, loading, error, refetch } = useSupabaseBlog(true); // Include unpublished posts for admin
   const { updateBlogPost, createBlogPost, isLoading: isSaving } = useAdminOperations();
   const [currentView, setCurrentView] = useState<'list' | 'create' | 'edit'>('list');
   const [editingArticle, setEditingArticle] = useState<BlogPost | null>(null);

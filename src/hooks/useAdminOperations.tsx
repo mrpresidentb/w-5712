@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { BlogPost, ContentSection } from '@/types/supabase-blog';
@@ -77,9 +76,36 @@ export const useAdminOperations = () => {
     }
   };
 
+  const deleteBlogPost = async (id: string) => {
+    setIsLoading(true);
+    try {
+      console.log('[useAdminOperations] Starting delete for post:', id);
+
+      // Use direct delete from the blog_posts table
+      const { error } = await supabase
+        .from('blog_posts')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        console.error('[useAdminOperations] Delete error:', error);
+        throw error;
+      }
+
+      console.log('[useAdminOperations] Delete successful');
+      return { success: true };
+    } catch (error) {
+      console.error('[useAdminOperations] Delete failed:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return {
     updateBlogPost,
     createBlogPost,
+    deleteBlogPost,
     isLoading
   };
 };

@@ -1,12 +1,13 @@
 
 import { useState, useEffect } from 'react';
-import { BlogPost } from '@/types/supabase-blog';
-import { fetchBlogPosts, fetchBlogPostBySlug } from '@/services/blogApiService';
+import { BlogPost, BlogCategory } from '@/types/supabase-blog';
+import { fetchBlogPosts, fetchBlogPostBySlug, fetchBlogCategories } from '@/services/blogApiService';
 import { supabase } from '@/integrations/supabase/client';
 import { transformBlogPostData } from '@/services/blogDataTransformers';
 
 export const useSupabaseBlog = (includeUnpublished: boolean = false) => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [categories, setCategories] = useState<BlogCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -36,11 +37,26 @@ export const useSupabaseBlog = (includeUnpublished: boolean = false) => {
         const posts = await fetchBlogPosts();
         setBlogPosts(posts);
       }
+
+      // Fetch categories
+      const categoriesData = await fetchBlogCategories();
+      setCategories(categoriesData);
     } catch (err) {
       console.error('[useSupabaseBlog] Error fetching blog posts:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch blog posts');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const getBlogPostBySlug = async (slug: string): Promise<BlogPost | null> => {
+    try {
+      console.log('[useSupabaseBlog] Getting blog post by slug:', slug);
+      const post = await fetchBlogPostBySlug(slug);
+      return post;
+    } catch (err) {
+      console.error('[useSupabaseBlog] Error fetching blog post by slug:', err);
+      throw err;
     }
   };
 
@@ -54,9 +70,11 @@ export const useSupabaseBlog = (includeUnpublished: boolean = false) => {
 
   return {
     blogPosts,
+    categories,
     loading,
     error,
-    refetch
+    refetch,
+    getBlogPostBySlug
   };
 };
 

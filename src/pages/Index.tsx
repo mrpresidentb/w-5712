@@ -11,7 +11,7 @@ const Index = () => {
     <PageLayout>
       <SEO 
         title="Computer Repair Charlotte NC | IT Support | IT Carolina"
-        description="Professional computer repair & IT support in Charlotte NC. Same-day PC repair, virus removal, network setup. Call (888) 661-0020 for free quote."
+        description="Professional computer repair & IT support in Charlotte NC. Same-day PC repair, virus removal, network setup. Call (704) 520-0809 for free quote."
         canonical="https://itcarolina.us/"
         keywords="computer repair Charlotte NC, IT support Charlotte, PC repair near me, virus removal Charlotte, network setup Charlotte, laptop repair Charlotte"
       />

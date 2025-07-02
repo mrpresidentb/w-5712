@@ -72,7 +72,7 @@ const ContactInfo = () => {
       
       toast({
         title: "Error",
-        description: "There was a problem sending your message. Please try calling us at (888) 661-0020 or email support@itcarolina.us directly.",
+        description: "There was a problem sending your message. Please try calling us at (704) 520-0809 or email support@itcarolina.us directly.",
         variant: "destructive"
       });
     } finally {
@@ -107,8 +107,8 @@ const ContactInfo = () => {
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Call us at</p>
-                  <a href="tel:+18886610020" className="font-medium text-blue-900 hover:text-blue-700">
-                    (888) 661-0020
+                  <a href="tel:+17045200809" className="font-medium text-blue-900 hover:text-blue-700">
+                    (704) 520-0809
                   </a>
                 </div>
               </div>

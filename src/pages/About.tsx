@@ -118,10 +118,10 @@ const About = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
-                href="tel:+18886610020" 
+                href="tel:+17045200809" 
                 className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
               >
-                Call (888) 661-0020
+                Call (704) 520-0809
               </a>
               <a 
                 href="mailto:support@itcarolina.us" 

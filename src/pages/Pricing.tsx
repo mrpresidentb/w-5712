@@ -9,7 +9,7 @@ const Pricing = () => {
     <PageLayout>
       <SEO 
         title="Computer Repair Pricing Charlotte NC | IT Carolina"
-        description="Transparent computer repair pricing in Charlotte NC. Flat-rate costs for virus removal, PC tune-ups, data recovery. No hidden fees. Call (888) 661-0020."
+        description="Transparent computer repair pricing in Charlotte NC. Flat-rate costs for virus removal, PC tune-ups, data recovery. No hidden fees. Call (704) 520-0809."
         canonical="https://itcarolina.us/pricing"
         keywords="computer repair pricing Charlotte NC, IT support costs, virus removal price, PC tune-up cost, data recovery pricing, flat rate computer repair"
       />
@@ -225,10 +225,10 @@ const Pricing = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
-              href="tel:+18886610020" 
+              href="tel:+17045200809" 
               className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
             >
-              Call (888) 661-0020
+              Call (704) 520-0809
             </a>
             <a 
               href="mailto:support@itcarolina.us" 

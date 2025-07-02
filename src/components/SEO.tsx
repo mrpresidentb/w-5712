@@ -63,7 +63,7 @@ const SEO: React.FC<SEOProps> = ({
     url: 'https://itcarolina.us',
     logo: 'https://itcarolina.us/og.jpg',
     description: 'Professional computer repair, IT support, and web design services for home and small business in Charlotte, NC',
-    telephone: '+1-888-661-0020',
+    telephone: '+1-704-520-0809',
     email: 'support@itcarolina.us',
     address: {
       '@type': 'PostalAddress',

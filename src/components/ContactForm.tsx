@@ -78,7 +78,7 @@ const ContactForm = () => {
       
       toast({
         title: "Error",
-        description: "There was a problem sending your message. Please try calling us at (888) 661-0020 or email support@itcarolina.us directly.",
+        description: "There was a problem sending your message. Please try calling us at (704) 520-0809 or email support@itcarolina.us directly.",
         variant: "destructive"
       });
     } finally {
@@ -202,9 +202,9 @@ const ContactForm = () => {
                     <div>
                       <h4 className="font-semibold text-gray-800">Phone</h4>
                       <p className="text-gray-600">
-                        <a href="tel:+18886610020" className="hover:text-blue-600 transition-colors">
-                          (888) 661-0020
-                        </a>
+                         <a href="tel:+17045200809" className="hover:text-blue-600 transition-colors">
+                           (704) 520-0809
+                         </a>
                       </p>
                     </div>
                   </div>

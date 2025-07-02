@@ -38,7 +38,7 @@ const FAQ = () => {
     },
     {
       question: "How quickly can you provide computer help near me?",
-      answer: "We offer same-day computer help for urgent issues and typically schedule on-site visits within 24-48 hours. For immediate assistance, we also provide remote computer support for software-related problems that can be resolved online. Contact us at (888) 661-0020 for emergency support."
+      answer: "We offer same-day computer help for urgent issues and typically schedule on-site visits within 24-48 hours. For immediate assistance, we also provide remote computer support for software-related problems that can be resolved online. Contact us at (704) 520-0809 for emergency support."
     },
     {
       question: "Do you provide computer support services for small businesses?",
@@ -139,10 +139,10 @@ const FAQ = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="tel:+18886610020"
+                href="tel:+17045200809"
                 className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
               >
-                Call (888) 661-0020
+                Call (704) 520-0809
               </a>
               <a
                 href="mailto:support@itcarolina.us"

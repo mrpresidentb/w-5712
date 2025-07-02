@@ -1,8 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
+import fetch from 'node-fetch';
 
-const supabaseUrl = 'https://vmmhvciysxfbwyctuvzug.supabase.co';
+// Add fetch polyfill for Node.js if needed
+if (!globalThis.fetch) {
+  globalThis.fetch = fetch as any;
+}
+
+const supabaseUrl = 'https://vmmhvciyxfbwytuvztug.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtbWh2Y2l5eGZid3l0dXZ6dHVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEzMzg2NzAsImV4cCI6MjA2NjkxNDY3MH0._pu1smjtNkE7i_-mSX6NCkwSa_dwAWsNsqkoBsI6R74';
 
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -25,17 +31,28 @@ interface BlogPost {
   updated_at: string;
 }
 
+function escapeHtml(text: string): string {
+  const map: { [key: string]: string } = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, (m) => map[m]);
+}
+
 function generateBlogPostHTML(post: BlogPost, baseHTML: string): string {
-  const title = post.custom_title || `${post.title} | IT Carolina - Charlotte NC Computer Repair`;
-  const description = post.custom_description || post.excerpt || 'Professional IT support for home and small business in Charlotte, NC';
-  const keywords = post.custom_keywords || 'computer repair charlotte nc, IT support charlotte nc, computer help charlotte';
+  const title = escapeHtml(post.custom_title || `${post.title} | IT Carolina - Charlotte NC Computer Repair`);
+  const description = escapeHtml(post.custom_description || post.excerpt || 'Professional IT support for home and small business in Charlotte, NC');
+  const keywords = escapeHtml(post.custom_keywords || 'computer repair charlotte nc, IT support charlotte nc, computer help charlotte');
   
-  const ogTitle = post.og_title || title;
-  const ogDescription = post.og_description || description;
+  const ogTitle = escapeHtml(post.og_title || title);
+  const ogDescription = escapeHtml(post.og_description || description);
   const ogImage = post.og_image || (post.image_url ? `https://itcarolina.us${post.image_url}` : 'https://itcarolina.us/og.jpg');
   
-  const twitterTitle = post.twitter_title || title;
-  const twitterDescription = post.twitter_description || description;
+  const twitterTitle = escapeHtml(post.twitter_title || title);
+  const twitterDescription = escapeHtml(post.twitter_description || description);
   const twitterImage = post.twitter_image || ogImage;
 
   // Inject meta tags into the HTML
@@ -54,7 +71,7 @@ function generateBlogPostHTML(post: BlogPost, baseHTML: string): string {
     <meta property="og:image:secure_url" content="${ogImage}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="${title}" />
+    <meta property="og:image:alt" content="${escapeHtml(post.title)}" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="IT Carolina" />
     <meta property="article:published_time" content="${post.created_at}" />
@@ -67,7 +84,7 @@ function generateBlogPostHTML(post: BlogPost, baseHTML: string): string {
     <meta name="twitter:title" content="${twitterTitle}" />
     <meta name="twitter:description" content="${twitterDescription}" />
     <meta name="twitter:image" content="${twitterImage}" />
-    <meta name="twitter:image:alt" content="${title}" />
+    <meta name="twitter:image:alt" content="${escapeHtml(post.title)}" />
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://itcarolina.us/blog/${post.slug}" />
@@ -77,7 +94,7 @@ function generateBlogPostHTML(post: BlogPost, baseHTML: string): string {
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "${post.title}",
+      "headline": "${escapeHtml(post.title)}",
       "description": "${description}",
       "image": {
         "@type": "ImageObject",
@@ -148,6 +165,21 @@ async function generateStaticPages() {
     }
     
     const baseHTML = fs.readFileSync(baseHTMLPath, 'utf8');
+    console.log('📄 Base HTML template loaded');
+    
+    // Test Supabase connection first
+    console.log('🔍 Testing Supabase connection...');
+    const { data: testData, error: testError } = await supabase
+      .from('blog_posts')
+      .select('count')
+      .limit(1);
+    
+    if (testError) {
+      console.error('❌ Supabase connection failed:', testError.message);
+      throw new Error(`Supabase connection error: ${testError.message}`);
+    }
+    
+    console.log('✅ Supabase connection successful');
     
     // Fetch all published blog posts
     console.log('📡 Fetching blog posts from Supabase...');
@@ -157,7 +189,8 @@ async function generateStaticPages() {
       .eq('published', true);
     
     if (error) {
-      throw new Error(`Supabase error: ${error.message}`);
+      console.error('❌ Error fetching blog posts:', error);
+      throw new Error(`Supabase fetch error: ${error.message}`);
     }
     
     if (!posts || posts.length === 0) {

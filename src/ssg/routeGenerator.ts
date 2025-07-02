@@ -1,25 +1,35 @@
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client'
 
-export async function generateBlogRoutes(): Promise<string[]> {
+export async function generateRoutes() {
+  const routes: any[] = []
+  
   try {
-    console.log('[SSG] Fetching blog posts for route generation...');
-    
+    // Fetch published blog posts for route generation
     const { data: posts, error } = await supabase
       .from('blog_posts')
       .select('slug')
-      .eq('published', true);
-    
+      .eq('published', true)
+      .order('created_at', { ascending: false })
+
     if (error) {
-      console.error('[SSG] Error fetching blog posts:', error);
-      return [];
+      console.error('Error fetching blog posts for SSG:', error)
+      return routes
     }
-    
-    const routes = posts?.map(post => `/blog/${post.slug}`) || [];
-    console.log('[SSG] Generated blog routes:', routes);
-    
-    return routes;
+
+    // Generate routes for each blog post
+    if (posts) {
+      posts.forEach(post => {
+        routes.push({
+          path: `/blog/${post.slug}`,
+          props: { slug: post.slug }
+        })
+      })
+    }
+
+    console.log(`Generated ${routes.length} blog post routes for SSG`)
   } catch (error) {
-    console.error('[SSG] Error in generateBlogRoutes:', error);
-    return [];
+    console.error('Error in route generation:', error)
   }
+
+  return routes
 }

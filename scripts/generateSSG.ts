@@ -17,6 +17,10 @@ interface BlogPost {
   slug: string;
   title: string;
   excerpt: string;
+  content: any[];
+  category: string;
+  author: string;
+  date: string;
   image_url: string;
   custom_title?: string;
   custom_description?: string;
@@ -63,7 +67,10 @@ function generateBlogPostHTML(post: BlogPost, baseHTML: string): string {
   const twitterDescription = escapeHtml(post.twitter_description || description);
   const twitterImage = post.twitter_image || ogImage;
 
-  // Inject meta tags into the HTML
+  // Generate the content HTML
+  const contentHTML = generateContentHTML(post);
+
+  // Inject meta tags and content into the HTML
   const metaTags = `
     <!-- Blog Post Meta Tags -->
     <title>${title}</title>
@@ -136,8 +143,8 @@ function generateBlogPostHTML(post: BlogPost, baseHTML: string): string {
     </script>
   `;
 
-  // Replace the head content with our enhanced meta tags
-  return baseHTML.replace(
+  // Replace both head and body content
+  let html = baseHTML.replace(
     /<head[^>]*>[\s\S]*?<\/head>/i,
     `<head>
       <meta charset="UTF-8" />
@@ -160,6 +167,248 @@ function generateBlogPostHTML(post: BlogPost, baseHTML: string): string {
       <link rel="dns-prefetch" href="//www.googletagmanager.com" />
     </head>`
   );
+
+  // Replace the body content with static HTML
+  html = html.replace(
+    /<body[^>]*>[\s\S]*?<\/body>/i,
+    `<body>
+      ${contentHTML}
+    </body>`
+  );
+
+  return html;
+}
+
+function generateContentHTML(post: BlogPost): string {
+  const wordCount = post.content.reduce((count, section) => {
+    if (section.content) {
+      return count + section.content.split(/\s+/).length;
+    } else if (section.items) {
+      return count + section.items.join(' ').split(/\s+/).length;
+    }
+    return count;
+  }, 0);
+  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+  return `
+    <div class="min-h-screen bg-white">
+      <!-- Navigation -->
+      <nav class="bg-white shadow-sm fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+              <a href="/" class="text-xl font-bold text-blue-600">IT Carolina</a>
+            </div>
+            <div class="hidden md:flex space-x-8">
+              <a href="/" class="text-gray-700 hover:text-blue-600">Home</a>
+              <a href="/about" class="text-gray-700 hover:text-blue-600">About</a>
+              <a href="/pricing" class="text-gray-700 hover:text-blue-600">Pricing</a>
+              <a href="/blog" class="text-gray-700 hover:text-blue-600">Blog</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Hero Section -->
+      <div class="w-full pt-32 pb-16 bg-gradient-to-b from-black to-gray-900 text-white relative"
+           style="background-image: ${post.image_url ? `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('${post.image_url}')` : 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7))'}; background-position: center; background-size: cover; background-repeat: no-repeat;">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto">
+            <a href="/blog" class="inline-flex items-center text-white/80 hover:text-white mb-6">
+              ← Back to Blog
+            </a>
+            <div class="flex items-center gap-2 mb-4">
+              <span class="bg-white/10 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm">${post.category}</span>
+              <span class="border border-white/10 text-white/80 backdrop-blur-sm px-3 py-1 rounded-full text-sm">${post.date}</span>
+              <span class="border border-white/10 text-white/80 backdrop-blur-sm px-3 py-1 rounded-full text-sm">${readingTime} min read</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">${escapeHtml(post.title)}</h1>
+            <div class="flex items-center text-gray-300">
+              <span>By ${escapeHtml(post.author)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto">
+          <div class="prose prose-lg max-w-none">
+            ${generatePostContent(post.content)}
+          </div>
+          
+          <!-- Footer Info -->
+          <div class="mt-12 p-6 bg-gray-50 rounded-lg">
+            <p class="text-sm text-gray-600 mb-2">Category: ${escapeHtml(post.category)}</p>
+            <p class="text-sm text-gray-600">For more IT support tips and computer repair services in Charlotte, NC, visit <a href="/" class="text-blue-600 hover:text-blue-800">IT Carolina</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="bg-blue-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+          <p class="mb-4">© ${new Date().getFullYear()} IT Carolina. All rights reserved.</p>
+          <p class="text-blue-200">Professional IT Support in Charlotte, NC</p>
+          <p class="text-blue-200">Call (704) 520-0809 for immediate assistance</p>
+        </div>
+      </footer>
+    </div>
+  `;
+}
+
+function generatePostContent(content: any[]): string {
+  return content.map(section => {
+    switch (section.type) {
+      case 'paragraph':
+        return `<p class="text-gray-700 mb-4 leading-relaxed text-lg">${escapeHtml(section.content || '')}</p>`;
+      case 'heading':
+        return `<div class="flex items-center gap-3 mt-12 mb-6">
+          <div class="w-1.5 h-7 bg-purple-500 rounded-full"></div>
+          <h2 class="text-2xl font-bold text-gray-900">${escapeHtml(section.content || '')}</h2>
+        </div>`;
+      case 'subheading':
+        return `<h3 class="text-xl font-bold mt-8 mb-3 text-gray-800 flex items-center gap-2">
+          <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+          ${escapeHtml(section.content || '')}
+        </h3>`;
+      case 'list':
+        return `<ul class="list-disc pl-5 my-4 space-y-2">
+          ${section.items?.map(item => `<li class="text-gray-700 text-lg">${escapeHtml(item)}</li>`).join('') || ''}
+        </ul>`;
+      case 'quote':
+        return `<blockquote class="border-l-4 border-purple-500 pl-5 py-2 my-8 bg-purple-50 rounded-r-lg italic text-gray-700">
+          <p class="text-lg m-0">${escapeHtml(section.content || '')}</p>
+        </blockquote>`;
+      default:
+        return '';
+    }
+  }).join('');
+}
+
+function generateBlogListingHTML(posts: BlogPost[], baseHTML: string): string {
+  const metaTags = `
+    <title>IT Support Blog - Charlotte NC | Computer Repair Tips & Guides</title>
+    <meta name="description" content="Expert IT support tips, computer troubleshooting guides, and technology insights for home users and small businesses in Charlotte, North Carolina." />
+    <meta name="keywords" content="IT support blog charlotte nc, computer repair tips, troubleshooting guides, technology insights, home office setup, cybersecurity tips, printer support" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://itcarolina.us/blog" />
+    <meta property="og:title" content="IT Support Blog - Charlotte NC" />
+    <meta property="og:description" content="Expert IT support tips, computer troubleshooting guides, and technology insights for home users and small businesses in Charlotte, North Carolina." />
+    <meta property="og:image" content="https://itcarolina.us/og.jpg" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="IT Support Blog - Charlotte NC" />
+    <meta name="twitter:description" content="Expert IT support tips, computer troubleshooting guides, and technology insights for home users and small businesses in Charlotte, North Carolina." />
+    <meta name="twitter:image" content="https://itcarolina.us/og.jpg" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://itcarolina.us/blog" />
+  `;
+
+  const contentHTML = `
+    <div class="min-h-screen bg-white">
+      <!-- Navigation -->
+      <nav class="bg-white shadow-sm fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+              <a href="/" class="text-xl font-bold text-blue-600">IT Carolina</a>
+            </div>
+            <div class="hidden md:flex space-x-8">
+              <a href="/" class="text-gray-700 hover:text-blue-600">Home</a>
+              <a href="/about" class="text-gray-700 hover:text-blue-600">About</a>
+              <a href="/pricing" class="text-gray-700 hover:text-blue-600">Pricing</a>
+              <a href="/blog" class="text-blue-600 font-semibold">Blog</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Hero Section -->
+      <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16 mt-16">
+        <div class="container mx-auto px-4">
+          <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">IT Support Blog</h1>
+            <p class="text-xl text-purple-100 max-w-2xl mx-auto">
+              Expert tips, troubleshooting guides, and technology insights for Charlotte's home users and small businesses
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Posts Grid -->
+      <div class="container mx-auto px-4 py-12">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          ${posts.map(post => `
+            <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+              ${post.image_url ? `<img src="${post.image_url}" alt="${escapeHtml(post.title)}" class="w-full h-48 object-cover" />` : ''}
+              <div class="p-6">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-sm">${escapeHtml(post.category)}</span>
+                  <span class="text-gray-500 text-sm">${post.date}</span>
+                </div>
+                <h2 class="text-xl font-bold mb-3 text-gray-900">
+                  <a href="/blog/${post.slug}" class="hover:text-blue-600 transition-colors">${escapeHtml(post.title)}</a>
+                </h2>
+                <p class="text-gray-600 mb-4 text-sm leading-relaxed">${escapeHtml(post.excerpt || '')}</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-500 text-sm">By ${escapeHtml(post.author)}</span>
+                  <a href="/blog/${post.slug}" class="text-blue-600 hover:text-blue-800 font-semibold text-sm">Read More →</a>
+                </div>
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="bg-blue-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+          <p class="mb-4">© ${new Date().getFullYear()} IT Carolina. All rights reserved.</p>
+          <p class="text-blue-200">Professional IT Support in Charlotte, NC</p>
+          <p class="text-blue-200">Call (704) 520-0809 for immediate assistance</p>
+        </div>
+      </footer>
+    </div>
+  `;
+
+  // Replace both head and body content
+  let html = baseHTML.replace(
+    /<head[^>]*>[\s\S]*?<\/head>/i,
+    `<head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      
+      <!-- Favicon optimized -->
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+      <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+      <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+      <link rel="manifest" href="/site.webmanifest">
+      
+      ${metaTags}
+      
+      <!-- Core Web Vitals optimizations -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+    </head>`
+  );
+
+  html = html.replace(
+    /<body[^>]*>[\s\S]*?<\/body>/i,
+    `<body>
+      ${contentHTML}
+    </body>`
+  );
+
+  return html;
 }
 
 async function generateStaticPages() {
@@ -208,6 +457,13 @@ async function generateStaticPages() {
     
     console.log(`📝 Found ${posts.length} published blog posts`);
     
+    // Generate blog listing page
+    const blogListingHTML = generateBlogListingHTML(posts, baseHTML);
+    const blogMainDir = path.join(process.cwd(), 'dist', 'blog');
+    fs.mkdirSync(blogMainDir, { recursive: true });
+    fs.writeFileSync(path.join(blogMainDir, 'index.html'), blogListingHTML);
+    console.log('✅ Generated: /blog/index.html');
+
     // Generate static HTML for each blog post
     for (const post of posts) {
       const blogPostHTML = generateBlogPostHTML(post, baseHTML);
@@ -223,7 +479,7 @@ async function generateStaticPages() {
       console.log(`✅ Generated: /blog/${post.slug}/index.html`);
     }
     
-    console.log(`🎉 SSG generation complete! Generated ${posts.length} blog post pages.`);
+    console.log(`🎉 SSG generation complete! Generated ${posts.length} blog post pages and 1 listing page.`);
     
   } catch (error) {
     console.error('❌ SSG generation failed:', error);

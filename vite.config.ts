@@ -19,16 +19,4 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  // SSG configuration
-  ssgOptions: {
-    script: 'async',
-    formatting: 'minify',
-    crittersOptions: {
-      reduceInlineStyles: false,
-    },
-    includedRoutes: (paths: string[]) => {
-      // Include all paths for SSG
-      return paths
-    },
-  },
 }));

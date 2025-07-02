@@ -2,7 +2,7 @@
 FROM node:20 AS builder
 WORKDIR /app
 COPY . .
-RUN npm install && npm run build
+RUN npm install && npm run build && npx tsx scripts/generateSSG.ts
 
 # 2) Serve with plain nginx:alpine
 FROM nginx:alpine

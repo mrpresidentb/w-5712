@@ -30,7 +30,7 @@ export function generateBlogListingHTML(posts: BlogPost[], baseHTML: string): st
       ${generateNavigation('blog')}
 
       <!-- Hero Section -->
-      <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16 mt-16">
+      <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16">
         <div class="container mx-auto px-4">
           <div class="text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">IT Support Blog</h1>
@@ -41,10 +41,45 @@ export function generateBlogListingHTML(posts: BlogPost[], baseHTML: string): st
         </div>
       </div>
 
-      <!-- Blog Posts Grid -->
+      <!-- Main Content -->
       <div class="container mx-auto px-4 py-12">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          ${generateBlogPostCards(posts)}
+        <!-- Category Filter -->
+        <div class="mb-8">
+          <div class="flex flex-wrap gap-2">
+            <span class="inline-flex items-center rounded-md bg-primary text-primary-foreground px-2.5 py-0.5 text-xs font-semibold cursor-pointer">
+              All Posts (${posts.length})
+            </span>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-4 gap-8">
+          <!-- Main Content -->
+          <div class="lg:col-span-3">
+            <div class="grid md:grid-cols-2 gap-6">
+              ${generateBlogPostCards(posts)}
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="lg:col-span-1">
+            <div class="space-y-6">
+              <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
+                <h3 class="text-lg font-semibold mb-4">Recent Posts</h3>
+                <div class="space-y-3">
+                  ${posts.slice(0, 3).map(post => `
+                    <div class="flex items-start space-x-3">
+                      <div class="flex-1">
+                        <a href="/blog/${post.slug}" class="text-sm font-medium hover:text-blue-600 line-clamp-2">
+                          ${escapeHtml(post.title)}
+                        </a>
+                        <p class="text-xs text-muted-foreground mt-1">${post.date}</p>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

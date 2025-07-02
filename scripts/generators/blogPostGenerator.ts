@@ -100,6 +100,10 @@ export function generateBlogPostHTML(post: BlogPost, baseHTML: string): string {
     </script>
   `;
 
+  // Extract CSS and JS links from the original HTML
+  const cssLinks = Array.from(baseHTML.matchAll(/<link[^>]*rel="stylesheet"[^>]*>/g)).map(match => match[0]).join('\n      ');
+  const jsScripts = Array.from(baseHTML.matchAll(/<script[^>]*src="[^"]*"[^>]*><\/script>/g)).map(match => match[0]).join('\n      ');
+
   // Replace both head and body content
   let html = baseHTML.replace(
     /<head[^>]*>[\s\S]*?<\/head>/i,
@@ -122,6 +126,9 @@ export function generateBlogPostHTML(post: BlogPost, baseHTML: string): string {
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+      
+      <!-- Vite Build CSS -->
+      ${cssLinks}
     </head>`
   );
 

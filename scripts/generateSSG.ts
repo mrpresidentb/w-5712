@@ -49,7 +49,15 @@ function generateBlogPostHTML(post: BlogPost, baseHTML: string): string {
   
   const ogTitle = escapeHtml(post.og_title || title);
   const ogDescription = escapeHtml(post.og_description || description);
-  const ogImage = post.og_image || (post.image_url ? `https://itcarolina.us${post.image_url}` : 'https://itcarolina.us/og.jpg');
+  
+  // Handle image URL - check if it's already a full URL or just a path
+  let ogImage = 'https://itcarolina.us/og.jpg'; // default
+  if (post.og_image) {
+    ogImage = post.og_image;
+  } else if (post.image_url) {
+    // Check if image_url is already a full URL
+    ogImage = post.image_url.startsWith('http') ? post.image_url : `https://itcarolina.us${post.image_url}`;
+  }
   
   const twitterTitle = escapeHtml(post.twitter_title || title);
   const twitterDescription = escapeHtml(post.twitter_description || description);

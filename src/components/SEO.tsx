@@ -187,13 +187,8 @@ const SEO: React.FC<SEOProps> = ({
   return (
     <Helmet>
       <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
-      <meta name="robots" content="index, follow" />
-      <meta name="googlebot" content="index, follow" />
-      <link rel="canonical" href={currentUrl} />
       
-      {/* Open Graph / Facebook - Enhanced for better social sharing */}
+      {/* Open Graph / Facebook - Placed high for better social sharing */}
       <meta property="og:type" content={type} />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:title" content={title} />
@@ -206,13 +201,19 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:locale" content="en_US" />
       <meta property="og:site_name" content="IT Carolina" />
       
-      {/* Twitter - Enhanced for better sharing */}
+      {/* Twitter Card - Placed high for better social sharing */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={currentUrl} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={absoluteImageUrl} />
       <meta name="twitter:image:alt" content={title} />
+      
+      {/* Standard meta tags */}
+      <meta name="description" content={description} />
+      <meta name="keywords" content={keywords} />
+      <meta name="robots" content="index, follow" />
+      <meta name="googlebot" content="index, follow" />
+      <link rel="canonical" href={currentUrl} />
       
       {/* Facebook specific tags for better cache control */}
       <meta property="fb:app_id" content="1234567890" />

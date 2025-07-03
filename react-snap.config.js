@@ -1,7 +1,7 @@
 module.exports = {
   "source": "dist",
-  "destination": "dist", 
-  "crawlFrom": "routes.txt",
+  "destination": "dist",
+  "crawlFrom": "/",
   "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
   "skipThirdPartyRequests": true,
   "cacheAjaxRequests": false,

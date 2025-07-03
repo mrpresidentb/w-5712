@@ -1,10 +1,27 @@
-import { createRoot } from 'react-dom/client'
+import { ViteSSG } from 'vite-ssg'
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx'
 import './index.css'
 
-createRoot(document.getElementById("root")!).render(
-  <HelmetProvider>
-    <App />
-  </HelmetProvider>
-);
+export const createApp = ViteSSG(
+  App,
+  {
+    routes: [
+      { path: '/', component: () => import('./pages/Index') },
+      { path: '/about', component: () => import('./pages/About') },
+      { path: '/privacy-policy', component: () => import('./pages/PrivacyPolicy') },
+      { path: '/terms', component: () => import('./pages/TermsOfService') },
+      { path: '/faq', component: () => import('./pages/FAQ') },
+      { path: '/blog', component: () => import('./pages/BlogListing') },
+      { path: '/blog/:slug', component: () => import('./pages/BlogPostDetail') },
+      { path: '/services/home-office', component: () => import('./pages/HomeOfficeSupport') },
+      { path: '/services/business', component: () => import('./pages/BusinessSupport') },
+      { path: '/services/printer', component: () => import('./pages/PrinterSupport') },
+      { path: '/services/web-hosting', component: () => import('./pages/WebHosting') },
+      { path: '/pricing', component: () => import('./pages/Pricing') },
+    ],
+  },
+  ({ app }) => {
+    app.use(HelmetProvider)
+  }
+)

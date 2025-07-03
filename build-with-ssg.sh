@@ -1,15 +1,9 @@
 #!/bin/bash
 
-echo "🚀 Building with SSG support..."
+echo "Building with Vite SSG for static HTML generation..."
 
-# Step 1: Regular Vite build
-echo "📦 Running standard Vite build..."
-npm run build
+# Build the React app with SSG
+echo "Building React app with static site generation..."
+npx vite-ssg build
 
-# Step 2: Generate static blog pages
-echo "🔄 Generating static blog pages..."
-npx tsx scripts/generateSSG.ts
-
-echo "✅ Build with SSG complete!"
-echo "🌐 Static blog pages generated in dist/blog/[slug]/index.html"
-echo "📋 Deploy the dist/ folder to your web server"
+echo "Static HTML generation complete! Files are in dist/ directory."

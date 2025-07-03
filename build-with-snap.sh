@@ -12,6 +12,6 @@ npm run build:dev
 
 # Run react-snap to generate static HTML
 echo "Running react-snap..."
-npx react-snap
+REACT_SNAP_CONFIG=./react-snap.config.js npx react-snap
 
 echo "Static HTML generation complete!"

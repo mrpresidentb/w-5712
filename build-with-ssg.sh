@@ -1,9 +1,11 @@
 #!/bin/bash
 
-echo "Building with Vite SSG for static HTML generation..."
+echo "🚀 Building with Vike SSR for static HTML generation..."
 
-# Build the React app with SSG
-echo "Building React app with static site generation..."
-npx vite-ssg build
+# Build the React app with Vike pre-rendering
+echo "📦 Building and pre-rendering all pages..."
+npm run build
 
-echo "Static HTML generation complete! Files are in dist/ directory."
+echo "✅ Static HTML generation complete!"
+echo "🌐 Blog posts pre-rendered with full meta tags"
+echo "📁 Deploy the dist/ folder to your web server"

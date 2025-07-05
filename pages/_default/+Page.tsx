@@ -1,5 +1,6 @@
 import React from 'react';
-import { HelmetProvider } from 'react-helmet-async';
+import pkg from 'react-helmet-async';
+const { HelmetProvider } = pkg;
 import App from '../../src/App';
 
 export { Page };

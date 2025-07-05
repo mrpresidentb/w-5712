@@ -3,7 +3,7 @@ import { supabaseServer } from '../../../src/integrations/supabase/serverClient'
 import { BlogPost } from '../../../src/types/supabase-blog'
 import { transformBlogPostData } from '../../../src/services/blogDataTransformers'
 
-export { onBeforeRender }
+export { onBeforeRender as default }
 
 async function onBeforeRender(pageContext: PageContextServer) {
   const { slug } = pageContext.routeParams

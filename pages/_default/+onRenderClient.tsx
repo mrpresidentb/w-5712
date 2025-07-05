@@ -3,7 +3,7 @@ import { hydrateRoot } from 'react-dom/client';
 import type { OnRenderClientAsync } from 'vite-plugin-ssr/types';
 import { Page } from './+Page';
 
-export { onRenderClient };
+export { onRenderClient as default };
 
 const onRenderClient: OnRenderClientAsync = async (pageContext): Promise<void> => {
   const container = document.getElementById('root')!;

@@ -1,6 +1,6 @@
 import { supabaseServer } from '../../../src/integrations/supabase/serverClient'
 
-export { prerender }
+export { prerender as default }
 
 async function prerender() {
   console.log('[SSR] Starting prerender for blog posts...')

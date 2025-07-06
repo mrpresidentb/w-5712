@@ -5,7 +5,10 @@ import { dangerouslySkipEscape, escapeInject } from 'vite-plugin-ssr/server';
 import type { OnRenderHtmlAsync } from 'vite-plugin-ssr/types';
 import Page from './+Page';
 
-const onRenderHtml: OnRenderHtmlAsync = async (pageContext): Promise<unknown> => {
+export { onRenderHtml };
+export default onRenderHtml;
+
+async function onRenderHtml(pageContext: any): Promise<unknown> {
   const helmetContext = {};
   
   const pageHtml = renderToString(
@@ -39,6 +42,4 @@ const onRenderHtml: OnRenderHtmlAsync = async (pageContext): Promise<unknown> =>
       // We can add custom pageContext values here
     }
   };
-};
-
-export default onRenderHtml;
+}

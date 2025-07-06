@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    ssr({ prerender: true }),
+    ssr({ prerender: false }),
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),

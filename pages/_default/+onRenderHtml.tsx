@@ -5,10 +5,9 @@ import { dangerouslySkipEscape, escapeInject } from 'vite-plugin-ssr/server';
 import type { OnRenderHtmlAsync } from 'vite-plugin-ssr/types';
 import Page from './+Page';
 
-export { onRenderHtml };
-export default onRenderHtml;
+export { onRenderHtml }
 
-async function onRenderHtml(pageContext: any): Promise<unknown> {
+function onRenderHtml(pageContext: any) {
   const helmetContext = {};
   
   const pageHtml = renderToString(

@@ -3,9 +3,7 @@ import { renderToString } from 'react-dom/server';
 import { HelmetProvider } from 'react-helmet-async';
 import { dangerouslySkipEscape, escapeInject } from 'vite-plugin-ssr/server';
 import type { OnRenderHtmlAsync } from 'vite-plugin-ssr/types';
-import { Page } from './+Page';
-
-export { onRenderHtml as default };
+import Page from './+Page';
 
 const onRenderHtml: OnRenderHtmlAsync = async (pageContext): Promise<unknown> => {
   const helmetContext = {};
@@ -42,3 +40,5 @@ const onRenderHtml: OnRenderHtmlAsync = async (pageContext): Promise<unknown> =>
     }
   };
 };
+
+export default onRenderHtml;

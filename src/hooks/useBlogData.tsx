@@ -9,15 +9,17 @@ export const useBlogData = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>(originalBlogPosts);
 
   useEffect(() => {
-    const savedData = localStorage.getItem(BLOG_DATA_KEY);
-    if (savedData) {
-      try {
-        const parsedData = JSON.parse(savedData);
-        console.log('Loaded blog data from localStorage:', parsedData.length, 'posts');
-        setBlogPosts(parsedData);
-      } catch (error) {
-        console.error('Error parsing saved blog data:', error);
-        setBlogPosts(originalBlogPosts);
+    if (typeof window !== 'undefined') {
+      const savedData = localStorage.getItem(BLOG_DATA_KEY);
+      if (savedData) {
+        try {
+          const parsedData = JSON.parse(savedData);
+          console.log('Loaded blog data from localStorage:', parsedData.length, 'posts');
+          setBlogPosts(parsedData);
+        } catch (error) {
+          console.error('Error parsing saved blog data:', error);
+          setBlogPosts(originalBlogPosts);
+        }
       }
     }
   }, []);
@@ -32,8 +34,10 @@ export const useBlogData = () => {
     setBlogPosts(updatedPosts);
     
     try {
-      localStorage.setItem(BLOG_DATA_KEY, JSON.stringify(updatedPosts));
-      console.log('Blog data saved to localStorage successfully');
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(BLOG_DATA_KEY, JSON.stringify(updatedPosts));
+        console.log('Blog data saved to localStorage successfully');
+      }
     } catch (error) {
       console.error('Error saving blog data to localStorage:', error);
     }
@@ -42,7 +46,9 @@ export const useBlogData = () => {
   const resetBlogData = () => {
     console.log('Resetting blog data to original state');
     setBlogPosts(originalBlogPosts);
-    localStorage.removeItem(BLOG_DATA_KEY);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(BLOG_DATA_KEY);
+    }
   };
 
   return { blogPosts, updateBlogPost, resetBlogData };

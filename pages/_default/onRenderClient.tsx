@@ -4,7 +4,7 @@ import Page from './+Page';
 
 export { onRenderClient };
 
-async function onRenderClient(pageContext: any) {
+function onRenderClient(pageContext: any) {
   const container = document.getElementById('root')!;
   hydrateRoot(container, <Page />);
 }

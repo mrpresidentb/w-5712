@@ -2,9 +2,9 @@ import type { Config } from 'vite-plugin-ssr/types'
 
 export default {
   // Server-side rendering
-  onRenderHtml: 'import:pages/_default/onRenderHtml.tsx',
+  onRenderHtml: './onRenderHtml',
   // Client-side hydration  
-  onRenderClient: 'import:pages/_default/onRenderClient.tsx',
+  onRenderClient: './onRenderClient',
   // Disable pre-rendering temporarily
   prerender: false,
   // Meta tags configuration

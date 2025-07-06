@@ -6,7 +6,7 @@ import Page from './+Page';
 
 export { onRenderHtml };
 
-async function onRenderHtml(pageContext: any) {
+function onRenderHtml(pageContext: any) {
   const helmetContext = {};
   
   const pageHtml = renderToString(

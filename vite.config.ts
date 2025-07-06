@@ -21,4 +21,10 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  ssr: {
+    noExternal: ['react-helmet-async'],
+  },
+  optimizeDeps: {
+    include: ['react-helmet-async'],
+  },
 }));

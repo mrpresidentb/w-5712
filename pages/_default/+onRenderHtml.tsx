@@ -1,7 +1,6 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import pkg from 'react-helmet-async';
-const { HelmetProvider } = pkg;
+import { HelmetProvider } from 'react-helmet-async';
 import { dangerouslySkipEscape, escapeInject } from 'vite-plugin-ssr/server';
 import type { OnRenderHtmlAsync } from 'vite-plugin-ssr/types';
 import { Page } from './+Page';

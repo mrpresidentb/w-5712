@@ -1,5 +1,5 @@
 import type { Config } from 'vite-plugin-ssr/types'
 
 export default {
-  onBeforeRender: 'import:pages/blog/@slug/+onBeforeRender.ts'
+  // Configuration will be auto-discovered from default exports
 } satisfies Config

@@ -1,8 +1,8 @@
 import type { Config } from 'vite-plugin-ssr/types'
 
 export default {
-  // Enable pre-rendering
-  prerender: true,
+  // Disable pre-rendering temporarily to debug
+  prerender: false,
   // Meta tags configuration
   meta: {
     title: {

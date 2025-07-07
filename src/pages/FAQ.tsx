@@ -1,5 +1,5 @@
-import PageLayout from '@/components/PageLayout';
-import SEO from '@/components/SEO';
+import PageLayout from '../components/PageLayout';
+import SEO from '../components/SEO';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';

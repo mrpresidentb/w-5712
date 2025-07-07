@@ -1,9 +1,9 @@
 
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ContentSection } from '@/types/supabase-blog';
+import { Button } from '../ui/button';
+import { Textarea } from '../ui/textarea';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { ContentSection } from '../../types/supabase-blog';
 import { Bold, Italic, List, Quote, Type, Heading } from 'lucide-react';
 
 interface UnifiedTextEditorProps {

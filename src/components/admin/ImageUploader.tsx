@@ -1,8 +1,8 @@
 
 import React, { useRef, useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '../ui/button';
 import { Upload, Image as ImageIcon, CheckCircle, X, FileImage } from 'lucide-react';
-import { useImageUpload } from '@/hooks/useImageUpload';
+import { useImageUpload } from '../../hooks/useImageUpload';
 import { toast } from 'sonner';
 
 interface ImageUploaderProps {

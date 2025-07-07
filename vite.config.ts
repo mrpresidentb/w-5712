@@ -16,7 +16,11 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),
-  // Removed alias to avoid vite-plugin-ssr warnings
+  resolve: {
+    alias: {
+      "src": path.resolve(__dirname, "./src"),
+    },
+  },
   ssr: {
     noExternal: ['react-helmet-async'],
   },

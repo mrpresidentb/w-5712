@@ -1,18 +1,18 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import PageLayout from '@/components/PageLayout';
-import BlogSidebar from '@/components/BlogSidebar';
-import { Separator } from '@/components/ui/separator';
-import SEO from '@/components/SEO';
-import { useSupabaseBlog } from '@/hooks/useSupabaseBlog';
+import PageLayout from '../components/PageLayout';
+import BlogSidebar from '../components/BlogSidebar';
+import { Separator } from '../components/ui/separator';
+import SEO from '../components/SEO';
+import { useSupabaseBlog } from '../hooks/useSupabaseBlog';
 import { motion } from 'framer-motion';
 import { BookOpen, Calendar, Clock, MessageSquare, Share, Tag, ArrowLeft, Loader2 } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { BlogPost } from '@/types/supabase-blog';
+import { Badge } from '../components/ui/badge';
+import { Button } from '../components/ui/button';
+import { cn } from '../lib/utils';
+import { BlogPost } from '../types/supabase-blog';
 import { toast } from 'sonner';
-import { blogPosts } from '@/data/blog';
+import { blogPosts } from '../data/blog';
 
 // Helper function to render content with links
 const renderContentWithLinks = (content: string) => {

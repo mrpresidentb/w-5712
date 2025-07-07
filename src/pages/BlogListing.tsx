@@ -1,12 +1,12 @@
 
 import { useState } from 'react';
-import PageLayout from '@/components/PageLayout';
-import BlogPostCard from '@/components/BlogPostCard';
-import BlogSidebar from '@/components/BlogSidebar';
-import SEO from '@/components/SEO';
-import { Badge } from '@/components/ui/badge';
+import PageLayout from '../components/PageLayout';
+import BlogPostCard from '../components/BlogPostCard';
+import BlogSidebar from '../components/BlogSidebar';
+import SEO from '../components/SEO';
+import { Badge } from '../components/ui/badge';
 import { motion } from 'framer-motion';
-import { useSupabaseBlog } from '@/hooks/useSupabaseBlog';
+import { useSupabaseBlog } from '../hooks/useSupabaseBlog';
 import { Loader2 } from 'lucide-react';
 
 const BlogListing = () => {

@@ -1,7 +1,7 @@
 
-import PageLayout from '../components/PageLayout';
+import PageLayout from '@/components/PageLayout';
 import { ArrowRight, Check, Globe, Server, Shield, Settings } from "lucide-react";
-import SEO from '../components/SEO';
+import SEO from '@/components/SEO';
 
 const WebHosting = () => {
   return (

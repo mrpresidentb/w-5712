@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
-import { Badge } from '../ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
-import { BlogPost } from '../../types/supabase-blog';
-import { useAdminOperations } from '../../hooks/useAdminOperations';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { BlogPost } from '@/types/supabase-blog';
+import { useAdminOperations } from '@/hooks/useAdminOperations';
 import ImageUploader from './ImageUploader';
 import SEOPreview from './SEOPreview';
 import { Edit, Save, X, Eye, FileText, Calendar, User, Trash2, Search, Globe } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 
 interface BlogPostsTableProps {

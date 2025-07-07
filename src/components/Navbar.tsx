@@ -1,10 +1,10 @@
 
 import { useState, useEffect } from 'react';
-import { cn } from '../lib/utils';
+import { cn } from '@/lib/utils';
 import { Menu, X, ChevronDown, Shield, Headphones } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "./ui/navigation-menu";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);

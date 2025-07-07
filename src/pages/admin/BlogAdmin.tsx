@@ -1,15 +1,15 @@
 
 import React, { useState } from 'react';
-import { Button } from '../../components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
-import { useSupabaseBlog } from '../../hooks/useSupabaseBlog';
-import { useAdminOperations } from '../../hooks/useAdminOperations';
-import BlogPostsTable from '../../components/admin/BlogPostsTable';
-import ArticleEditor from '../../components/admin/ArticleEditor';
-import AdminLogin from '../../components/admin/AdminLogin';
-import AdminHeader from '../../components/admin/AdminHeader';
-import { useAdminAuth } from '../../hooks/useAdminAuth';
-import { BlogPost } from '../../types/supabase-blog';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useSupabaseBlog } from '@/hooks/useSupabaseBlog';
+import { useAdminOperations } from '@/hooks/useAdminOperations';
+import BlogPostsTable from '@/components/admin/BlogPostsTable';
+import ArticleEditor from '@/components/admin/ArticleEditor';
+import AdminLogin from '@/components/admin/AdminLogin';
+import AdminHeader from '@/components/admin/AdminHeader';
+import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { BlogPost } from '@/types/supabase-blog';
 import { Plus, FileText, Image } from 'lucide-react';
 import { toast } from 'sonner';
 

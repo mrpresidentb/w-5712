@@ -1,10 +1,10 @@
 
 import React, { useState, useCallback } from 'react';
-import { Button } from '../ui/button';
-import { Textarea } from '../ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Badge } from '../ui/badge';
-import { ContentSection } from '../../types/supabase-blog';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { ContentSection } from '@/types/supabase-blog';
 import { Bold, Italic, List, Quote, Type, Heading, Plus, Trash2 } from 'lucide-react';
 
 interface RichTextEditorProps {

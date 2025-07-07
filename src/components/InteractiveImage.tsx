@@ -1,10 +1,10 @@
 
 import { useEffect, useRef, useState } from 'react';
-import { cn } from '../lib/utils';
-import { Button } from './ui/button';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import { ZoomIn, ZoomOut, Move } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { toast } from 'sonner';
 
 interface InteractiveImageProps {

@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import { useAdminAuth } from '../../hooks/useAdminAuth';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { toast } from 'sonner';
 
 const AdminLogin: React.FC = () => {

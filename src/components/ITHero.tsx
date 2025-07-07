@@ -1,8 +1,8 @@
 
 import { ArrowRight, Phone } from "lucide-react";
-import { useIsMobile } from "../hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { motion } from "framer-motion";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 const ITHero = () => {
   const isMobile = useIsMobile();

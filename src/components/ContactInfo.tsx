@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
-import { useToast } from "../hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import emailjs from '@emailjs/browser';
 
 const ContactInfo = () => {

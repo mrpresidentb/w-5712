@@ -1,9 +1,9 @@
-import PageLayout from '../components/PageLayout';
-import SEO from '../components/SEO';
-import ITHero from '../components/ITHero';
-import ITServices from '../components/ITServices';
-import ITFeatures from '../components/ITFeatures';
-import ITTestimonials from '../components/ITTestimonials';
+import PageLayout from '@/components/PageLayout';
+import SEO from '@/components/SEO';
+import ITHero from '@/components/ITHero';
+import ITServices from '@/components/ITServices';
+import ITFeatures from '@/components/ITFeatures';
+import ITTestimonials from '@/components/ITTestimonials';
 import { Link } from 'react-router-dom';
 
 const Index = () => {

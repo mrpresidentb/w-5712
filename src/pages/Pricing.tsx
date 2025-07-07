@@ -1,6 +1,6 @@
 
-import PageLayout from '../components/PageLayout';
-import SEO from '../components/SEO';
+import PageLayout from '@/components/PageLayout';
+import SEO from '@/components/SEO';
 import { Check, Clock, Shield, Users, Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

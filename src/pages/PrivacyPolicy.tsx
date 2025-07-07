@@ -1,8 +1,8 @@
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import PageLayout from '../components/PageLayout';
-import SEO from '../components/SEO';
+import PageLayout from '@/components/PageLayout';
+import SEO from '@/components/SEO';
 
 const PrivacyPolicy = () => {
   // Scroll to top on mount

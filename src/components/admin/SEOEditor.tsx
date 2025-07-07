@@ -1,11 +1,11 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Input } from '../ui/input';
-import { Textarea } from '../ui/textarea';
-import { Label } from '../ui/label';
-import { Button } from '../ui/button';
-import { Separator } from '../ui/separator';
-import { BlogPost } from '../../types/supabase-blog';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { BlogPost } from '@/types/supabase-blog';
 import { Globe, Search, Facebook, Twitter, RotateCcw } from 'lucide-react';
 
 interface SEOEditorProps {

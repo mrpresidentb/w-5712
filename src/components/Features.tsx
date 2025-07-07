@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { Activity, Shield, HardHat, Zap, ArrowRight, Box, Truck, Code, CheckCircle, Rocket, Factory, Microchip, Handshake, RefreshCcw, MessageSquare } from "lucide-react";
-import { cn } from '../lib/utils';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
-import { ScrollArea } from "./ui/scroll-area";
-import { Card, CardContent } from "./ui/card";
-import { AspectRatio } from "./ui/aspect-ratio";
+import { cn } from '@/lib/utils';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Card, CardContent } from "@/components/ui/card";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Link } from 'react-router-dom';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
-import { Progress } from "./ui/progress";
-import { useIsMobile } from '../hooks/use-mobile';
-import { Button } from "./ui/button";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Progress } from "@/components/ui/progress";
+import { useIsMobile } from '@/hooks/use-mobile';
+import { Button } from "@/components/ui/button";
 const Features = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);

@@ -1,9 +1,9 @@
 
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardFooter } from './ui/card';
+import { Badge } from './ui/badge';
 import { Calendar, Clock, User } from 'lucide-react';
-import { BlogPost } from '@/types/supabase-blog';
+import { BlogPost } from '../types/supabase-blog';
 import LazyImage from './LazyImage';
 
 interface BlogPostCardProps {

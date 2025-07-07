@@ -3,16 +3,17 @@ import { renderToString } from 'react-dom/server';
 import { HelmetProvider } from 'react-helmet-async';
 import { dangerouslySkipEscape, escapeInject } from 'vite-plugin-ssr/server';
 import type { OnRenderHtmlAsync } from 'vite-plugin-ssr/types';
-import Page from './+Page';
 
 export { onRenderHtml }
 
-function onRenderHtml(pageContext: any) {
+const onRenderHtml: OnRenderHtmlAsync = async (pageContext) => {
   const helmetContext = {};
+  
+  const { Page, pageProps } = pageContext;
   
   const pageHtml = renderToString(
     <HelmetProvider context={helmetContext}>
-      <Page />
+      <Page {...pageProps} />
     </HelmetProvider>
   );
 

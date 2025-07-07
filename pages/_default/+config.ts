@@ -8,10 +8,10 @@ export default {
   // Meta tags configuration
   meta: {
     title: {
-      env: { server: true, client: true }
+      env: 'server-and-client'
     },
     description: {
-      env: { server: true, client: true }
+      env: 'server-and-client'
     }
   }
 } satisfies Config
